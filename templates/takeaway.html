@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block nav_title %}Lisgrey House{% endblock %}
+
+{% block body_content %}
+    {% if user.is_authenticated %}
+        <br><br>
+        <h2>Welcome back <strong>{{ user.username }}</strong>!</h2>
+    {% else %}
+        {% load static %}
+        <div class="text-center vertical-center">
+        <br>
+        <h1>Welcome to the Takeaway page</h1>
+            <div class="col-sm-12 my-auto">
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
