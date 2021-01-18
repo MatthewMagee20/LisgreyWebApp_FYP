@@ -1,5 +1,4 @@
 from django.db import models
-from django import forms
 
 
 class Table(models.Model):
@@ -8,9 +7,9 @@ class Table(models.Model):
 
 class Reservation(models.Model):
     # table = models.ForeignKey(Table, on_delete=models.CASCADE)
-    name = models.CharField(null=False, max_length=20)
-    date = models.DateField()
-    time = models.TimeField()
+    name = models.CharField(editable=True, max_length=20)
+    date = models.DateField(editable=True)
+    time = models.TimeField(editable=True)
     people_quantity = models.IntegerField()
     additional_information = models.CharField(max_length=20)
 
@@ -37,3 +36,7 @@ class TakeawayOrder(models.Model):
     food_quantity = models.IntegerField()
     total_cost = models.FloatField()
     order_time = models.TimeField()
+
+
+#class Test(models.Model):
+#    text = models.CharField(max_length=200)

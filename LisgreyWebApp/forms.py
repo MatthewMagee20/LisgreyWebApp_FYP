@@ -1,15 +1,20 @@
-from django.forms import ModelForm, Textarea, TimeInput
-from Lisgrey.models import Reservation
-from bootstrap_datepicker_plus import DatePickerInput
+from django.forms import ModelForm, Textarea
+from LisgreyWebApp.models import Reservation
 
 
 class ReservationForm(ModelForm):
     class Meta:
         model = Reservation
-        fields = ['name', 'date', 'time', 'people_quantity', 'additional_information']
+        fields = '__all__'
 
         widgets = {
             'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
-            'date': DatePickerInput(format='%d/%m/%Y'),
-            'time': TimeInput(format='%H:%M')
         }
+
+
+#class TestForm(ModelForm):
+#    text = CharField(error_messages={'required': 'Please enter your name'})
+#
+#    class Meta:
+#        model = Test
+#        fields = ('text',)

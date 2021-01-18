@@ -1,4 +1,4 @@
-"""LisgreyWebApp_FYP URL Configuration
+"""Application URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
+from LisgreyWebApp.views import create_reservation_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('takeaway/', TemplateView.as_view(template_name='takeaway.html'), name='takeaway'),
+    path('menu/', TemplateView.as_view(template_name='menu.html'), name='menu'),
+    path('reservation/', create_reservation_view, name='reservation'),
 ]
