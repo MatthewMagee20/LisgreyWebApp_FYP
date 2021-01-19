@@ -1,34 +1,39 @@
-from django.shortcuts import render
-from LisgreyWebApp.forms import ReservationForm  # TestForm
 from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm
+from django.contrib import messages
 
 
+# create reservation
 def create_reservation_view(request):
-
     if request.method == 'POST' or None:
-        form = ReservationForm(request.POST or None)
+        reservation_form = ReservationForm(request.POST or None)
 
-        if form.is_valid():
-            form.save()
-            return render(request, 'reservations/create_reservation.html', {'form': form})
+        # if reservation form is valid
+        # reservation.customer field = current user
+        # save form
+        if reservation_form.is_valid():
+            reservation_form.save()
+            reservation_form.customer = request.user
+            return HttpResponseRedirect('/')
 
         else:
-            form = ReservationForm()
-            return render(request, 'reservations/create_reservation.html', {'form': form})
+            return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
 
     else:
-        form = ReservationForm()
-        return render(request, 'reservations/create_reservation.html', {'form': form})
+        reservation_form = ReservationForm()
+        return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
 
-# def add(request):
-#     if request.method == "POST" or None:
-#         form = TestForm(request.POST or None)
-#         if form.is_valid():
-#             form.save()
-#             return render(request, 'reservations/create_reservation.html', {'form': form})
-#         else:
-#             form = TestForm()
-#             return render(request, 'reservations/create_reservation.html', {'form': form})
-#     else:
-#         form = TestForm()
-#         return render(request, 'reservations/create_reservation.html', {'form': form})
+
+# registration handling
+def register(request):
+    if request.method == 'POST':  # if the form has been submitted
+        form = UserRegistrationForm(request.POST)  # form bound with post data
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('home')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'registration/register.html', {'form': form})

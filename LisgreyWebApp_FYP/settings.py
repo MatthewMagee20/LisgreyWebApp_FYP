@@ -114,6 +114,9 @@ BOOTSTRAP4 = {
     'include_jquery': True,
 }
 
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'  # new
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 

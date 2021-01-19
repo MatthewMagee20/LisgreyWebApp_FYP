@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class Table(models.Model):
@@ -6,12 +7,11 @@ class Table(models.Model):
 
 
 class Reservation(models.Model):
-    # table = models.ForeignKey(Table, on_delete=models.CASCADE)
-    name = models.CharField(editable=True, max_length=20)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=1)
     date = models.DateField(editable=True)
     time = models.TimeField(editable=True)
     people_quantity = models.IntegerField()
-    additional_information = models.CharField(max_length=20)
+    additional_information = models.CharField(null=True, max_length=20)
 
 
 class Allergen(models.Model):
@@ -38,5 +38,6 @@ class TakeawayOrder(models.Model):
     order_time = models.TimeField()
 
 
-#class Test(models.Model):
-#    text = models.CharField(max_length=200)
+class LoginForm(models.Model):
+    username = models.CharField("Enter Username", max_length=50)
+    password = models.CharField("Enter Password", max_length=50)
