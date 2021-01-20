@@ -4,16 +4,11 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    {% if user.is_authenticated %}
         <br><br>
-        <h2>Welcome back <strong>{{ user.username }}</strong>!</h2>
-    {% else %}
-        {% load static %}
         <div class="text-center vertical-center">
-        <br>
-        <h1>Welcome to the Menu page</h1>
             <div class="col-sm-12 my-auto">
+                <h3>Mains</h3>
+                    <p>{{ name }}</p>
             </div>
         </div>
-    {% endif %}
 {% endblock %}

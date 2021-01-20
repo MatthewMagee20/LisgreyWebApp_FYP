@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from LisgreyWebApp.views import create_reservation_view, register
+from LisgreyWebApp.views import create_reservation_view, register, get_food_menu
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('takeaway/', TemplateView.as_view(template_name='takeaway.html'), name='takeaway'),
-    path('menu/', TemplateView.as_view(template_name='menu.html'), name='menu'),
+    path('menu/', get_food_menu, name='menu'),
     path('reservation/', create_reservation_view, name='reservation'),
     path('accounts/register/', register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),

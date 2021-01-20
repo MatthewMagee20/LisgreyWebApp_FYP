@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm
+from LisgreyWebApp.models import FoodItem
 from django.contrib import messages
 
 
@@ -9,9 +10,6 @@ def create_reservation_view(request):
     if request.method == 'POST' or None:
         reservation_form = ReservationForm(request.POST or None)
 
-        # if reservation form is valid
-        # reservation.customer field = current user
-        # save form
         if reservation_form.is_valid():
             reservation_form.save()
             reservation_form.customer = request.user
@@ -37,3 +35,13 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+# food menu items
+def get_food_menu(request):
+    menu_items = FoodItem.objects.get()
+    args = {'menu_items': menu_items}
+    data = {
+        'name': menu_items.name
+    }
+    return render(request, 'menu.html', data)

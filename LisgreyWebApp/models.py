@@ -26,7 +26,7 @@ class FoodItem(models.Model):
     category = models.CharField(max_length=50)
     name = models.CharField(max_length=50)
     price = models.FloatField()
-    allergen = models.ForeignKey(Allergen, on_delete=models.CASCADE, null=True)
+    allergen = models.ManyToManyField(Allergen)
     description = models.CharField(max_length=150)
 
 
