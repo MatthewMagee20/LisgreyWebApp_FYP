@@ -17,6 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from LisgreyWebApp.views import create_reservation_view, register, get_food_menu
+from LisgreyWebApp import views
+from rest_framework import routers
+from rest_framework_jwt.views import obtain_jwt_token
+
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +34,10 @@ urlpatterns = [
     path('reservation/', create_reservation_view, name='reservation'),
     path('accounts/register/', register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('token-auth/', obtain_jwt_token),
+    path('core/', include('LisgreyWebApp.urls'))
+
+
 ]

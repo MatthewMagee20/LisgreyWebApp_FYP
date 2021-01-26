@@ -5,7 +5,12 @@
 {% load crispy_forms_tags %}
 {{ form.media }}
 
-
+{% block extra_header %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock %}
 
 
 {% block nav_title %}Lisgrey House{% endblock %}
@@ -13,13 +18,13 @@
 {% block body_content %}
     <h1>Make a Reservation</h1>
     {% if user.is_authenticated %}
-    <form action="" method="POST" class="post-form">
-        {% csrf_token %}
-        {{ form | crispy}}
-        <input type="submit" value="Submit">
-    </form>
+        <form action="" method="POST" class="post-form">
+            {% csrf_token %}
+            {{ form | crispy}}
+            <input type="submit" value="Submit">
+        </form>
 
     {% else %}
-    <p>You must be logged in to make a reservation, login <a href="{% url 'login' %}">here.</a></p>
+        <p>You must be logged in to make a reservation, login <a href="{% url 'login' %}">here.</a></p>
     {% endif %}
 {% endblock %}

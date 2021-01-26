@@ -8,7 +8,7 @@ class Table(models.Model):
 
 class Reservation(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=1)
-    date = models.DateField(editable=True)
+    date = models.DateField(editable=True, blank=False)
     time = models.TimeField(editable=True)
     people_quantity = models.IntegerField()
     additional_information = models.CharField(null=True, max_length=20)

@@ -1,8 +1,17 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm
-from LisgreyWebApp.models import FoodItem
+from LisgreyWebApp.models import FoodItem, Allergen
 from django.contrib import messages
+
+from django.contrib.auth.models import User
+from rest_framework import viewsets, status
+from rest_framework import permissions
+from LisgreyWebApp.serializers import UserSerializer, UserSerializerWithToken
 
 
 # create reservation
@@ -40,7 +49,45 @@ def register(request):
 # food menu items
 def get_food_menu(request):
     menu_items = FoodItem.objects.get()
+
     data = {
-        'name': menu_items.name
+        'name': menu_items.name,
+        'allergens': menu_items.allergen,
+        'description': menu_items.description
     }
     return render(request, 'menu.html', data)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+@api_view(['GET'])
+def current_user(request):
+    """
+    Determine the current user by their token, and return their data
+    """
+
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
+
+class UserList(APIView):
+    """
+    Create a new user. It's called 'UserList' because normally we'd have a get
+    method here too, for retrieving a list of all User objects.
+    """
+
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format=None):
+        serializer = UserSerializerWithToken(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
