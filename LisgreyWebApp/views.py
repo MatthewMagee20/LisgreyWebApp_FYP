@@ -40,7 +40,6 @@ def register(request):
 # food menu items
 def get_food_menu(request):
     menu_items = FoodItem.objects.get()
-    args = {'menu_items': menu_items}
     data = {
         'name': menu_items.name
     }
