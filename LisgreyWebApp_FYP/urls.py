@@ -13,17 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import django
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from LisgreyWebApp.views import create_reservation_view, register, get_food_menu
-from LisgreyWebApp import views
-from rest_framework import routers
-from rest_framework_jwt.views import obtain_jwt_token
-
-
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+from LisgreyWebApp.views import create_reservation_view, register, get_food_menu, update_profile, update_password
 
 
 urlpatterns = [
@@ -34,10 +28,8 @@ urlpatterns = [
     path('reservation/', create_reservation_view, name='reservation'),
     path('accounts/register/', register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('token-auth/', obtain_jwt_token),
-    path('core/', include('LisgreyWebApp.urls'))
-
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('update_profile/', update_profile, name='profile'),
+    path('update_password/', update_password, name='update_password'),
 
 ]
