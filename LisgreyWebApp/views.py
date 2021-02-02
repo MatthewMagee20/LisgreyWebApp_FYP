@@ -73,11 +73,21 @@ def update_password(request):
 
 # food menu items
 def get_food_menu(request):
-    menu_items = FoodItem.objects.get()
+
+    # category = FoodItem.objects.get()
+    #
+    # data = {
+    #     'yes': category.name
+    # }
+
+    main_items = FoodItem.objects.filter(category__name="Main")
+    starter_items = FoodItem.objects.filter(category__name="Starter")
 
     data = {
-        'name': menu_items.name,
-        'allergens': menu_items.allergen,
-        'description': menu_items.description
+        'starters': starter_items,
+        'mains': main_items
     }
+
+
+
     return render(request, 'menu.html', data)

@@ -17,17 +17,30 @@ class Reservation(models.Model):
 class Allergen(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class FoodItem(models.Model):
-    category = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, related_name='categories', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     price = models.FloatField()
     allergen = models.ManyToManyField(Allergen)
     description = models.CharField(max_length=150)
+
+    def get_all_objects(self):
+        queryset = self._meta.model.objects.all()
+        return queryset
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class TakeawayOrder(models.Model):

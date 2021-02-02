@@ -4,13 +4,20 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-        <br><br>
-        <div class="text-center vertical-center">
-            <div class="col-sm-12 my-auto">
-                <h3>Mains</h3>
-                    <p>{{ name }}</p>
-                    <p>{% for allergen in allergens.all %}{{ allergen.name }}{% endfor %}</p>
-                    <p>{{ description }}</p>
-            </div>
+    <br><br>
+    <div class="text-center vertical-center">
+        <div class="col-sm-12 my-auto">
+            <h3>Starters</h3>
+            {% for s in starters %}
+                <p>{{ s.name }}</p>
+                <p>{{ s.description }}</p>
+            {% endfor %}
+
+            <h3>Mains</h3>
+            {% for m in mains %}
+                <p>{{ m.name }}</p>
+                <p>{{ m.description }}</p>
+            {% endfor %}
         </div>
+    </div>
 {% endblock %}
