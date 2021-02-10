@@ -4,5 +4,51 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
+    <br><br>
+    <div class="text-center vertical-center">
+        <label for="search">Search</label>
+        <input id="search">
 
+        <label for="filter">Filter (to remove)</label>
+        <select id="filter">
+            {% for allergen in allergens %}
+                <option>{{ allergen.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="col-sm-12 my-auto">
+            <h3>Starters</h3>
+            {% for starter in starters %}
+                <p>{{ starter.name }}</p>
+                <p>{{ starter.description }}</p>
+            {% endfor %}
+
+            <div>
+                <h3>Mains</h3>
+                    {% for m in mains %}
+                        <div id="{{ m.id }}">
+                        <span class="food-item-name">{{ m.name }}</span>
+                        <div class="food-item-details">
+                            <p>{{ m.description }}</p>
+                            <p class="food-item-price">{{ m.price }}</p>
+                            <p>{% for a in m.allergen.all %}{{ a.name }} | {% endfor %}</p>
+                            <button class="add-item-button" onclick="addToBasket(this)">Add to Basket</button>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <h3>Basket</h3>
+
+        <table id="basket" style="border: 1px solid black">
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </table>
+        <h3 class="basket-total-price"></h3>
+    </div>
 {% endblock %}

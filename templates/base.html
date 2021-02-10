@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
@@ -9,6 +10,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Lisgrey House{% block head_title %}{% endblock %} </title>
+
+    <!-- JavaScript -->
+    <script type="text/javascript" src="{% static 'js/takeaway.js' %}"></script>
+
 </head>
 <body>
 <div id="body_div

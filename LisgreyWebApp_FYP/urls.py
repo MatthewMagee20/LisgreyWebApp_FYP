@@ -13,23 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import django
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from LisgreyWebApp.views import create_reservation_view, register, get_food_menu, update_profile, update_password
+from django.conf import settings
+from django.conf.urls.static import static
+from LisgreyWebApp import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('takeaway/', TemplateView.as_view(template_name='takeaway.html'), name='takeaway'),
-    path('menu/', get_food_menu, name='menu'),
-    path('reservation/', create_reservation_view, name='reservation'),
-    path('accounts/register/', register, name='register'),
+    path('takeaway/', views.get_food_menu_takeaway, name='takeaway'),
+    path('menu/', views.get_food_menu, name='menu'),
+    path('reservation/', views.create_reservation_view, name='reservation'),
+    path('accounts/register/', views.register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('update_profile/', update_profile, name='profile'),
-    path('update_password/', update_password, name='update_password'),
-
-]
+    path('update_profile/', views.update_profile, name='profile'),
+    path('update_password/', views.update_password, name='update_password'),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

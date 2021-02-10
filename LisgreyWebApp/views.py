@@ -1,7 +1,9 @@
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+
 from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm, UserUpdateForm
-from LisgreyWebApp.models import FoodItem
+from LisgreyWebApp.models import FoodItem, Allergen
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -73,21 +75,40 @@ def update_password(request):
 
 # food menu items
 def get_food_menu(request):
-
     # category = FoodItem.objects.get()
     #
     # data = {
     #     'yes': category.name
     # }
 
+    allergens = Allergen.objects.all()
     main_items = FoodItem.objects.filter(category__name="Main")
     starter_items = FoodItem.objects.filter(category__name="Starter")
 
     data = {
+        'allergens': allergens,
         'starters': starter_items,
-        'mains': main_items
+        'mains': main_items,
     }
 
-
-
     return render(request, 'menu.html', data)
+
+
+def get_food_menu_takeaway(request):
+    # category = FoodItem.objects.get()
+    #
+    # data = {
+    #     'yes': category.name
+    # }
+
+    allergens = Allergen.objects.all()
+    main_items = FoodItem.objects.filter(category__name="Main")
+    starter_items = FoodItem.objects.filter(category__name="Starter")
+
+    data = {
+        'allergens': allergens,
+        'starters': starter_items,
+        'mains': main_items,
+    }
+
+    return render(request, 'takeaway.html', data)

@@ -34,6 +34,7 @@ class FoodItem(models.Model):
     price = models.FloatField()
     allergen = models.ManyToManyField(Allergen)
     description = models.CharField(max_length=150)
+    food_quantity = models.IntegerField(default=1)
 
     def get_all_objects(self):
         queryset = self._meta.model.objects.all()
@@ -43,12 +44,18 @@ class FoodItem(models.Model):
         return f"{self.name}"
 
 
+class TakeawayItem(models.Model):
+    item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
+
+
 class TakeawayOrder(models.Model):
     # FoodItem
-    food_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE, null=True)
-    food_quantity = models.IntegerField()
+    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=1)
+    food_item = models.ManyToManyField(TakeawayItem)
     total_cost = models.FloatField()
+    order_date = models.DateField(auto_now_add=True, blank=True)
     order_time = models.TimeField()
+    ordered = models.BooleanField(default=False)
 
 
 class LoginForm(models.Model):

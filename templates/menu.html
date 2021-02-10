@@ -6,17 +6,28 @@
 {% block body_content %}
     <br><br>
     <div class="text-center vertical-center">
+        <label for="search">Search</label>
+        <input id="search">
+
+        <label for="filter">Filter (to remove)</label>
+        <select id="filter">
+            {% for allergen in allergens %}
+                <option>{{ allergen.name }}</option>
+            {% endfor %}
+        </select>
         <div class="col-sm-12 my-auto">
             <h3>Starters</h3>
-            {% for s in starters %}
-                <p>{{ s.name }}</p>
-                <p>{{ s.description }}</p>
+            {% for starter in starters %}
+                <p id="starter">{{ starter.name }}</p>
+                <p>{{ starter.description }}</p>
+                <p>{% for allergen in starter.allergen.all %}{{ allergen.name }} | {% endfor %}</p>
             {% endfor %}
 
             <h3>Mains</h3>
             {% for m in mains %}
                 <p>{{ m.name }}</p>
                 <p>{{ m.description }}</p>
+                <p>{% for a in m.allergen.all %}{{ a.name }} | {% endfor %}</p>
             {% endfor %}
         </div>
     </div>
