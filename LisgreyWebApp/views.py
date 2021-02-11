@@ -1,4 +1,3 @@
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -112,3 +111,8 @@ def get_food_menu_takeaway(request):
     }
 
     return render(request, 'takeaway.html', data)
+
+
+def add_takeaway(request):
+    data = request.GET['basket']
+    return render(request, 'newpage.html', {'data': data})
