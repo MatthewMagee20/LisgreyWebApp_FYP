@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm, UserUpdateForm
 from LisgreyWebApp.models import FoodItem, Allergen, Basket
 from django.contrib import messages
@@ -118,9 +118,22 @@ def basket_view(request):
 
 
 def add_to_basket(request, food_id):
-    basket = Basket.objects.all()
+    basket = Basket.objects.all()[0]
     item = FoodItem.objects.get(id=food_id)
     print(food_id)
-    basket.items.add(item)
 
-    return HttpResponseRedirect('/')
+    if item not in basket.items.all():
+        basket.items.add(item)
+    else:
+        basket.items.remove(item)
+
+    total = 0.00
+
+    for item in basket.items.all():
+        total += item.price
+
+    basket.total = total
+    print(basket.total)
+    basket.save()
+
+    return HttpResponseRedirect("/")
