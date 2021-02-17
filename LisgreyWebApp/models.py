@@ -34,7 +34,7 @@ class FoodItem(models.Model):
     price = models.FloatField()
     allergen = models.ManyToManyField(Allergen)
     description = models.CharField(max_length=150)
-    food_quantity = models.IntegerField(default=1)
+    slug = models.SlugField(unique=True)
 
     def get_all_objects(self):
         queryset = self._meta.model.objects.all()
@@ -56,6 +56,15 @@ class TakeawayOrder(models.Model):
     order_date = models.DateField(auto_now_add=True, blank=True)
     order_time = models.TimeField()
     ordered = models.BooleanField(default=False)
+
+
+class Basket(models.Model):
+    items = models.ManyToManyField(FoodItem)
+    total = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.id}"
 
 
 class LoginForm(models.Model):

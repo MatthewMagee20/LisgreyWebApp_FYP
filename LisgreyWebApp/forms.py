@@ -1,6 +1,6 @@
 from django.forms import ModelForm, Textarea, EmailField, DateInput
-from LisgreyWebApp.models import Reservation, LoginForm
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from LisgreyWebApp.models import Reservation, LoginForm, TakeawayOrder
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
@@ -33,3 +33,4 @@ class UserUpdateForm(ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email']
+

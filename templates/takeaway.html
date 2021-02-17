@@ -25,7 +25,7 @@
                     <p>{{ starter.description }}</p>
                     <p class="food-item-price">{{ starter.price }}</p>
                     <p>{% for a in starter.allergen.all %}{{ a.name }} | {% endfor %}</p>
-                    <button class="add-item-button" onclick="addToBasket(this)">Add to Basket</button>
+                    <a href="{% url 'add_to_basket' starter.id %}">Add to Basket</a>
                 </div>
             {% endfor %}
             </div>
@@ -38,7 +38,7 @@
                         <p>{{ m.description }}</p>
                         <p class="food-item-price">{{ m.price }}</p>
                         <p>{% for a in m.allergen.all %}{{ a.name }} | {% endfor %}</p>
-                        <button class="add-item-button" onclick="addToBasket(this)">Add to Basket</button>
+                        <a href="{% url 'add_to_basket' m.id %}">Add to Basket</a>
                     </div>
                 {% endfor %}
                 </div>
@@ -48,7 +48,8 @@
     <div>
         <h3>Basket</h3>
 
-        <form>
+        <form method="POST">
+            {% csrf_token %}
             <table id="basket" style="border: 1px solid black">
                 <tr>
                     <th>Item</th>

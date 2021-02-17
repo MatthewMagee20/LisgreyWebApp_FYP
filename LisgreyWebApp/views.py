@@ -1,8 +1,6 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm, UserUpdateForm
-from LisgreyWebApp.models import FoodItem, Allergen
+from LisgreyWebApp.models import FoodItem, Allergen, Basket
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -94,12 +92,6 @@ def get_food_menu(request):
 
 
 def get_food_menu_takeaway(request):
-    # category = FoodItem.objects.get()
-    #
-    # data = {
-    #     'yes': category.name
-    # }
-
     allergens = Allergen.objects.all()
     main_items = FoodItem.objects.filter(category__name="Main")
     starter_items = FoodItem.objects.filter(category__name="Starter")
@@ -113,6 +105,22 @@ def get_food_menu_takeaway(request):
     return render(request, 'takeaway.html', data)
 
 
-def add_takeaway(request):
-    data = request.GET['basket']
-    return render(request, 'newpage.html', {'data': data})
+def basket_view(request):
+    basket = Basket.objects.all()
+    food_item = FoodItem.objects.all()
+
+    data = {
+        'basket': basket,
+        'food_item': food_item
+    }
+
+    return render(request, 'basket.html', data)
+
+
+def add_to_basket(request, food_id):
+    basket = Basket.objects.all()
+    item = FoodItem.objects.get(id=food_id)
+    print(food_id)
+    basket.items.add(item)
+
+    return HttpResponseRedirect('/')

@@ -32,6 +32,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('update_profile/', views.update_profile, name='profile'),
     path('update_password/', views.update_password, name='update_password'),
-
-    path('create_order/', views.add_takeaway, name="takeaway_order"),
+    path('takeaway/basket/', views.basket_view, name='basket'),
+    path('takeaway/basket/add/<int:food_id>', views.add_to_basket, name='add_to_basket')
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

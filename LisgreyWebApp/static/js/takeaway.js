@@ -1,9 +1,8 @@
 function addToBasket(selected)
 {
-
-    const id = selected.parentElement.parentElement;
-    const itemName = id.getElementsByClassName("food-item-name")[0].innerText;
-    const itemPrice = id.getElementsByClassName("food-item-price")[0].innerText;
+    const itemDiv = selected.parentElement.parentElement;
+    const itemName = itemDiv.getElementsByClassName("food-item-name")[0].innerText;
+    const itemPrice = itemDiv.getElementsByClassName("food-item-price")[0].innerText;
 
     // check if item already in basket
     if (check(itemName))
@@ -22,11 +21,17 @@ function addToBasket(selected)
         const basketRowPrice = row.insertCell(2)
         const basketRowTotalPrice = row.insertCell(3);
 
+        row.setAttribute("id", "item-" + itemDiv.id);
+
+        row.name = "item-" + itemDiv.id;
+
+        console.log(row.name);
+
+
         basketRowName.className = "basket-item-name";
         basketRowQuantity.className = "basket-item-quantity";
         basketRowPrice.className = "basket-item-price";
         basketRowTotalPrice.className = "basket-item-total-price";
-
 
         basketRowName.innerText = itemName;
         basketRowPrice.innerText = itemPrice;
@@ -34,8 +39,6 @@ function addToBasket(selected)
 
         updateItemPrice(itemName);
     }
-
-
 }
 
 // check if item already in basket
@@ -43,8 +46,10 @@ function check(itemName)
 {
     const basketTable = document.getElementById("basket");
 
-    for(let i = 0; i < basketTable.rows.length; i++){
-        if (basketTable.rows[i].cells[0].innerHTML === itemName){
+    for(let i = 0; i < basketTable.rows.length; i++)
+    {
+        if (basketTable.rows[i].cells[0].innerHTML === itemName)
+        {
             return true;
         }
     }
@@ -67,7 +72,8 @@ function updateQuantity(itemName)
 }
 
 // update price for item and total basket
-function updateItemPrice(itemName) {
+function updateItemPrice(itemName)
+{
     const basketTable = document.getElementById("basket");
     let itemTotal = 0;
     let basketTotal = 0;
@@ -85,14 +91,10 @@ function updateItemPrice(itemName) {
             // update price for items x quantity
             itemTotal = parseFloat(itemPrice.innerText) * parseInt(itemQuantity.innerText);
             itemPriceTotal.innerText = ""+ itemTotal;
-            console.log("Quantity x total:" + itemPriceTotal.innerText);
 
+            // update basket total price
             basketTotal = current_price + itemTotal;
-
-            console.log("Basket total:" +basketTotal);
-
             overall.innerHTML = ""+basketTotal
-
         }
     }
 }
