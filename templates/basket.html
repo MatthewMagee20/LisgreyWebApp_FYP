@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block nav_title %}Lisgrey House{% endblock %}
+
+{% block body_content %}
+    <table>
+        {% for item in basket %}
+            <tr>
+                <td>Item</td>
+                <td>Price</td>
+            </tr>
+            {% for i in item.items.all %}
+                <tr>
+                    <td>{{ i.name }}</td>
+                    <td>{{ i.price }}</td>
+                    <td><a href="{% url 'add_to_basket' i.id %}">Remove item</a></td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+
+    <h1>{{ basket.total }}</h1>
+
+{% endblock %}
