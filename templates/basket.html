@@ -18,12 +18,10 @@
                 <td>{{ i.quantity }}</td>
                 <td>{{ i.menu_item.price }}</td>
                 <td><a href="{% url 'update_basket' i.menu_item.id  %}?quantity=0">Remove item</a></td>
-                <script>
-                    console.log({{ i.id }})
-                </script>
             </tr>
         {% endfor %}
     </table>
 
     <h1>{{ basket.total }}</h1>
+    <h1><a href="{% url 'confirm_order' %}">Confirm Order</a></h1>
 {% endblock %}

@@ -44,15 +44,6 @@ class FoodItem(models.Model):
         return f"{self.name}"
 
 
-# class TakeawayOrder(models.Model):
-#     # FoodItem
-#     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=1)
-#     food_items = models.ManyToManyField(TakeawayItem)
-#     total_cost = models.FloatField()
-#     order_date = models.DateField(auto_now_add=True, blank=True)
-#     order_time = models.TimeField()
-#     ordered = models.BooleanField(default=False)
-
 class Basket(models.Model):
     total = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
     active = models.BooleanField(default=True)
@@ -69,6 +60,25 @@ class BasketItem(models.Model):
 
     def __str__(self):
         return f"{self.basket}"
+
+
+CHOICES = (
+    ("Started", "Started"),
+    ("Abandoned", "Abandoned"),
+    ("Finished", "Finished"),
+)
+
+
+class TakeawayOrder(models.Model):
+    total = models.DecimalField(default=00.00, max_digits=1000, decimal_places=2)
+    user = models.ForeignKey(get_user_model(), blank=True, on_delete=models.CASCADE, default=1)
+    order_id = models.CharField(max_length=120, unique=True, default='ABC')
+    basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
+    date_time = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=120, choices=CHOICES, default="Started")
+
+    def __str__(self):
+        return f"{self.order_id}"
 
 
 class LoginForm(models.Model):

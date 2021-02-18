@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm, UserUpdateForm
-from LisgreyWebApp.models import FoodItem, Allergen, Basket, BasketItem
+from LisgreyWebApp.models import FoodItem, Allergen, Basket, BasketItem, TakeawayOrder
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -165,3 +165,26 @@ def update_basket_view(request, food_id):
     basket.save()
 
     return HttpResponseRedirect("/takeaway/")
+
+
+def confirm_order_view(request):
+    # implement httpredirect
+    try:
+        session_id = request.session['basket_id']
+        basket = Basket.objects.get(id=session_id)
+        print(basket)
+    except KeyError:
+        session_id = None
+        return HttpResponseRedirect('/takeaway/basket/')
+
+    order, created = TakeawayOrder.objects.get_or_create(basket=basket)
+
+    if created:
+        order.order_id = str("2131231")
+        order.save()
+
+    if order.status == "Finished":
+        del request.session['basket_id']
+        del request.session['item_quantities']
+    data = {}
+    return render(request, 'confirm_order.html', data)

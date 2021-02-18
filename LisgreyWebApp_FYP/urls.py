@@ -33,5 +33,6 @@ urlpatterns = [
     path('update_profile/', views.update_profile, name='profile'),
     path('update_password/', views.update_password, name='update_password'),
     path('takeaway/basket/', views.basket_view, name='basket'),
-    path('takeaway/basket/update/<int:food_id>', views.update_basket_view, name='update_basket')
+    path('takeaway/basket/update/<int:food_id>', views.update_basket_view, name='update_basket'),
+    path('takeaway/checkout', views.confirm_order_view, name='confirm_order')
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
