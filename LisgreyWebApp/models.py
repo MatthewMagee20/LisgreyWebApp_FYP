@@ -44,27 +44,31 @@ class FoodItem(models.Model):
         return f"{self.name}"
 
 
-class TakeawayItem(models.Model):
-    item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
-
-
-class TakeawayOrder(models.Model):
-    # FoodItem
-    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=1)
-    food_item = models.ManyToManyField(TakeawayItem)
-    total_cost = models.FloatField()
-    order_date = models.DateField(auto_now_add=True, blank=True)
-    order_time = models.TimeField()
-    ordered = models.BooleanField(default=False)
-
+# class TakeawayOrder(models.Model):
+#     # FoodItem
+#     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, default=1)
+#     food_items = models.ManyToManyField(TakeawayItem)
+#     total_cost = models.FloatField()
+#     order_date = models.DateField(auto_now_add=True, blank=True)
+#     order_time = models.TimeField()
+#     ordered = models.BooleanField(default=False)
 
 class Basket(models.Model):
-    items = models.ManyToManyField(FoodItem)
     total = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
     active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.id}"
+
+
+class BasketItem(models.Model):
+    basket = models.ForeignKey(Basket, on_delete=models.CASCADE, null=True, blank=True)
+    menu_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    line_total = models.DecimalField(default=00.00, max_digits=1000, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.basket}"
 
 
 class LoginForm(models.Model):

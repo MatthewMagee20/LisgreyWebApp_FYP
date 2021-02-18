@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from LisgreyWebApp.forms import ReservationForm, UserRegistrationForm, UserUpdateForm
-from LisgreyWebApp.models import FoodItem, Allergen, Basket
+from LisgreyWebApp.models import FoodItem, Allergen, Basket, BasketItem
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -72,12 +72,6 @@ def update_password(request):
 
 # food menu items
 def get_food_menu(request):
-    # category = FoodItem.objects.get()
-    #
-    # data = {
-    #     'yes': category.name
-    # }
-
     allergens = Allergen.objects.all()
     main_items = FoodItem.objects.filter(category__name="Main")
     starter_items = FoodItem.objects.filter(category__name="Starter")
@@ -106,34 +100,68 @@ def get_food_menu_takeaway(request):
 
 
 def basket_view(request):
-    basket = Basket.objects.all()
-    food_item = FoodItem.objects.all()
+    try:
+        session_id = request.session['basket_id']
+    except KeyError:
+        session_id = None
+    if session_id:
+        basket = Basket.objects.get(id=session_id)
 
-    data = {
-        'basket': basket,
-        'food_item': food_item
-    }
+        data = {
+            'basket': basket,
+        }
+    else:
+        data = {
+            "basket_is_empty": True
+        }
 
     return render(request, 'basket.html', data)
 
 
-def add_to_basket(request, food_id):
-    basket = Basket.objects.all()[0]
-    item = FoodItem.objects.get(id=food_id)
-    print(food_id)
+def update_basket_view(request, food_id):
+    try:
+        quantity = request.GET.get('quantity')
+        u_quantity = True
+    except ValueError:
+        quantity = None
+        u_quantity = False
 
-    if item not in basket.items.all():
-        basket.items.add(item)
+    try:
+        session_id = request.session['basket_id']
+    except KeyError:
+        basket_new = Basket()
+        basket_new.save()
+        request.session['basket_id'] = basket_new.id
+        session_id = basket_new.id
+        print(session_id)
+
+    basket = Basket.objects.get(id=session_id)
+    item = FoodItem.objects.get(id=food_id)
+    print("item: " + str(item))
+
+    basket_item, created = BasketItem.objects.get_or_create(basket=basket, menu_item=item)
+
+    if created:
+        print("yuppa")
+
+    if u_quantity and quantity:
+        print(quantity)
+        if int(quantity) == 0:
+            basket_item.delete()
+        else:
+            basket_item.quantity = quantity
+            basket_item.save()
     else:
-        basket.items.remove(item)
+        pass
 
     total = 0.00
 
-    for item in basket.items.all():
-        total += item.price
+    for item in basket.basketitem_set.all():
+        item_total = item.menu_item.price * item.quantity
+        total += item_total
 
+    request.session['item_quantities'] = basket.basketitem_set.count()
     basket.total = total
-    print(basket.total)
     basket.save()
 
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect("/takeaway/")
