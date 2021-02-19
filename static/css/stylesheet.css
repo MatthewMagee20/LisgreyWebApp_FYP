@@ -1,7 +1,9 @@
-h3{
-  color: red;
+
+.card-heading-container{
+    display: inline;
+
 }
 
-p{
-  color: red;
+.card-text-container{
+    display: block;
 }
