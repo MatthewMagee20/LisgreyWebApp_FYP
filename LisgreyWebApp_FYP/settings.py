@@ -134,8 +134,7 @@ USE_TZ = True
 # Add this line to access static files on templates
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (
-    os.path.join('static'),
+    os.path.join(BASE_DIR, 'static'),
 )
-STATIC_ROOT = STATIC_URL
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
