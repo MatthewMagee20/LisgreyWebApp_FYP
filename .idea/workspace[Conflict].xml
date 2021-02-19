@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6f23fc8b-b1ea-4165-bc89-1ec2b77fcdeb" name="Default Changelist" comment="basic Pure Python add/remove to basket functionality.">
+      <change beforePath="$PROJECT_DIR$/LisgreyWebApp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/LisgreyWebApp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LisgreyWebApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/LisgreyWebApp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LisgreyWebApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/LisgreyWebApp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LisgreyWebApp_FYP/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/LisgreyWebApp_FYP/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/basket.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/basket.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/takeaway.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/takeaway.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="329844dd-a6e0-4a06-a675-c14c024bce21" />
+  <component name="ProjectId" id="1nF7Pn7mRcLfP7EZKuFHRk5EqQn" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/django-carton-master" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\matth\College\College\College\4th Year\LisgreyWebApp_FYP\LisgreyWebApp\static\js" />
+      <recent name="C:\Users\matth\College\College\College\4th Year\LisgreyWebApp_FYP\static\js" />
+      <recent name="C:\Users\matth\College\College\College\4th Year\LisgreyWebApp_FYP\templates\JS" />
+      <recent name="C:\Users\matth\College\College\College\4th Year\LisgreyWebApp_FYP\templates" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="LisgreyWebApp_FYP" type="Python.DjangoServer" factoryName="Django server">
+      <module name="LisgreyWebApp_FYP" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f23fc8b-b1ea-4165-bc89-1ec2b77fcdeb" name="Default Changelist" comment="" />
+      <created>1610973962474</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1610973962474</updated>
+      <workItem from="1610974001298" duration="9879000" />
+      <workItem from="1611063273709" duration="8041000" />
+      <workItem from="1611081705007" duration="3700000" />
+      <workItem from="1611155463767" duration="2339000" />
+      <workItem from="1611164135545" duration="2869000" />
+      <workItem from="1611668925115" duration="6928000" />
+      <workItem from="1611837519157" duration="2596000" />
+      <workItem from="1612178024778" duration="5780000" />
+      <workItem from="1612200034048" duration="5988000" />
+      <workItem from="1612264742598" duration="4317000" />
+      <workItem from="1612271171307" duration="455000" />
+      <workItem from="1612274439780" duration="2145000" />
+      <workItem from="1612436580747" duration="4130000" />
+      <workItem from="1612440754949" duration="484000" />
+      <workItem from="1612441257346" duration="2226000" />
+      <workItem from="1612535525976" duration="2666000" />
+      <workItem from="1612873876877" duration="3508000" />
+      <workItem from="1612955578176" duration="4787000" />
+      <workItem from="1612970324260" duration="16031000" />
+      <workItem from="1613043452078" duration="13185000" />
+      <workItem from="1613067438130" duration="146000" />
+      <workItem from="1613081459863" duration="1428000" />
+      <workItem from="1613383225315" duration="7000" />
+      <workItem from="1613474776756" duration="2874000" />
+      <workItem from="1613483632956" duration="9374000" />
+      <workItem from="1613497854231" duration="4505000" />
+      <workItem from="1613570978103" duration="10407000" />
+      <workItem from="1613581579571" duration="1771000" />
+      <workItem from="1613641961137" duration="7803000" />
+    </task>
+    <task id="LOCAL-00001" summary="Reservation Form working">
+      <created>1610979393656</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1610979393656</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Reservation Form working with user id">
+      <created>1611071358855</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1611071358855</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Printing food items from database on menu.html">
+      <created>1611157759928</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1611157759928</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Commit before drf">
+      <created>1611668968858</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1611668968858</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Django Rest Framework implemented (Not 100%) on us.&#10;Printing Menu item along with allergens and descriptions.&#10;Implemented Date picker (jQuery)">
+      <created>1611677530219</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1611677530219</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Edit Profile/password functionality">
+      <created>1612185632196</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1612185632196</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Edit Profile/password functionality 2">
+      <created>1612189660057</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1612189660057</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Printing multiple objects from model based on category (starter, main course). Previously, only able to print one object">
+      <created>1612269259633</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1612269259633</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Implemented add to basket functionality (need to fix pricing).">
+      <created>1612986979163</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1612986979164</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add to basket (JavaScript) functionality complete">
+      <created>1613066800528</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1613066800528</updated>
+    </task>
+    <task id="LOCAL-00011" summary="basic Pure Python add to basket functionality.">
+      <created>1613574385018</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1613574385018</updated>
+    </task>
+    <task id="LOCAL-00012" summary="basic Pure Python add/remove to basket functionality.">
+      <created>1613576932229</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1613576932229</updated>
+    </task>
+    <task id="LOCAL-00013" summary="basic Pure Python add/remove to basket functionality.">
+      <created>1613576965718</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1613576965718</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="Reservation Form working" />
+    <MESSAGE value="Reservation Form working with user id" />
+    <MESSAGE value="Printing food items from database on menu.html" />
+    <MESSAGE value="Commit before drf" />
+    <MESSAGE value="Django Rest Framework implemented (Not 100%) on us.&#10;Printing Menu item along with allergens and descriptions.&#10;Implemented Date picker (jQuery)" />
+    <MESSAGE value="Edit Profile/password functionality" />
+    <MESSAGE value="Printing multiple objects from model based on category (starter, main course). Previously, only able to print one object" />
+    <MESSAGE value="Implemented add to basket functionality (need to fix pricing)." />
+    <MESSAGE value="Add to basket (JavaScript) functionality complete" />
+    <MESSAGE value="basic Pure Python add to basket functionality." />
+    <MESSAGE value="basic Pure Python add/remove to basket functionality." />
+    <option name="LAST_COMMIT_MESSAGE" value="basic Pure Python add/remove to basket functionality." />
+  </component>
+</project>

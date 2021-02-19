@@ -15,14 +15,15 @@
                 <option>{{ allergen.name }}</option>
             {% endfor %}
         </select>
-        <div class="col-sm-12 my-auto">
+        <div class="container-fluid">
             <h3>Starters</h3>
             {% for starter in starters %}
                 <p id="starter">{{ starter.name }}</p>
                 <p>{{ starter.description }}</p>
                 <p>{% for allergen in starter.allergen.all %}{{ allergen.name }} | {% endfor %}</p>
             {% endfor %}
-
+        </div>
+        <div class="container">
             <h3>Mains</h3>
             {% for m in mains %}
                 <p>{{ m.name }}</p>
