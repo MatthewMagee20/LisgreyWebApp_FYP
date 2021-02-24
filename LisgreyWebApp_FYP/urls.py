@@ -33,7 +33,8 @@ urlpatterns = [
     path('update_password/', views.update_password, name='update_password'),
     path('takeaway/basket/', views.basket_view, name='basket'),
     path('takeaway/basket/update/<int:food_id>', views.update_basket_view, name='update_basket'),
-    path('takeaway/checkout', views.confirm_order_view, name='confirm_order')
+    path('takeaway/checkout/', views.confirm_order_view, name='confirm_order'),
+    path('staff/takeaway_orders/', views.takeaway_order_view, name='takeaway_orders')
               ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

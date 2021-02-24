@@ -11,3 +11,7 @@
 .center-container{
     align-items: center;
 }
+
+.card_price{
+    float: right;
+}

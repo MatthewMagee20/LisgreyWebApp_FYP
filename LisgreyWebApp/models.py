@@ -31,7 +31,7 @@ class Category(models.Model):
 class FoodItem(models.Model):
     category = models.ForeignKey(Category, related_name='categories', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
     allergen = models.ManyToManyField(Allergen)
     description = models.CharField(max_length=150)
     slug = models.SlugField(unique=True)
@@ -56,7 +56,6 @@ class BasketItem(models.Model):
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE, null=True, blank=True)
     menu_item = models.ForeignKey(FoodItem, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-    line_total = models.DecimalField(default=00.00, max_digits=1000, decimal_places=2)
 
     def __str__(self):
         return f"{self.basket}"
@@ -70,7 +69,6 @@ CHOICES = (
 
 
 class TakeawayOrder(models.Model):
-    total = models.DecimalField(default=00.00, max_digits=1000, decimal_places=2)
     user = models.ForeignKey(get_user_model(), blank=True, on_delete=models.CASCADE, default=1)
     order_id = models.CharField(max_length=120, unique=True, default='ABC')
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)

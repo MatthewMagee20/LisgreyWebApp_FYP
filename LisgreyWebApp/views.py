@@ -6,6 +6,9 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 
+import string
+import random
+
 
 # create reservation
 def create_reservation_view(request):
@@ -73,13 +76,17 @@ def update_password(request):
 # food menu items
 def get_food_menu(request):
     allergens = Allergen.objects.all()
+    starter_items = FoodItem.objects.filter(category__name="Starters")
     main_items = FoodItem.objects.filter(category__name="Main")
-    starter_items = FoodItem.objects.filter(category__name="Starter")
+    dessert_items = FoodItem.objects.filter(category__name="Desserts")
+    drink_items = FoodItem.objects.filter(category__name="Drinks")
 
     data = {
         'allergens': allergens,
         'starters': starter_items,
         'mains': main_items,
+        'desserts': dessert_items,
+        'drinks': drink_items,
     }
 
     return render(request, 'menu.html', data)
@@ -87,13 +94,17 @@ def get_food_menu(request):
 
 def get_food_menu_takeaway(request):
     allergens = Allergen.objects.all()
+    starter_items = FoodItem.objects.filter(category__name="Starters")
     main_items = FoodItem.objects.filter(category__name="Main")
-    starter_items = FoodItem.objects.filter(category__name="Starter")
+    dessert_items = FoodItem.objects.filter(category__name="Desserts")
+    drink_items = FoodItem.objects.filter(category__name="Drinks")
 
     data = {
         'allergens': allergens,
         'starters': starter_items,
         'mains': main_items,
+        'desserts': dessert_items,
+        'drinks': drink_items,
     }
 
     return render(request, 'takeaway.html', data)
@@ -133,11 +144,11 @@ def update_basket_view(request, food_id):
         basket_new.save()
         request.session['basket_id'] = basket_new.id
         session_id = basket_new.id
-        print(session_id)
+        # print(session_id)
 
     basket = Basket.objects.get(id=session_id)
     item = FoodItem.objects.get(id=food_id)
-    print("item: " + str(item))
+    # print("item: " + str(item))
 
     basket_item, created = BasketItem.objects.get_or_create(basket=basket, menu_item=item)
 
@@ -145,7 +156,6 @@ def update_basket_view(request, food_id):
         print("yuppa")
 
     if u_quantity and quantity:
-        print(quantity)
         if int(quantity) == 0:
             basket_item.delete()
         else:
@@ -156,9 +166,9 @@ def update_basket_view(request, food_id):
 
     total = 0.00
 
-    for item in basket.basketitem_set.all():
-        item_total = item.menu_item.price * item.quantity
-        total += item_total
+    for i in basket.basketitem_set.all():
+        food_total = float(i.menu_item.price) * i.quantity
+        total += food_total
 
     request.session['item_quantities'] = basket.basketitem_set.count()
     basket.total = total
@@ -172,7 +182,6 @@ def confirm_order_view(request):
     try:
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
-        print(basket)
     except KeyError:
         session_id = None
         return HttpResponseRedirect('/takeaway/basket/')
@@ -180,7 +189,8 @@ def confirm_order_view(request):
     order, created = TakeawayOrder.objects.get_or_create(basket=basket)
 
     if created:
-        order.order_id = str("2131231")
+        order_id_gen = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
+        order.order_id = str(order_id_gen)
         order.save()
 
     if order.status == "Finished":
@@ -188,3 +198,15 @@ def confirm_order_view(request):
         del request.session['item_quantities']
     data = {}
     return render(request, 'confirm_order.html', data)
+
+
+def takeaway_order_view(request):
+    takeaway_orders = TakeawayOrder.objects.all()
+    basket_items = BasketItem.objects.all()
+
+    data = {
+        'takeaway_orders': takeaway_orders,
+        'basket_items': basket_items
+    }
+
+    return render(request, 'takeaway_orders.html', data)

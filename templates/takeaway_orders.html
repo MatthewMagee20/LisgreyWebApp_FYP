@@ -1,0 +1,36 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yuppa</title>
+</head>
+<body>
+{% for takeaways in takeaway_orders %}
+    <p>Order ID: {{ takeaways.order_id }}</p>
+    <p>Basket ID: {{ takeaways.basket }}</p>
+    <table class="table">
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+        {% for basket_item in basket_items %}
+            <tr>
+                <td>{{ basket_item.menu_item }}</td>
+                <td>{{ basket_item.quantity }}</td>
+                <td>{{ basket_item.menu_item.price }}</td>
+                <td>{{ takeaways.status }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    <p>Total: {{ takeaways.basket.total }}</p>
+{% endfor %}
+</body>
+</html>
