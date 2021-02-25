@@ -1,7 +1,20 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    padding: 40px;
+}
+
+.takeaway-orders-container{
+    padding: 30px;
+    border: 1px solid black;
+}
 
 .card-heading-container{
     display: inline;
-
 }
 
 .card-text-container{

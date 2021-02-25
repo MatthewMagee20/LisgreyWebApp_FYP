@@ -19,9 +19,6 @@
                     </select>
                     <button type="submit" onclick="submit()">Submit</button>
                 </div>
-                <div class="col">
-                    <a href="{% url 'basket' %}">Basket: {{ request.session.item_quantities }} items</a>
-                </div>
             </div>
         </div>
 
@@ -33,10 +30,16 @@
                 <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-main-tab" data-toggle="pill" href="#pills-main" role="tab" aria-controls="pills-main" aria-selected="false">Main Course</a>
+                <a class="nav-link" id="pills-mains-tab" data-toggle="pill" href="#pills-mains" role="tab" aria-controls="pills-mains" aria-selected="false">Main Courses</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-dessert-tab" data-toggle="pill" href="#pills-dessert" role="tab" aria-controls="pills-dessert" aria-selected="false">Dessert</a>
+                <a class="nav-link" id="pills-kids-tab" data-toggle="pill" href="#pills-kids" role="tab" aria-controls="pills-kids" aria-selected="false">Kids Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-sides-tab" data-toggle="pill" href="#pills-sides" role="tab" aria-controls="pills-sides" aria-selected="false">Side Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-dessert-tab" data-toggle="pill" href="#pills-dessert" role="tab" aria-controls="pills-dessert" aria-selected="false">Desserts</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
@@ -57,20 +60,13 @@
                                 <p>{{ starter.description }}</p>
                                 <p class="card_allergens">{% for a in starter.allergen.all %}{{ a.name }} {% endfor %}</p>
                             </div>
-                            <form method="get" action="{% url 'update_basket' starter.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
-                            </form>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
 
-        <div class="tab-pane fade" id="pills-main" role="tabpanel" aria-labelledby="pills-main-tab">
+        <div class="tab-pane fade" id="pills-mains" role="tabpanel" aria-labelledby="pills-mains-tab">
             {% for main in mains %}
                 <div class="col d-flex justify-content-center mt-4">
                     <div class="card" style="width:35rem;">
@@ -83,13 +79,42 @@
                                 <p>{{ main.description }}</p>
                                 <p class="card_allergens">{% for a in main.allergen.all %}{{ a.name }} {% endfor %}</p>
                             </div>
-                            <form method="get" action="{% url 'update_basket' main.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
-                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="pills-kids" role="tabpanel" aria-labelledby="pills-kids-tab">
+            {% for kids_item in kids_items %}
+                <div class="col d-flex justify-content-center mt-4">
+                    <div class="card" style="width:35rem;">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ kids_item.name }}</span>
+                                <span class="card_price">&euro;{{ kids_item.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ kids_item.description }}</p>
+                                <p class="card_allergens">{% for a in kids_item.allergen.all %}{{ a.name }} {% endfor %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="pills-sides" role="tabpanel" aria-labelledby="pills-sides-tab">
+            {% for side_order in side_orders %}
+                <div class="col d-flex justify-content-center mt-4">
+                    <div class="card" style="width:35rem;">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ side_order.name }}</span>
+                                <span class="card_price">&euro;{{ side_order.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ side_order.description }}</p>
+                                <p class="card_allergens">{% for a in side_order.allergen.all %}{{ a.name }} {% endfor %}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,13 +133,6 @@
                                 <p>{{ dessert.description }}</p>
                                 <p class="card_allergens">{% for a in dessert.allergen.all %}{{ a.name }} {% endfor %}</p>
                             </div>
-                            <form method="get" action="{% url 'update_basket' dessert.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -134,13 +152,6 @@
                                 <p>{{ drink.description }}</p>
                                 <p class="card_allergens">{% for a in drink.allergen.all %}{{ a.name }} {% endfor %}</p>
                             </div>
-                            <form method="get" action="{% url 'update_basket' drink.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
-                            </form>
                         </div>
                     </div>
                 </div>

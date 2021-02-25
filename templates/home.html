@@ -5,15 +5,28 @@
 
 {% block body_content %}
     {% if user.is_authenticated %}
-        <br><br>
-        <h2>Welcome back <strong>{{ user.username }}</strong>!</h2>
-    {% else %}
-        {% load static %}
-        <div class="text-center vertical-center">
-        <br>
-        <h1>Welcome!</h1>
-            <div class="col-sm-12 my-auto">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="d-flex align-items-center min-vh-100">
+                    <div class="text-center">
+                        <a href="{% url 'reservation' %}" class="btn btn-primary btn-lg btn-block home-button">Make a Reservation</a>
+                        <a href="{% url 'menu' %}" class="btn btn-primary btn-lg btn-block home-button">View Menu</a>
+                    </div>
+                </div>
             </div>
         </div>
+
+    {% else %}
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="d-flex align-items-center min-vh-100">
+                    <div class="text-center">
+                        <a href="{% url 'reservation' %}" class="btn btn-primary btn-lg btn-block home-button">Make a Reservation</a>
+                        <a href="{% url 'menu' %}" class="btn btn-primary btn-lg btn-block home-button">View Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     {% endif %}
 {% endblock %}

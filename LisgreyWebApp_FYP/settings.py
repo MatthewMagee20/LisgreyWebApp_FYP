@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'LisgreyWebApp.apps.LisgreywebappConfig',
+    'reservations',
+    'takeaway',
+    'food_menus',
     'crispy_forms',
     'bootstrap4',
     'corsheaders'

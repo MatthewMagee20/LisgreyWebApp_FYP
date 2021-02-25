@@ -23,18 +23,14 @@ from LisgreyWebApp_FYP import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('takeaway/', views.get_food_menu_takeaway, name='takeaway'),
-    path('menu/', views.get_food_menu, name='menu'),
-    path('reservation/', views.create_reservation_view, name='reservation'),
     path('accounts/register/', views.register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('update_profile/', views.update_profile, name='profile'),
     path('update_password/', views.update_password, name='update_password'),
-    path('takeaway/basket/', views.basket_view, name='basket'),
-    path('takeaway/basket/update/<int:food_id>', views.update_basket_view, name='update_basket'),
-    path('takeaway/checkout/', views.confirm_order_view, name='confirm_order'),
-    path('staff/takeaway_orders/', views.takeaway_order_view, name='takeaway_orders')
+
+    path('menus/', include('food_menus.urls')),
+    path('reservation/', include('reservations.urls')),
+    path('takeaway/', include('takeaway.urls'))
               ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
