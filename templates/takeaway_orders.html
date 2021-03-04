@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Yuppa</title>
+    <title>Takeaway Orders</title>
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
 </head>
@@ -16,12 +16,12 @@
     {% for takeaways in takeaway_orders %}
         <div class="takeaway-orders-container">
             <h3>Order ID: {{ takeaways.order_id }}</h3>
+            <h5>Order Time: {{ takeaways.date_time }}</h5>
             <table class="table">
                 <tr>
                     <th>Item</th>
                     <th>Quantity</th>
                     <th>Price</th>
-                    <th>Order Time</th>
                     <th>Action</th>
                 </tr>
                 {% for basket_item in basket_items %}
@@ -30,8 +30,13 @@
                             <td>{{ basket_item.menu_item }}</td>
                             <td>{{ basket_item.quantity }}</td>
                             <td>{{ basket_item.menu_item.price }}</td>
-                            <td>{{ takeaways.date_time }}</td>
-                            <td>{{ takeaways.status }}</td>
+                            <td><label>
+                                <select>
+                                    {% for item in form.status %}
+                                        <option value="started">{{ item }}</option>
+                                    {% endfor %}
+                                </select>
+                            </label></td>
                         </tr>
                     {% endif %}
                 {% endfor %}
@@ -41,21 +46,21 @@
     {% endfor %}
 
 </div>
-{#<script>#}
-{#    function autoReload() {#}
-{#        setTimeout(function() {#}
-{#            $.ajax({#}
-{#                url: "{% url 'takeaway_orders' %}",#}
-{#                success: function(data) {#}
-{#                    document.getElementById("takeaway-orders").innerHTML = data;#}
-{#                }#}
-{#            });#}
-{##}
-{#            autoReload();  // calling again after 5 seconds#}
-{#        }, 5000);#}
-{#    }#}
-{##}
-{#    autoReload(); // calling the function for the first time#}
-{#</script>#}
+<script>
+    function autoReload() {
+        setTimeout(function() {
+            $.ajax({
+                url: "{% url 'takeaway_orders' %}",
+                success: function(data) {
+                    document.getElementById("takeaway-orders").innerHTML = data;
+                }
+            });
+
+            autoReload();  // calling again after 5 seconds
+        }, 5000);
+    }
+
+    autoReload(); // calling the function for the first time
+</script>
 </body>
 </html>

@@ -16,15 +16,18 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    <h1>Make a Reservation</h1>
-    {% if user.is_authenticated %}
-        <form action="" method="POST" class="post-form">
-            {% csrf_token %}
-            {{ form | crispy}}
-            <input type="submit" value="Submit">
-        </form>
 
-    {% else %}
-        <p>You must be logged in to make a reservation, login <a href="{% url 'login' %}">here.</a></p>
-    {% endif %}
+    <div class="container">
+        <h2>Make a Reservation</h2>
+        {% if user.is_authenticated %}
+            <form action="" method="POST" class="post-form">
+                {% csrf_token %}
+                {{ form | crispy}}
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Make Reservation">
+            </form>
+
+        {% else %}
+            <p>You must be logged in to make a reservation, login <a href="{% url 'login' %}">here.</a></p>
+        {% endif %}
+    </div>
 {% endblock %}

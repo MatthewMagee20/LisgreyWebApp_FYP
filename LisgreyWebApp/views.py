@@ -4,11 +4,12 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
+from reservations.models import Reservation
+
+from _datetime import datetime
 
 
-
-
-# registration handling
 def register(request):
     if request.method == 'POST':  # if the form has been submitted
         form = UserRegistrationForm(request.POST)  # form bound with post data
@@ -35,7 +36,7 @@ def update_profile(request):
     else:
         user_details_form = UserUpdateForm(instance=request.user)
 
-    return render(request, 'registration/profile.html', {'user_details_form': user_details_form})
+    return render(request, 'account/update_profile.html', {'user_details_form': user_details_form})
 
 
 def update_password(request):
@@ -50,7 +51,25 @@ def update_password(request):
     else:
         password_form = PasswordChangeForm(request.user)
 
-    return render(request, 'registration/change_password.html', {'password_form': password_form})
+    return render(request, 'account/change_password.html', {'password_form': password_form})
 
+
+def profile_view(request):
+    current_user = User.objects.get(id=request.user.id)
+    reservations = Reservation.objects.filter(user_id=current_user)
+    date = Reservation.objects.all()
+
+    # check if date has passed
+    check = datetime.now()
+
+    print(check)
+
+    data = {
+        'user': current_user,
+        'reservations': reservations,
+        'date_check': check
+    }
+
+    return render(request, 'account/profile.html', data)
 
 

@@ -23,14 +23,15 @@ from LisgreyWebApp_FYP import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('update_profile/', views.update_profile, name='update_profile'),
+    path('update_password/', views.update_password, name='update_password'),
+    path('profile/', views.profile_view, name='profile'),
+
     path('accounts/register/', views.register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('update_profile/', views.update_profile, name='profile'),
-    path('update_password/', views.update_password, name='update_password'),
-
     path('menus/', include('food_menus.urls')),
     path('reservation/', include('reservations.urls')),
-    path('takeaway/', include('takeaway.urls'))
-              ]
+    path('takeaway/', include('takeaway.urls')),
+]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

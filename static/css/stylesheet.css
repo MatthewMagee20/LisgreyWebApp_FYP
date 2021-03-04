@@ -4,8 +4,61 @@ html, body {
     padding: 0;
 }
 
-.container{
-    padding: 40px;
+.container{ padding: 10px 15px 50px;}
+
+h2{
+    padding-top: 70px;
+    text-align: center;
+}
+/* Home */
+/*.home{*/
+/*    background-image: url("../images/download.jpg");*/
+/*    height: 100%;*/
+
+/*    !* Center and scale the image nicely *!*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*}*/
+
+
+/*Navbar CSS*/
+.navbar .navbar-nav .nav-link{
+    color: rgb(175, 153, 100);
+}
+
+.navbar-custom{
+    background-color: rgb(47,98,117);
+}
+
+.navbar-custom .navbar-brand{
+    color: rgb(175, 153, 100);
+}
+
+/*Button CSS*/
+.pills-custom .nav-link{
+    color: rgb(175, 153, 100);
+}
+
+.pills-custom .nav-item .active{
+    text-decoration: underline;
+    text-decoration-color: rgb(47,98,117);
+}
+
+/* Takeaway CSS */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.quantity{
+    width: 40px;
+    text-align: center;
 }
 
 .takeaway-orders-container{
@@ -28,3 +81,10 @@ html, body {
 .card_price{
     float: right;
 }
+
+/*custom colours from menu*/
+/*.quantity{*/
+/*    color: rgb(47,98,117);*/
+/*    color: rgb(175, 153, 100);*/
+/*    */
+/*}*/
