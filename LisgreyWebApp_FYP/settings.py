@@ -81,12 +81,12 @@ WSGI_APPLICATION = 'LisgreyWebApp_FYP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'lisgrey-database',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'lisgrey_database',
         'USER': 'postgres',
-        'PASSWORD': 'password!?',
+        'PASSWORD': 'password',
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': '25432'
     }
 }
 
@@ -141,3 +141,11 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+TIME_INPUT_FORMATS = [
+    '%H:%M %p'
+]
+
+DATE_INPUT_FORMATS = [
+    '%d-%m-%Y'
+]

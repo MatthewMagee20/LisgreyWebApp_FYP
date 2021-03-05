@@ -93,7 +93,7 @@ def confirm_order_view(request):
         order.order_id = str(order_id_gen)
         order.save()
 
-    if order.status == "Finished":
+    if order.status == "Started":
         del request.session['basket_id']
         del request.session['item_quantities']
     data = {}
@@ -110,5 +110,14 @@ def takeaway_order_view(request):
         'basket_items': basket_items,
         'form': form,
     }
+
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        yup_id = request.POST.get('order_id')
+
+        update_status = TakeawayOrder.objects.get(order_id=yup_id)
+
+        update_status.status = status
+        update_status.save()
 
     return render(request, 'takeaway_orders.html', data)

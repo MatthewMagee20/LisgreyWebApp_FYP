@@ -13,6 +13,7 @@
                 <a class="nav-link" id="v-pills-dessert-tab" data-toggle="pill" href="#v-pills-dessert" role="tab" aria-controls="v-pills-dessert" aria-selected="false">Dessert</a>
                 <a class="nav-link" id="v-pills-drinks-tab" data-toggle="pill" href="#v-pills-drinks" role="tab" aria-controls="v-pills-drinks" aria-selected="false">Drinks</a>
             </div>
+            <a href="{% url 'basket' %}">Basket: {{ request.session.item_quantities }} items</a>
         </div>
         <div class="pt-5 col-7">
             <div class="text-center">

@@ -5,4 +5,4 @@ from .models import TakeawayOrder
 class TakeawayStatusForm(ModelForm):
     class Meta:
         model = TakeawayOrder
-        fields = ['status']
+        fields = ['order_id', 'status']

@@ -4,10 +4,23 @@ html, body {
     padding: 0;
 }
 
-/* Home */
-.home{
-    background-image: url("./static/images/download.jpg");
+.container{ padding: 10px 15px 50px;}
+
+h2{
+    padding-top: 70px;
+    text-align: center;
 }
+/* Home */
+/*.home{*/
+/*    background-image: url("../images/download.jpg");*/
+/*    height: 100%;*/
+
+/*    !* Center and scale the image nicely *!*/
+/*    background-position: center;*/
+/*    background-repeat: no-repeat;*/
+/*    background-size: cover;*/
+/*}*/
+
 
 /*Navbar CSS*/
 .navbar .navbar-nav .nav-link{
@@ -35,22 +48,17 @@ html, body {
 /* Takeaway CSS */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
 
 .quantity{
     width: 40px;
     text-align: center;
-}
-
-
-.container{
-    padding: 40px;
 }
 
 .takeaway-orders-container{
