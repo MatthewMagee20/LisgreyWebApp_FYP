@@ -1,19 +1,16 @@
+<html lang="en">
 {% load i18n %}
 {% load static %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8">
     <title>Lisgrey House{% block head_title %}{% endblock %} </title>
 
     <!-- JavaScript -->
-    <script type="text/javascript" src="{% static 'js/number_spinner.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/menu_filter.js' %}"></script>
+    <script type="text/javascript" src="/js/menu_filter.js"></script>
     <script type="text/javascript" src="{% static 'js/date_time_picker.js' %}"></script>
 
     <!-- CSS -->

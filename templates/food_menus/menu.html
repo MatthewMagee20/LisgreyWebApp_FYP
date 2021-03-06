@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block extra_header %}
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8">
+{% endblock %}
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
@@ -26,124 +31,125 @@
         </ul>
     </div>
     <div class="container">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="text-center mb-60">
-                <label for="filter_input">Search</label>
-                <input type="text" id="filter_input" onkeyup="filter_menu()">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="text-center mb-60">
+                    <label for="filter_input">Search</label>
+                    <input type="text" id="filter_input" onkeyup="filter_menu()">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-starters" role="tabpanel" aria-labelledby="pills-starters-tab">
-            {% for starter in starters %}
-                <div class="col d-flex justify-content-center mt-4">
-                    <div class="card" style="width:35rem;">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ starter.name }}</span>
-                                <span class="card_price">&euro;{{ starter.price }}</span>
-                            </div>
-                            <div class="card-text-container">
-                                <p>{{ starter.description }}</p>
-                                <p class="card_allergens">{% for a in starter.allergen.all %}{{ a.name }} {% endfor %}</p>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-starters" role="tabpanel" aria-labelledby="pills-starters-tab">
+                {% for starter in starters %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ starter.name }}</span>
+                                    <span class="card_price">&euro;{{ starter.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ starter.description }}</p>
+                                    <p class="card_allergens">{% for a in starter.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
 
-        <div class="tab-pane fade" id="pills-mains" role="tabpanel" aria-labelledby="pills-mains-tab">
-            {% for main in mains %}
-                <div class="col d-flex justify-content-center mt-4">
-                    <div class="card" style="width:35rem;">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ main.name }}</span>
-                                <span class="card_price">&euro;{{ main.price }}</span>
-                            </div>
-                            <div class="card-text-container">
-                                <p>{{ main.description }}</p>
-                                <p class="card_allergens">{% for a in main.allergen.all %}{{ a.name }} {% endfor %}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="tab-pane fade" id="pills-kids" role="tabpanel" aria-labelledby="pills-kids-tab">
-            {% for kids_item in kids_items %}
-                <div class="col d-flex justify-content-center mt-4">
-                    <div class="card" style="width:35rem;">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ kids_item.name }}</span>
-                                <span class="card_price">&euro;{{ kids_item.price }}</span>
-                            </div>
-                            <div class="card-text-container">
-                                <p>{{ kids_item.description }}</p>
-                                <p class="card_allergens">{% for a in kids_item.allergen.all %}{{ a.name }} {% endfor %}</p>
+            <div class="tab-pane fade" id="pills-mains" role="tabpanel" aria-labelledby="pills-mains-tab">
+                {% for main in mains %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ main.name }}</span>
+                                    <span class="card_price">&euro;{{ main.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ main.description }}</p>
+                                    <p class="card_allergens">{% for a in main.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="tab-pane fade" id="pills-sides" role="tabpanel" aria-labelledby="pills-sides-tab">
-            {% for side_order in side_orders %}
-                <div class="col d-flex justify-content-center mt-4">
-                    <div class="card" style="width:35rem;">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ side_order.name }}</span>
-                                <span class="card_price">&euro;{{ side_order.price }}</span>
-                            </div>
-                            <div class="card-text-container">
-                                <p>{{ side_order.description }}</p>
-                                <p class="card_allergens">{% for a in side_order.allergen.all %}{{ a.name }} {% endfor %}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="tab-pane fade" id="pills-dessert" role="tabpanel" aria-labelledby="pills-dessert-tab">
-            {% for dessert in desserts %}
-                <div class="col d-flex justify-content-center mt-4">
-                    <div class="card" style="width:35rem;">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ dessert.name }}</span>
-                                <span class="card_price">&euro;{{ dessert.price }}</span>
-                            </div>
-                            <div class="card-text-container">
-                                <p>{{ dessert.description }}</p>
-                                <p class="card_allergens">{% for a in dessert.allergen.all %}{{ a.name }} {% endfor %}</p>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="pills-kids" role="tabpanel" aria-labelledby="pills-kids-tab">
+                {% for kids_item in kids_items %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ kids_item.name }}</span>
+                                    <span class="card_price">&euro;{{ kids_item.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ kids_item.description }}</p>
+                                    <p class="card_allergens">{% for a in kids_item.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="pills-sides" role="tabpanel" aria-labelledby="pills-sides-tab">
+                {% for side_order in side_orders %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ side_order.name }}</span>
+                                    <span class="card_price">&euro;{{ side_order.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ side_order.description }}</p>
+                                    <p class="card_allergens">{% for a in side_order.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="pills-dessert" role="tabpanel" aria-labelledby="pills-dessert-tab">
+                {% for dessert in desserts %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ dessert.name }}</span>
+                                    <span class="card_price">&euro;{{ dessert.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ dessert.description }}</p>
+                                    <p class="card_allergens">{% for a in dessert.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-        <div class="tab-pane fade" id="pills-drinks" role="tabpanel" aria-labelledby="pills-drinks-tab">
-            {% for drink in drinks %}
-                <div class="col d-flex justify-content-center mt-4">
-                    <div class="card" style="width:35rem;">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ drink.name }}</span>
-                                <span class="card_price">&euro;{{ drink.price }}</span>
-                            </div>
-                            <div class="card-text-container">
-                                <p>{{ drink.description }}</p>
-                                <p class="card_allergens">{% for a in drink.allergen.all %}{{ a.name }} {% endfor %}</p>
+            <div class="tab-pane fade" id="pills-drinks" role="tabpanel" aria-labelledby="pills-drinks-tab">
+                {% for drink in drinks %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ drink.name }}</span>
+                                    <span class="card_price">&euro;{{ drink.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ drink.description }}</p>
+                                    <p class="card_allergens">{% for a in drink.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

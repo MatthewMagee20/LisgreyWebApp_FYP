@@ -10,7 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+import socket
 from pathlib import Path
+
+from whitenoise.storage import CompressedManifestStaticFilesStorage
+
+import docker_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ha64m7sfav*h=w^y@4j!01y64@3gekx^(hed93c6a*)ycgot(*'
+SECRET_KEY = docker_config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -35,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'LisgreyWebApp.apps.LisgreywebappConfig',
+    'LisgreyWebApp',
     'reservations',
     'takeaway',
     'food_menus',
@@ -140,7 +145,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 TIME_INPUT_FORMATS = [
     '%H:%M %p'
@@ -149,3 +154,25 @@ TIME_INPUT_FORMATS = [
 DATE_INPUT_FORMATS = [
     '%d-%m-%Y'
 ]
+
+if socket.gethostname() == "acer":
+    DATABASES["default"]["HOST"] = "localhost"
+    DATABASES["default"]["PORT"] = '25432'
+else:
+    DATABASES["default"]["HOST"] = "lisgrey_database"
+    DATABASES["default"]["PORT"] = '5432'
+
+# Set DEPLOY_SECURE to True only for LIVE deployment
+if docker_config.DEPLOY_SECURE:
+    DEBUG = False
+    TEMPLATES[0]["OPTIONS"]["debug"] = False
+    ALLOWED_HOSTS = ['.matthewmawm.xyz', 'localhost', '142.93.47.106', '127.0.0.1']
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    CORS_ORIGIN_ALLOW_ALL = True
+else:
+    DEBUG = True
+    TEMPLATES[0]["OPTIONS"]["debug"] = True
+    ALLOWED_HOSTS = ['*', ]
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
