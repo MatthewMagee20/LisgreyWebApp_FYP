@@ -1,11 +1,10 @@
 from django.shortcuts import render
 
 # food menu items
-from .models import Allergen, FoodItem
+from .models import FoodItem
 
 
 def get_food_menu(request):
-    allergens = Allergen.objects.all()
     starter_items = FoodItem.objects.filter(category="Starter")
     main_items = FoodItem.objects.filter(category="Main Course")
     kids_menu_items = FoodItem.objects.filter(category="Kiddie Menu")
@@ -14,7 +13,6 @@ def get_food_menu(request):
     drink_items = FoodItem.objects.filter(category="Drinks")
 
     data = {
-        'allergens': allergens,
         'starters': starter_items,
         'mains': main_items,
         'kids_items': kids_menu_items,
@@ -27,7 +25,6 @@ def get_food_menu(request):
 
 
 def get_food_menu_takeaway(request):
-    allergens = Allergen.objects.all()
     starter_items = FoodItem.objects.filter(category="Starter")
     main_items = FoodItem.objects.filter(category="Main Course")
     kids_menu_items = FoodItem.objects.filter(category="Kiddie Menu")
@@ -36,7 +33,6 @@ def get_food_menu_takeaway(request):
     drink_items = FoodItem.objects.filter(category="Drinks")
 
     data = {
-        'allergens': allergens,
         'starters': starter_items,
         'mains': main_items,
         'kids_items': kids_menu_items,

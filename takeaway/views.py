@@ -84,7 +84,8 @@ def confirm_order_view(request):
         basket = Basket.objects.get(id=session_id)
     except KeyError:
         session_id = None
-        return HttpResponseRedirect('/confirm')
+
+        return HttpResponseRedirect('/takeaway/checkout')
 
     order, created = TakeawayOrder.objects.get_or_create(basket=basket)
 
@@ -94,9 +95,14 @@ def confirm_order_view(request):
         order.save()
 
     if order.status == "Started":
+
         del request.session['basket_id']
         del request.session['item_quantities']
-    data = {}
+
+    data = {
+        "order": order
+    }
+
     return render(request, 'confirm_order.html', data)
 
 

@@ -11,11 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 import socket
-from pathlib import Path
-
-from whitenoise.storage import CompressedManifestStaticFilesStorage
-
 import docker_config
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = docker_config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = docker_config.DEPLOY_SECURE
 
 # Application definition
 
@@ -59,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'LisgreyWebApp_FYP.urls'
@@ -86,7 +82,7 @@ WSGI_APPLICATION = 'LisgreyWebApp_FYP.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lisgrey_database',
         'USER': 'postgres',
         'PASSWORD': 'password',
@@ -132,44 +128,41 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = False
+USE_L10N = True
 
 USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-# Add this line to access static files on templates
-STATIC_URL = "/static/"
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 TIME_INPUT_FORMATS = [
     '%H:%M %p'
 ]
 
-DATE_INPUT_FORMATS = [
-    '%d-%m-%Y'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+# Add this line to access static files on templates
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
 ]
+
+# Whitenoise Storage Class  - Apply compression but don’t want the caching behaviour
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 if socket.gethostname() == "acer":
     DATABASES["default"]["HOST"] = "localhost"
-    DATABASES["default"]["PORT"] = '25432'
+    DATABASES["default"]["PORT"] = 25432
 else:
-    DATABASES["default"]["HOST"] = "lisgrey_database"
-    DATABASES["default"]["PORT"] = '5432'
+    DATABASES["default"]["HOST"] = "lisgrey-psql"
+    DATABASES["default"]["PORT"] = 5432
 
 # Set DEPLOY_SECURE to True only for LIVE deployment
 if docker_config.DEPLOY_SECURE:
     DEBUG = False
     TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.matthewmawm.xyz', 'localhost', '142.93.47.106', '127.0.0.1']
+    ALLOWED_HOSTS = ['.matthewmawm.xyz', 'localhost', '138.68.130.143', '127.0.0.1']
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
-    CORS_ORIGIN_ALLOW_ALL = True
 else:
     DEBUG = True
     TEMPLATES[0]["OPTIONS"]["debug"] = True

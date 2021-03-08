@@ -5,8 +5,19 @@ html, body {
     font-family: Verdana, sans-serif;
 }
 
-.container{ padding: 10px 15px 50px;}
+.container{
+    height: 100%;
+    padding: 10px 15px 50px;
+}
 
+.yuppa{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
 h2{
     padding-top: 70px;
     text-align: center;

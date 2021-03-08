@@ -9,3 +9,6 @@ class Reservation(models.Model):
     time = models.TimeField(editable=True)
     people_quantity = models.IntegerField()
     additional_information = models.CharField(null=True, max_length=20)
+
+    def __str__(self):
+        return f"{self.user} | {self.date} | {self.time}"

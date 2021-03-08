@@ -11,6 +11,6 @@ class ReservationForm(ModelForm):
 
         widgets = {
             'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
-            'date': DateInput(attrs={'type': 'datepicker', 'class': 'yup'}),
-            'time': TimeInput(attrs={'class': 'timepicker'})
+            'date': DateInput(attrs={'type': 'datepicker', 'class': 'yup', 'autocomplete': 'off'}),
+            'time': TimeInput(attrs={'class': 'timepicker', 'autocomplete': 'off'})
         }

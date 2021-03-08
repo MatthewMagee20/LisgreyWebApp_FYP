@@ -1,7 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import FoodItem, Allergen
+from .models import FoodItem
 
-admin.site.register(FoodItem)
-admin.site.register(Allergen)
+
+@admin.register(FoodItem)
+class FoodMenuAdmin(admin.ModelAdmin):
+    list_display = ("name", "category", "price", "get_allergen_display")
+    list_filter = ("category",)

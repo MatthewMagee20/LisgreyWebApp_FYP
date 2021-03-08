@@ -56,20 +56,17 @@ def update_password(request):
 
 def profile_view(request):
     current_user = User.objects.get(id=request.user.id)
-    reservations = Reservation.objects.filter(user_id=current_user)
-    date = Reservation.objects.all()
+    reservations = Reservation.objects.filter(user=current_user)
 
     # check if date has passed
     check = datetime.now()
 
     print(check)
+    print(current_user)
 
     data = {
-        'user': current_user,
         'reservations': reservations,
         'date_check': check
     }
 
     return render(request, 'account/profile.html', data)
-
-

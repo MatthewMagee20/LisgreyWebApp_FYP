@@ -53,20 +53,15 @@
                 <div class="tab-pane fade" id="pills-recent-orders" role="tabpanel" aria-labelledby="pills-recent-orders-tab">...</div>
                 <div class="tab-pane fade" id="pills-reservations" role="tabpanel" aria-labelledby="pills-reservations-tab">
                     {% for reservation in reservations %}
-                        {% if reservation.date > date_check.date and reservation.time > date_check.time %}
+                        {% if reservation.date > date_check.date %}
                             <p>{{ reservation.id }}</p>
+                            <p>{{ reservation.date }} @ {{ reservation.time }}</p>
                             <p>{{ reservation.additional_information }}</p>
                             <a href="{% url 'edit_reservation' reservation.id %}">Edit Reservation</a>
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
-
-
 {% endblock %}
