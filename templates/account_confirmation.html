@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm</title>
+</head>
+<body>
+{% if success %}
+    <p>Account Confirmed</p>
+{% else %}
+    <p>Confirm email that has been sent to you</p>
+    <p>Click</p><a href="{{ link }}">here</a>
+{% endif %}
+</body>
+</html>

@@ -1,11 +1,13 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm
-from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from reservations.models import Reservation
+
+from django_email_verification.confirm import send_email
 
 from _datetime import datetime
 
@@ -14,10 +16,10 @@ def register(request):
     if request.method == 'POST':  # if the form has been submitted
         form = UserRegistrationForm(request.POST)  # form bound with post data
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('home')
+            user = form.save()
+            user.is_active = False
+            send_email(user)
+            return render(request, 'account_confirmation.html')
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})

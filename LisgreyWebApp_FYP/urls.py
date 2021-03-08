@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 from LisgreyWebApp import views
 from LisgreyWebApp_FYP import settings
 
+from django_email_verification import urls as email_urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
@@ -32,6 +34,7 @@ urlpatterns = [
     path('menus/', include('food_menus.urls')),
     path('reservation/', include('reservations.urls')),
     path('takeaway/', include('takeaway.urls')),
+    path('email/', include(email_urls))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

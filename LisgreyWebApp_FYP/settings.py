@@ -13,6 +13,7 @@ import os
 import socket
 import docker_config
 from pathlib import Path
+from django.contrib.auth import login
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +42,9 @@ INSTALLED_APPS = [
     'food_menus',
     'crispy_forms',
     'bootstrap4',
-    'corsheaders'
+    'corsheaders',
+    'django_email_verification',  # you have to add this
+
 ]
 
 MIDDLEWARE = [
@@ -169,3 +172,26 @@ else:
     ALLOWED_HOSTS = ['*', ]
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
+
+# Email backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = docker_config.EMAIL
+EMAIL_HOST_PASSWORD = docker_config.PASSWORD
+EMAIL_USE_TLS = True
+
+
+# Email Verification module
+def verified(user):
+    user.is_active = True
+
+
+EMAIL_FROM_ADDRESS = docker_config.EMAIL
+EMAIL_MAIL_SUBJECT = 'Confirm registration'
+EMAIL_MAIL_HTML = 'email_body.html'
+EMAIL_MAIL_PLAIN = 'email_body.txt'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
+EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+EMAIL_VERIFIED_CALLBACK = verified
