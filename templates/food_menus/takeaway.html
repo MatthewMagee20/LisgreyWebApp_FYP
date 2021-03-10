@@ -1,128 +1,144 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    <div class="pt-5 row w-100 h-100">
-        <div class="pt-5 col-5 w-100 h-100" style="border: 1px solid black;">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-starters-tab" data-toggle="pill" href="#v-pills-starters" role="tab" aria-controls="v-pills-starters" aria-selected="true">Starters</a>
-                <a class="nav-link" id="v-pills-mains-tab" data-toggle="pill" href="#v-pills-mains" role="tab" aria-controls="v-pills-mains" aria-selected="false">Mains</a>
-                <a class="nav-link" id="v-pills-kids-tab" data-toggle="pill" href="#v-pills-mains" role="tab" aria-controls="v-pills-kids" aria-selected="false">Kids</a>
-                <a class="nav-link" id="v-pills-sides-tab" data-toggle="pill" href="#v-pills-sides" role="tab" aria-controls="v-pills-sides" aria-selected="false">Sides</a>
-                <a class="nav-link" id="v-pills-dessert-tab" data-toggle="pill" href="#v-pills-dessert" role="tab" aria-controls="v-pills-dessert" aria-selected="false">Dessert</a>
-                <a class="nav-link" id="v-pills-drinks-tab" data-toggle="pill" href="#v-pills-drinks" role="tab" aria-controls="v-pills-drinks" aria-selected="false">Drinks</a>
+    <div class="header-section">
+        <div style="background-image: url('/static/images/dan-gold-4_jhDO54BYg-unsplash.jpg'); background-size: cover; height: 100%">
+            <div class="overlay">
+                <div class="overlay-text">
+                    <h1>Hello</h1>
+                </div>
             </div>
-            <a href="{% url 'basket' %}">Basket: {{ request.session.item_quantities }} items</a>
         </div>
-        <div class="pt-5 col-7">
-            <div class="text-center">
-                <label for="filter_input">Search</label>
-               <input type="text" id="filter_input" onkeyup="filter_menu()">
-            </div>
-            <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-starters" role="tabpanel" aria-labelledby="v-pills-starters-tab">
-                    {% for starter in starters %}
-                        <div class="col d-flex justify-content-center mt-4">
-                            <div class="card" style="width:35rem;">
-                                <div class="card-body">
-                                    <div class="card-heading-container">
-                                        <span class="card_title">{{ starter.name }}</span>
-                                        <span class="card_price">&euro;{{ starter.price }}</span>
-                                    </div>
-                                    <div class="card-text-container">
-                                        <p>{{ starter.description }}</p>
-                                        <p class="card_allergens">{% for a in starter.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                    </div>
-                                    <form method="get" action="{% url 'update_basket' starter.id %}">
-                                        <label for="quantity">Quantity</label>
-                                        <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                        <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                        <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                        <input type="submit" value="Add to Cart">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="tab-pane fade" id="v-pills-mains" role="tabpanel" aria-labelledby="v-pills-mains-tab">
-                    {% for main in mains %}
-                        <div class="col d-flex justify-content-center mt-4">
-                            <div class="card" style="width:35rem;">
-                                <div class="card-body">
-                                    <div class="card-heading-container">
-                                        <span class="card_title">{{ main.name }}</span>
-                                        <span class="card_price">&euro;{{ main.price }}</span>
-                                    </div>
-                                    <div class="card-text-container">
-                                        <p>{{ main.description }}</p>
-                                        <p class="card_allergens">{% for a in main.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                    </div>
-                                    <form method="get" action="{% url 'update_basket' main.id %}">
-                                        <label for="quantity">Quantity</label>
-                                        <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                        <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                        <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                        <input type="submit" value="Add to Cart">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="tab-pane fade" id="v-pills-kids" role="tabpanel" aria-labelledby="v-pills-kids-tab">
-                    {% for kids_item in kids_items %}
-                        <div class="col d-flex justify-content-center mt-4">
-                            <div class="card" style="width:35rem;">
-                                <div class="card-body">
-                                    <div class="card-heading-container">
-                                        <span class="card_title">{{ kids_item.name }}</span>
-                                        <span class="card_price">&euro;{{ kids_item.price }}</span>
-                                    </div>
-                                    <div class="card-text-container">
-                                        <p>{{ kids_item.description }}</p>
-                                        <p class="card_allergens">{% for a in kids_item.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                    </div>
-                                    <form method="get" action="{% url 'update_basket' kids_item.id %}">
-                                        <label for="quantity">Quantity</label>
-                                        <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                        <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                        <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                        <input type="submit" value="Add to Cart">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+    </div>
+    <div class="text-center">
+        <h1>Choose Menu Category</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-starters-tab" data-toggle="pill" href="#pills-starters" role="tab" aria-controls="pills-starters" aria-selected="true">Starters</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-mains-tab" data-toggle="pill" href="#pills-mains" role="tab" aria-controls="pills-mains" aria-selected="false">Main Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-kids-tab" data-toggle="pill" href="#pills-kids" role="tab" aria-controls="pills-kids" aria-selected="false">Kids Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-sides-tab" data-toggle="pill" href="#pills-sides" role="tab" aria-controls="pills-sides" aria-selected="false">Side Orders</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-dessert-tab" data-toggle="pill" href="#pills-dessert" role="tab" aria-controls="pills-dessert" aria-selected="false">Desserts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-drinks-tab" data-toggle="pill" href="#pills-drinks" role="tab" aria-controls="pills-drinks" aria-selected="false">Drinks</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="text-center">
+                    <div class="input-group">
+                        <label for="example-search-input"></label><label for="filter_input"></label><input onkeyup="filter_menu()" class="form-control py-2 border-right-0 border" type="search" value="search" id="filter_input">
+                        <span class="input-group-append"><div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div></span>
+                    </div>
+                    <div class="pt-4">
+                        <a href="{% url 'basket' %}">Basket: {{ request.session.item_quantities }} items <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+                    </div>
                 </div>
 
-                <div class="tab-pane fade" id="v-pills-sides" role="tabpanel" aria-labelledby="v-pills-sides-tab">
-                    {% for side_order in side_orders %}
-                        <div class="col d-flex justify-content-center mt-4">
-                            <div class="card" style="width:35rem;">
-                                <div class="card-body">
-                                    <div class="card-heading-container">
-                                        <span class="card_title">{{ side_order.name }}</span>
-                                        <span class="card_price">&euro;{{ side_order.price }}</span>
-                                    </div>
-                                    <div class="card-text-container">
-                                        <p>{{ side_order.description }}</p>
-                                        <p class="card_allergens">{% for a in side_order.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                    </div>
-                                    <form method="get" action="{% url 'update_basket' side_order.id %}">
-                                        <label for="quantity">Quantity</label>
-                                        <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                        <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                        <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                        <input type="submit" value="Add to Cart">
-                                    </form>
+            </div>
+        </div>
+        <div class="p-4 tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-starters" role="tabpanel" aria-labelledby="pills-starters-tab">
+                {% for starter in starters %}
+                    {% if forloop.first %}<div class="pt-2 row">{% endif %}
+                <div class="pt-2 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ starter.name }}</span>
+                                <span class="card_price">&euro;{{ starter.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ starter.description }}</p>
+                                <p class="card_allergens">{{ starter.allergen }}</p>
+                            </div>
+                            <form method="get" action="{% url 'update_basket' starter.id %}">
+                                <label for="quantity">Quantity</label>
+                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
+                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                <input type="submit" value="Add to Cart">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
+                {% if forloop.last %}</div>{% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="tab-pane fade" id="pills-mains" role="tabpanel" aria-labelledby="pills-mains-tab">
+                {% for main in mains %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ main.name }}</span>
+                                    <span class="card_price">&euro;{{ main.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ main.description }}</p>
+                                    <p class="card_allergens">{% for a in main.allergen %}{{ a }} {% endfor %}</p>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
-                <div class="tab-pane fade" id="v-pills-dessert" role="tabpanel" aria-labelledby="v-pills-dessert-tab">  {% for dessert in desserts %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="pills-kids" role="tabpanel" aria-labelledby="pills-kids-tab">
+                {% for kids_item in kids_items %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ kids_item.name }}</span>
+                                    <span class="card_price">&euro;{{ kids_item.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ kids_item.description }}</p>
+                                    <p class="card_allergens">{% for a in kids_item.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="pills-sides" role="tabpanel" aria-labelledby="pills-sides-tab">
+                {% for side_order in side_orders %}
+                    <div class="col d-flex justify-content-center mt-4">
+                        <div class="card" style="width:35rem;">
+                            <div class="card-body">
+                                <div class="card-heading-container">
+                                    <span class="card_title">{{ side_order.name }}</span>
+                                    <span class="card_price">&euro;{{ side_order.price }}</span>
+                                </div>
+                                <div class="card-text-container">
+                                    <p>{{ side_order.description }}</p>
+                                    <p class="card_allergens">{% for a in side_order.allergen.all %}{{ a.name }} {% endfor %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="pills-dessert" role="tabpanel" aria-labelledby="pills-dessert-tab">
+                {% for dessert in desserts %}
                     <div class="col d-flex justify-content-center mt-4">
                         <div class="card" style="width:35rem;">
                             <div class="card-body">
@@ -134,19 +150,14 @@
                                     <p>{{ dessert.description }}</p>
                                     <p class="card_allergens">{% for a in dessert.allergen.all %}{{ a.name }} {% endfor %}</p>
                                 </div>
-                                <form method="get" action="{% url 'update_basket' dessert.id %}">
-                                    <label for="quantity">Quantity</label>
-                                    <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                    <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                    <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                    <input type="submit" value="Add to Cart">
-                                </form>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                </div>
-                <div class="tab-pane fade" id="v-pills-drinks" role="tabpanel" aria-labelledby="v-pills-drinks-tab"> {% for drink in drinks %}
+            </div>
+
+            <div class="tab-pane fade" id="pills-drinks" role="tabpanel" aria-labelledby="pills-drinks-tab">
+                {% for drink in drinks %}
                     <div class="col d-flex justify-content-center mt-4">
                         <div class="card" style="width:35rem;">
                             <div class="card-body">
@@ -158,18 +169,10 @@
                                     <p>{{ drink.description }}</p>
                                     <p class="card_allergens">{% for a in drink.allergen.all %}{{ a.name }} {% endfor %}</p>
                                 </div>
-                                <form method="get" action="{% url 'update_basket' drink.id %}">
-                                    <label for="quantity">Quantity</label>
-                                    <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                    <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                    <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                    <input type="submit" value="Add to Cart">
-                                </form>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                </div>
             </div>
         </div>
     </div>

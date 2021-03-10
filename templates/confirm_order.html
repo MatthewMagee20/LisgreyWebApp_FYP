@@ -5,11 +5,10 @@
 
 {% block body_content %}
 <div class="container text-center">
-    <div class="yuppa">
+    <div class="custom-center">
         <h1>Thank you for your order!</h1>
         <h3>Your order ID is: {{ order.order_id }}</h3>
         <a href="{% url 'home' %}" class="btn btn-primary btn-lg btn-block">Home</a>
     </div>
-
 </div>
 {% endblock %}

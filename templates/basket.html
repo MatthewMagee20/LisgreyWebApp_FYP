@@ -4,24 +4,25 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    <h1>Basket</h1>
-    <table class="table">
-        <tr>
-            <td>Item</td>
-            <td>Quantity</td>
-            <td>Price</td>
-            <td>Action</td>
-        </tr>
-        {% for i in basket.basketitem_set.all %}
+    <div class="container">
+        <h2>Basket</h2>
+        <table class="table">
             <tr>
-                <td>{{ i.menu_item.name }}</td>
-                <td>{{ i.quantity }}</td>
-                <td>{{ i.menu_item.price }}</td>
-                <td><a href="{% url 'update_basket' i.menu_item.id  %}?quantity=0">Remove item</a></td>
+                <td>Item</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td>Action</td>
             </tr>
-        {% endfor %}
-    </table>
-
-    <h1>{{ basket.total }}</h1>
-    <h1><a href="{% url 'confirm_order' %}">Confirm Order</a></h1>
+            {% for i in basket.basketitem_set.all %}
+                <tr>
+                    <td>{{ i.menu_item.name }}</td>
+                    <td>{{ i.quantity }}</td>
+                    <td>{{ i.menu_item.price }}</td>
+                    <td><a href="{% url 'update_basket' i.menu_item.id  %}?quantity=0"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h2>Total Price: {{ basket.total }}</h2>
+        <a href="{% url 'confirm_order' %}" class="btn btn-primary btn-lg btn-block" type="submit">Confirm</a>
+    </div>
 {% endblock %}

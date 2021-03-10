@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'corsheaders',
-    'django_email_verification',  # you have to add this
+    'django_email_verification',  # you have to a_rdd this
 
 ]
 
@@ -148,8 +148,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-
-# Whitenoise Storage Class  - Apply compression but don’t want the caching behaviour
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 if socket.gethostname() == "acer":

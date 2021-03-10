@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm
-from django.contrib.auth import update_session_auth_hash, login
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from reservations.models import Reservation
+from .models import Image
 
 from django_email_verification.confirm import send_email
 
@@ -41,6 +42,7 @@ def update_profile(request):
     return render(request, 'account/update_profile.html', {'user_details_form': user_details_form})
 
 
+@login_required
 def update_password(request):
     if request.method == 'POST':
         password_form = PasswordChangeForm(request.user, request.POST)
@@ -56,6 +58,7 @@ def update_password(request):
     return render(request, 'account/change_password.html', {'password_form': password_form})
 
 
+@login_required
 def profile_view(request):
     current_user = User.objects.get(id=request.user.id)
     reservations = Reservation.objects.filter(user=current_user)
@@ -72,3 +75,13 @@ def profile_view(request):
     }
 
     return render(request, 'account/profile.html', data)
+
+
+def gallery_view(request):
+    images = Image.objects.all()
+
+    data = {
+        "images": images,
+    }
+
+    return render(request, 'gallery.html', data)

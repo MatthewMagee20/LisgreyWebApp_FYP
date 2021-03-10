@@ -9,6 +9,7 @@ function filter_menu() {
             const value = card_title.innerText.toUpperCase();
             if(value.indexOf(input) > -1){
                 card[i].style.display = "";
+                card[i].style.widget = "100%";
             }
             else{
                 card[i].style.display = "none";

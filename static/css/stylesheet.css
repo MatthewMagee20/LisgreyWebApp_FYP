@@ -2,15 +2,51 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
+/*Navbar CSS*/
+.navbar .navbar-nav .nav-link{
+    color: #8c8342;
+    font-size: 18px ;
+}
+
+.navbar-custom{
+    background-color: #39606F;
+}
+
+.navbar-custom .navbar-brand{
+    color: #8C8342;
+}
+
+.navbar-nav > li{
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+/*Home page CSS*/
+.home::after{
+    content: "";
+    background-size: cover;
+    background:
+            linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+            );
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 .container{
     height: 100%;
-    padding: 10px 15px 50px;
+    width: 100%;
 }
 
-.yuppa{
+.custom-center{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -18,9 +54,41 @@ html, body {
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
 }
+
 h2{
     padding-top: 70px;
     text-align: center;
+}
+
+.carousel-inner{
+    height: 400px;
+    width: 400px;
+    max-width:400px;
+    max-height:400px !important;
+}
+
+.carousel{
+    border: 1px solid black;
+}
+
+img{
+    height: 400px;
+    width: 400px;
+    max-width:400px;
+    max-height:400px !important;
+}
+
+.carousel-control-prev{
+    margin-left: -40px;
+
+}
+.carousel-control-next{
+    margin-right: -40px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    filter: invert(1);
 }
 /* Home */
 /*.home{*/
@@ -34,27 +102,16 @@ h2{
 /*}*/
 
 
-/*Navbar CSS*/
-.navbar .navbar-nav .nav-link{
-    color: rgb(175, 153, 100);
-}
 
-.navbar-custom{
-    background-color: rgb(47,98,117);
-}
-
-.navbar-custom .navbar-brand{
-    color: rgb(175, 153, 100);
-}
 
 /*Button CSS*/
 .pills-custom .nav-link{
-    color: rgb(175, 153, 100);
+    color: #8C8342;
 }
 
 .pills-custom .nav-item .active{
     text-decoration: underline;
-    text-decoration-color: rgb(47,98,117);
+    text-decoration-color: #39606F;
 }
 
 /* Takeaway CSS */
@@ -78,6 +135,7 @@ input[type=number] {
     border: 1px solid black;
 }
 
+/* Card CSS */
 .card-heading-container{
     display: inline;
 }
@@ -94,9 +152,64 @@ input[type=number] {
     float: right;
 }
 
-/*custom colours from menu*/
-/*.quantity{*/
-/*    color: rgb(47,98,117);*/
-/*    color: rgb(175, 153, 100);*/
-/*    */
+.category-heading{
+    padding-bottom: 5px;
+    display: inline-block;
+    position: relative;
+}
+
+/*.section-head{*/
+/*    width: 100%;*/
+/*    height: 30%;*/
+
 /*}*/
+/*.section-image:before{*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    right: 0;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    content: "";*/
+/*    opacity: .5;*/
+/*    background-color: #000;*/
+/*}*/
+
+.header-section {
+    height: 30%;
+}
+
+.overlay{
+    height: 100%;
+    background:
+            linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+            );
+}
+
+.custom-container{
+    height: 100%;
+    width: 100%;
+}
+
+.white-text{
+    color: white;
+}
+
+.button-container{
+    width: 40%;
+}
+.home-page-button{
+    background: none;
+    color: #8C8342;
+    border: 1px solid #8C8342;
+}
+
+.reservation-uc{
+    text-transform: uppercase;
+}
+/*colour*/
+
+/**/
+
+/*#39606F*/

@@ -4,16 +4,22 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 # Create your views here.
+import string
+import random
 
 
 # create reservation
 def create_reservation_view(request):
+    res_id_gen = ''.join(random.choices(string.digits + string.ascii_lowercase, k=7))
+
     if request.method == 'POST' or None:
         reservation_form = ReservationForm(request.POST or None)
 
         if reservation_form.is_valid():
-            reservation_form.save()
-            reservation_form.customer = request.user
+            r = reservation_form.save(commit=False)
+            r.user = request.user
+            r.id = res_id_gen
+            r.save()
             return HttpResponseRedirect('/')
 
         else:

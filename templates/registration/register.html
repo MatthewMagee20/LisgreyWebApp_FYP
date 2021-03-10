@@ -7,12 +7,13 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    <div class="container">
+    <div class="pt-2 pb-5 container">
         <h2>Register</h2>
         <form method="post" class="col-lg-6 offset-lg-3">
             {% csrf_token %}
             {{ form|crispy }}
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Register">
         </form>
+        <br><br>
     </div>
 {% endblock %}

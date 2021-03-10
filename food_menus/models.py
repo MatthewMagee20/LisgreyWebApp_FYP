@@ -28,14 +28,6 @@ ALLERGENS = (
 )
 
 
-# # Create your models here.
-# class Allergen(models.Model):
-#     name = models.CharField(max_length=50)
-#
-#     def __str__(self):
-#         return f"{self.name}"
-
-
 class FoodItem(models.Model):
     category = models.CharField(max_length=120, choices=CATEGORIES, default="Started")
     name = models.CharField(max_length=50)

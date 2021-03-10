@@ -6,8 +6,8 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
+    <h2>Make a Reservation</h2>
     <div class="container">
-        <h2>Make a Reservation</h2>
         {% if user.is_authenticated %}
             <form action="" method="POST" class="post-form">
                 {% csrf_token %}
@@ -16,7 +16,7 @@
             </form>
             </div>
         {% else %}
-            <div class="container text-center">
+            <div class = "custom-center text-center">
                 <p>You must be logged in to make a reservation, login <a href="{% url 'login' %}">here.</a></p>
             </div>
         {% endif %}

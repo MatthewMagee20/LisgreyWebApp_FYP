@@ -28,8 +28,10 @@ urlpatterns = [
     path('update_profile/', views.update_profile, name='update_profile'),
     path('update_password/', views.update_password, name='update_password'),
     path('profile/', views.profile_view, name='profile'),
-
+    # path('contact/', TemplateView.as_view(template_name='gallery.html'), name='contact'),
+    path('gallery/', views.gallery_view, name='gallery'),
     path('accounts/register/', views.register, name='register'),
+
     path('accounts/', include('django.contrib.auth.urls')),
     path('menus/', include('food_menus.urls')),
     path('reservation/', include('reservations.urls')),

@@ -9,8 +9,7 @@ MAINTAINER Mark Foley
 
 # Run a series of Linux commands to ensure that
 # 1. Everything is up-to-date and
-# 2. Install GDAL
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install libgdal-dev
+RUN apt-get -y update && apt-get -y upgrade
 
 # Make a working directoir in the image and set it as working dir.
 RUN mkdir -p /usr/src/app
