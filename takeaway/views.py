@@ -7,7 +7,7 @@ import random
 
 from food_menus.models import FoodItem
 from .models import Basket, BasketItem, TakeawayOrder
-from .forms import TakeawayStatusForm
+from .forms import TakeawayStatusForm, TakeawayOrderUserForm
 
 
 def basket_view(request):
@@ -15,6 +15,7 @@ def basket_view(request):
         session_id = request.session['basket_id']
     except KeyError:
         session_id = None
+
     if session_id:
         basket = Basket.objects.get(id=session_id)
 
@@ -26,7 +27,40 @@ def basket_view(request):
             "basket_is_empty": True
         }
 
-    return render(request, 'basket.html', data)
+    return render(request, 'takeaway/basket.html', data)
+
+
+def confirm_order_user_details_view(request):
+    try:
+        session_id = request.session['basket_id']
+        basket = Basket.objects.get(id=session_id)
+    except KeyError:
+        session_id = None
+
+        return HttpResponseRedirect('/takeaway/checkout')
+
+    if request.method == 'POST' or None:
+        uf = TakeawayOrderUserForm(request.POST or None)
+
+        if uf.is_valid():
+            u = uf.save(commit=False)
+            order_id_gen = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
+            u.order_id = str(order_id_gen)
+            u.basket_id = basket.id
+            u.save()
+
+            if u.status == "Started":
+                del request.session['basket_id']
+                del request.session['item_quantities']
+
+            return render(request, 'takeaway/confirm_order.html', {'u': u})
+
+        else:
+            return render(request, 'takeaway/takeaway_order_user_details.html', {'form': uf})
+
+    else:
+        user_form = TakeawayOrderUserForm()
+        return render(request, 'takeaway/takeaway_order_user_details.html', {'form': user_form})
 
 
 def update_basket_view(request, food_id):
@@ -95,7 +129,6 @@ def confirm_order_view(request):
         order.save()
 
     if order.status == "Started":
-
         del request.session['basket_id']
         del request.session['item_quantities']
 
@@ -103,7 +136,7 @@ def confirm_order_view(request):
         "order": order
     }
 
-    return render(request, 'confirm_order.html', data)
+    return render(request, 'takeaway/confirm_order.html', data)
 
 
 def takeaway_order_view(request):
@@ -126,4 +159,4 @@ def takeaway_order_view(request):
         update_status.status = status
         update_status.save()
 
-    return render(request, 'takeaway_orders.html', data)
+    return render(request, 'takeaway/takeaway_orders.html', data)

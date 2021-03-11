@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block nav_title %}Lisgrey House{% endblock %}
@@ -23,6 +25,6 @@
             {% endfor %}
         </table>
         <h2>Total Price: {{ basket.total }}</h2>
-        <a href="{% url 'confirm_order' %}" class="btn btn-primary btn-lg btn-block" type="submit">Confirm</a>
+        <a href="{% url 'user_confirm' %}" class="btn btn-primary btn-lg btn-block" type="submit">Confirm</a>
     </div>
 {% endblock %}

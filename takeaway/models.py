@@ -31,7 +31,8 @@ CHOICES = (
 
 
 class TakeawayOrder(models.Model):
-    user = models.ForeignKey(get_user_model(), blank=True, on_delete=models.CASCADE, default=1)
+    full_name = models.CharField(max_length=120)
+    contact_phone = models.CharField(max_length=50, null=False)
     order_id = models.CharField(max_length=120, unique=True, default='ABC')
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
     date_time = models.DateTimeField(auto_now_add=True)

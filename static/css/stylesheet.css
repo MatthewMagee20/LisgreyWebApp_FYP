@@ -203,6 +203,7 @@ input[type=number] {
     background: none;
     color: #8C8342;
     border: 1px solid #8C8342;
+    padding: 5px 10px 5px 25px;
 }
 
 .reservation-uc{
