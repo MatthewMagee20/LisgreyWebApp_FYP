@@ -17,7 +17,8 @@ def create_reservation_view(request):
 
         if reservation_form.is_valid():
             r = reservation_form.save(commit=False)
-            r.user = request.user
+            if request.user.is_authenticated:
+                r.first_name = request.user.first_name
             r.id = res_id_gen
             r.save()
             return HttpResponseRedirect('/')
@@ -38,7 +39,6 @@ def nu_create_reservation_view(request):
 
         if reservation_form.is_valid():
             r = reservation_form.save(commit=False)
-            r.user = request.user
             r.id = res_id_gen
             r.save()
             return HttpResponseRedirect('/')

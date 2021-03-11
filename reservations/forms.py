@@ -18,7 +18,7 @@ class ReservationForm(ModelForm):
 class NuReservationForm(ModelForm):
     class Meta:
         model = Reservation
-        fields = ['full_name', 'contact_phone', 'date', 'time', 'people_quantity', 'additional_information']
+        fields = ['first_name', 'last_name', 'contact_phone', 'date', 'time', 'people_quantity', 'additional_information']
 
         widgets = {
             'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
