@@ -1,4 +1,4 @@
-from .forms import ReservationForm
+from .forms import ReservationForm, NuReservationForm
 from .models import Reservation
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -27,6 +27,27 @@ def create_reservation_view(request):
 
     else:
         reservation_form = ReservationForm()
+        return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
+
+
+def nu_create_reservation_view(request):
+    res_id_gen = ''.join(random.choices(string.digits + string.ascii_lowercase, k=7))
+
+    if request.method == 'POST' or None:
+        reservation_form = NuReservationForm(request.POST or None)
+
+        if reservation_form.is_valid():
+            r = reservation_form.save(commit=False)
+            r.user = request.user
+            r.id = res_id_gen
+            r.save()
+            return HttpResponseRedirect('/')
+
+        else:
+            return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
+
+    else:
+        reservation_form = NuReservationForm()
         return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
 
 

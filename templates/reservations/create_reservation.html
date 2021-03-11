@@ -7,16 +7,10 @@
 {% block body_content %}
     <h2>Make a Reservation</h2>
     <div class="container">
-        {% if user.is_authenticated %}
             <form method="POST" class="post-form">
                 {% csrf_token %}
                 {{ form | crispy}}
-                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Make Reservation">
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Confirm">
             </form>
             </div>
-        {% else %}
-            <div class = "custom-center text-center">
-                <p>You must be logged in to make a reservation, login <a href="{% url 'login' %}">here.</a></p>
-            </div>
-        {% endif %}
 {% endblock %}

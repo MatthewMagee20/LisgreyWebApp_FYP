@@ -1,16 +1,15 @@
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm
+from _datetime import datetime
+
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
-from reservations.models import Reservation
-from .models import Image
-
+from django.shortcuts import render, redirect
 from django_email_verification.confirm import send_email
 
-from _datetime import datetime
+from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm
+from reservations.models import Reservation
+from .models import Image
 
 
 def register(request):

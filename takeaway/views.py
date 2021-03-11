@@ -82,7 +82,6 @@ def update_basket_view(request, food_id):
 
     basket = Basket.objects.get(id=session_id)
     item = FoodItem.objects.get(id=food_id)
-    # print("item: " + str(item))
 
     basket_item, created = BasketItem.objects.get_or_create(basket=basket, menu_item=item)
 

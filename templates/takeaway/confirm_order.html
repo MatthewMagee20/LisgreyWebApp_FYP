@@ -9,6 +9,7 @@
         <h1>Thank you for your order!</h1>
         <h3>Your order ID is: {{ u.order_id }}</h3>
         <a href="{% url 'home' %}" class="btn btn-primary btn-lg btn-block">Home</a>
+        <p>Dont have an Account? Create one <a href="{% url 'register' %}">here</a>.</p>
     </div>
 </div>
 {% endblock %}
