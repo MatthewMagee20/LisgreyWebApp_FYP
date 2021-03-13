@@ -1,8 +1,10 @@
 from django.db import models
+from LisgreyWebApp.models import UserProfile
 
 
 # Create your models here.
 class Reservation(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=100, editable=True)
     last_name = models.CharField(max_length=100, editable=True)
     contact_phone = models.CharField(max_length=50, null=False)

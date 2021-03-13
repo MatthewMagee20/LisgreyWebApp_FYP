@@ -3,11 +3,10 @@ from _datetime import datetime
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django_email_verification.confirm import send_email
 
-from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm
+from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm, UserProfile
 from reservations.models import Reservation
 from .models import Image
 
@@ -18,6 +17,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             user.is_active = False
+
             send_email(user)
             return render(request, 'account_confirmation.html')
     else:
@@ -59,7 +59,7 @@ def update_password(request):
 
 @login_required
 def profile_view(request):
-    current_user = User.objects.get(id=request.user.id)
+    current_user = UserProfile.objects.get(id=request.user.id)
     reservations = Reservation.objects.filter(user=current_user)
 
     # check if date has passed
@@ -84,3 +84,13 @@ def gallery_view(request):
     }
 
     return render(request, 'gallery.html', data)
+
+
+def gallery_view_home(request):
+    images = Image.objects.all()
+
+    data = {
+        "images": images,
+    }
+
+    return render(request, 'home.html', data)

@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'corsheaders',
-    'django_email_verification',  # you have to a_rdd this
-
+    'django_email_verification',  # you have to add this
+    'pwa',
+    'contact'
 ]
 
 MIDDLEWARE = [
@@ -146,7 +147,7 @@ TIME_INPUT_FORMATS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static/"),
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
@@ -172,12 +173,13 @@ else:
     SESSION_COOKIE_SECURE = False
 
 # Email backend
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = docker_config.EMAIL
 EMAIL_HOST_PASSWORD = docker_config.PASSWORD
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = docker_config.EMAIL
 
 
 # Email Verification module
@@ -195,3 +197,33 @@ EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
 EMAIL_VERIFIED_CALLBACK = verified
 
 AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
+
+# PWA Settings
+PWA_APP_NAME = 'My App'
+PWA_APP_DESCRIPTION = "My app description"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/icons/icon-152x152.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/images/icons/icon-152x152.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/icons/splash-640x1136.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'

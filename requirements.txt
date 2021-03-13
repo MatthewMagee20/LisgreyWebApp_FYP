@@ -10,6 +10,7 @@ django-cors-headers==3.7.0
 django-crispy-forms==1.10.0
 django-email-verification==0.1.0
 django-multiselectfield==0.1.12
+django-pwa==1.0.10
 Django-Verify-Email==0.0.5
 gunicorn==20.0.4
 Pillow==8.1.2
