@@ -151,18 +151,18 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-if socket.gethostname() == "acer":
-    DATABASES["default"]["HOST"] = "localhost"
+if socket.gethostname() == "acer":                          # if development on local machine
+    DATABASES["default"]["HOST"] = "localhost"              # connect to local database on port 25432
     DATABASES["default"]["PORT"] = 25432
-else:
-    DATABASES["default"]["HOST"] = "lisgrey-psql"
+else:                                                       # if production
+    DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
     DATABASES["default"]["PORT"] = 5432
 
 # Set DEPLOY_SECURE to True only for LIVE deployment
-if docker_config.DEPLOY_SECURE:
-    DEBUG = False
+if docker_config.DEPLOY_SECURE:                             # if config.py DEPLOY_SECURE = True
+    DEBUG = False                                           # Turn Debug mode off
     TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.matthewmawm.xyz', 'localhost', '138.68.130.143', '127.0.0.1']
+    ALLOWED_HOSTS = ['.matthewmawm.xyz', 'localhost', '138.68.130.143', '127.0.0.1']    # Hosts allowed
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 else:
@@ -199,8 +199,8 @@ EMAIL_VERIFIED_CALLBACK = verified
 AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 
 # PWA Settings
-PWA_APP_NAME = 'My App'
-PWA_APP_DESCRIPTION = "My app description"
+PWA_APP_NAME = 'Lisgrey House'
+PWA_APP_DESCRIPTION = "Lisgrey House"
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'
@@ -211,7 +211,7 @@ PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
         'src': '/static/images/icons/icon-152x152.png',
-        'sizes': '160x160'
+        'sizes': '152x152'
     }
 ]
 PWA_APP_ICONS_APPLE = [
@@ -227,3 +227,5 @@ PWA_APP_SPLASH_SCREEN = [
     }
 ]
 PWA_APP_DIR = 'ltr'
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')

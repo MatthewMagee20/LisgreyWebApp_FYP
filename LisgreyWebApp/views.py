@@ -11,6 +11,26 @@ from reservations.models import Reservation
 from .models import Image
 
 
+# PWA page
+# def pwa_home_view(request):
+#     return render(request, 'offline/home.html')
+#
+#
+# def pwa_menu_view(request):
+#     return render(request, 'offline/menu.html')
+
+def base(request):
+    return render(request, 'base.html')
+
+
+def home(request):
+    return render(request, 'home.html')
+
+
+def bs(request):
+    return render(request, )
+
+
 def register(request):
     if request.method == 'POST':  # if the form has been submitted
         form = UserRegistrationForm(request.POST)  # form bound with post data

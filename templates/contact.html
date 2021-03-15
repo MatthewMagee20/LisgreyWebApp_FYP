@@ -6,7 +6,7 @@
 
 {% block body_content %}
     <div class="pt-5 container">
-        <h1>Contact Us</h1>
+        <h1 class="text-center">Contact Us</h1>
         <form method="post">
             {% csrf_token %}
             {{ form | crispy }}
