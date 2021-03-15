@@ -187,14 +187,14 @@ def verified(user):
     user.is_active = True
 
 
-EMAIL_FROM_ADDRESS = docker_config.EMAIL
-EMAIL_MAIL_SUBJECT = 'Confirm registration'
-EMAIL_MAIL_HTML = 'email_body.html'
-EMAIL_MAIL_PLAIN = 'email_body.txt'
-EMAIL_TOKEN_LIFE = 60 * 60
-EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
-EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
-EMAIL_VERIFIED_CALLBACK = verified
+# EMAIL_FROM_ADDRESS = docker_config.EMAIL
+# EMAIL_MAIL_SUBJECT = 'Confirm registration'
+# EMAIL_MAIL_HTML = 'email_body.html'
+# EMAIL_MAIL_PLAIN = 'email_body.txt'
+# EMAIL_TOKEN_LIFE = 60 * 60
+# EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
+# EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+# EMAIL_VERIFIED_CALLBACK = verified
 
 AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 

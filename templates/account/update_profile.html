@@ -12,7 +12,7 @@
             {% csrf_token %}
             {{ user_details_form | crispy}}
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Update">
-            <p>To change password, go<a href="{% url 'password_reset' %}"> here</a>.</p>
+            <p>To change password, go<a href="{% url 'update_password' %}"> here</a>.</p>
         </form>
     </div>
 {% endblock %}

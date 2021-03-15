@@ -27,10 +27,6 @@ def home(request):
     return render(request, 'home.html')
 
 
-def bs(request):
-    return render(request, )
-
-
 def register(request):
     if request.method == 'POST':  # if the form has been submitted
         form = UserRegistrationForm(request.POST)  # form bound with post data
