@@ -1,0 +1,55 @@
+<html lang="en">
+{% load i18n %}
+{% load static %}
+{% load bootstrap4 %}
+{% load pwa %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+<head>
+    {% progressive_web_app_meta %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="utf-8">
+    <title>Lisgrey House{% block head_title %}{% endblock %} </title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<div id="body_div width: 100%">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-custom navbar-dark ">
+        <strong><a class="navbar-brand" href="{% url 'home' %}">Lisgrey House</a></strong>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'staff_reservation' %}">Reservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'staff_takeaway_orders' %}">Takeaway Orders</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div>
+        {% block body_content %}
+
+        {% endblock %}
+        {#        <footer class="text-center">#}
+        {#            <p>Created By Matthew Magee 2021</p>#}
+        {#        </footer>#}
+    </div>
+</div>
+{% block extra_footer %}{% endblock %}
+</body>
+
+</html>

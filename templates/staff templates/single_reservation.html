@@ -1,0 +1,17 @@
+{% extends 'staff templates/staff_base.html' %}
+{% load crispy_forms_filters %}
+
+{% load static %}
+
+{% block nav_title %}Lisgrey House{% endblock %}
+
+{% block body_content %}
+    <div class="pt-5 pb-5 container">
+        <h1 class="text-center">Update</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ update_reservation_form | crispy }}
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Update">
+        </form>
+    </div>
+{% endblock %}

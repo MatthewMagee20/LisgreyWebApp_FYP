@@ -1,0 +1,26 @@
+{% extends 'staff templates/staff_base.html' %}
+
+{% load static %}
+
+{% block nav_title %}Lisgrey House{% endblock %}
+
+{% block body_content %}
+    <div class="pt-5 custom-container">
+        <table class="table">
+            <tr>
+                <th>Reservation ID</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+            {% for reservation in data %}
+                <tr>
+                    <td><a href="{% url 'staff_detail_reservation' reservation.id %}">{{ reservation.id }}</a></td>
+                    <td>{{ reservation.status}}</td>
+                    <td>{{ reservation.date}}</td>
+                    <td>{{ reservation.time}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
