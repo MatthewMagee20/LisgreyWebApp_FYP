@@ -1,11 +1,13 @@
-from .forms import ReservationForm, NuReservationForm
-from .models import Reservation
+import random
+# Create your views here.
+import string
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-# Create your views here.
-import string
-import random
+from LisgreyWebApp.models import UserProfile
+from .forms import ReservationForm, NuReservationForm
+from .models import Reservation
 
 
 # create reservation
@@ -14,11 +16,14 @@ def create_reservation_view(request):
 
     if request.method == 'POST' or None:
         reservation_form = ReservationForm(request.POST or None)
-
+        c_user = UserProfile.objects.get(id=request.user.id)
         if reservation_form.is_valid():
             r = reservation_form.save(commit=False)
             if request.user.is_authenticated:
-                r.first_name = request.user.first_name
+                r.first_name = c_user.first_name
+                r.last_name = c_user.last_name
+                r.email = c_user.email
+                r.contact_phone = c_user.contact_phone
             r.id = res_id_gen
             r.save()
             return HttpResponseRedirect('/')

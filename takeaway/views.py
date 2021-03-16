@@ -158,4 +158,4 @@ def takeaway_order_view(request):
         update_status.status = status
         update_status.save()
 
-    return render(request, 'takeaway/takeaway_orders.html', data)
+    return render(request, 'staff templates/takeaway_orders.html', data)

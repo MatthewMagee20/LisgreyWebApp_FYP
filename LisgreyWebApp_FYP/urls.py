@@ -51,6 +51,7 @@ urlpatterns = [
     path('takeaway/', include('takeaway.urls')),
     path('email/', include(email_urls)),
     path('', include('contact.urls')),
+    path('staff/', include('staff.urls')),
 
     # PWA
     path('', include('pwa.urls')),
