@@ -5,12 +5,18 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    <div class="pt-5 container">
+    <div class="container">
         <h1 class="text-center">Contact Us</h1>
+        <br>
+        <div class="text-center">
+            <p><strong>Address:</strong> Lisgrey Cross, Lisgrea, Virginia, Co. Cavan</p>
+            <p><strong>Phone:</strong> (049) 854 7161</p>
+            <p><strong>Email:</strong></p>
+        </div>
         <form method="post">
             {% csrf_token %}
             {{ form | crispy }}
-                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Send">
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Send">
         </form>
     </div>
 {% endblock %}

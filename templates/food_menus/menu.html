@@ -13,6 +13,7 @@
             </div>
         </div>
     </div>
+
     <div class="text-center">
         <h1>Choose Menu Category</h1>
     </div>
@@ -38,6 +39,7 @@
             </li>
         </ul>
     </div>
+
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
@@ -49,10 +51,11 @@
                 </div>
             </div>
         </div>
+
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-starters" role="tabpanel" aria-labelledby="pills-starters-tab">
                 {% for starter in starters %}
-                    {% if forloop.first %}<div class="pt-2 row">{% endif %}
+                    {% if forloop.first %}<div class="row">{% endif %}
                 <div class="pt-2 col-lg">
                     <div class="card">
                         <div class="card-body">
@@ -74,93 +77,111 @@
 
             <div class="tab-pane fade" id="pills-mains" role="tabpanel" aria-labelledby="pills-mains-tab">
                 {% for main in mains %}
-                    <div class="col d-flex justify-content-center mt-4">
-                        <div class="card" style="width:35rem;">
-                            <div class="card-body">
-                                <div class="card-heading-container">
-                                    <span class="card_title">{{ main.name }}</span>
-                                    <span class="card_price">&euro;{{ main.price }}</span>
-                                </div>
-                                <div class="card-text-container">
-                                    <p>{{ main.description }}</p>
-                                    <p class="card_allergens">{% for a in main.allergen %}{{ a }} {% endfor %}</p>
-                                </div>
+                    {% if forloop.first %}<div class="row">{% endif %}
+                <div class="pt-2 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ main.name }}</span>
+                                <span class="card_price">&euro;{{ main.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ main.description }}</p>
+                                <p class="card_allergens">{{ main.allergen }}</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
+                {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
             </div>
+
             <div class="tab-pane fade" id="pills-kids" role="tabpanel" aria-labelledby="pills-kids-tab">
                 {% for kids_item in kids_items %}
-                    <div class="col d-flex justify-content-center mt-4">
-                        <div class="card" style="width:35rem;">
-                            <div class="card-body">
-                                <div class="card-heading-container">
-                                    <span class="card_title">{{ kids_item.name }}</span>
-                                    <span class="card_price">&euro;{{ kids_item.price }}</span>
-                                </div>
-                                <div class="card-text-container">
-                                    <p>{{ kids_item.description }}</p>
-                                    <p class="card_allergens">{% for a in kids_item.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                </div>
+                    {% if forloop.first %}<div class="row">{% endif %}
+                <div class="pt-2 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ kids_item.name }}</span>
+                                <span class="card_price">&euro;{{ kids_item.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ kids_item.description }}</p>
+                                <p class="card_allergens">{{ kids_item.allergen }}</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
+                {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
             </div>
+
             <div class="tab-pane fade" id="pills-sides" role="tabpanel" aria-labelledby="pills-sides-tab">
-                {% for side_order in side_orders %}
-                    <div class="col d-flex justify-content-center mt-4">
-                        <div class="card" style="width:35rem;">
-                            <div class="card-body">
-                                <div class="card-heading-container">
-                                    <span class="card_title">{{ side_order.name }}</span>
-                                    <span class="card_price">&euro;{{ side_order.price }}</span>
-                                </div>
-                                <div class="card-text-container">
-                                    <p>{{ side_order.description }}</p>
-                                    <p class="card_allergens">{% for a in side_order.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                </div>
+                {% for side in side_orders %}
+                    {% if forloop.first %}<div class="row">{% endif %}
+                <div class="pt-2 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ side.name }}</span>
+                                <span class="card_price">&euro;{{ side.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ side.description }}</p>
+                                <p class="card_allergens">{{ side.allergen }}</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
+                {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
             </div>
+
             <div class="tab-pane fade" id="pills-dessert" role="tabpanel" aria-labelledby="pills-dessert-tab">
                 {% for dessert in desserts %}
-                    <div class="col d-flex justify-content-center mt-4">
-                        <div class="card" style="width:35rem;">
-                            <div class="card-body">
-                                <div class="card-heading-container">
-                                    <span class="card_title">{{ dessert.name }}</span>
-                                    <span class="card_price">&euro;{{ dessert.price }}</span>
-                                </div>
-                                <div class="card-text-container">
-                                    <p>{{ dessert.description }}</p>
-                                    <p class="card_allergens">{% for a in dessert.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                </div>
+                    {% if forloop.first %}<div class="row">{% endif %}
+                <div class="pt-2 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ dessert.name }}</span>
+                                <span class="card_price">&euro;{{ dessert.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ side.description }}</p>
+                                <p class="card_allergens">{{ dessert.allergen }}</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
+                {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
             </div>
 
             <div class="tab-pane fade" id="pills-drinks" role="tabpanel" aria-labelledby="pills-drinks-tab">
                 {% for drink in drinks %}
-                    <div class="col d-flex justify-content-center mt-4">
-                        <div class="card" style="width:35rem;">
-                            <div class="card-body">
-                                <div class="card-heading-container">
-                                    <span class="card_title">{{ drink.name }}</span>
-                                    <span class="card_price">&euro;{{ drink.price }}</span>
-                                </div>
-                                <div class="card-text-container">
-                                    <p>{{ drink.description }}</p>
-                                    <p class="card_allergens">{% for a in drink.allergen.all %}{{ a.name }} {% endfor %}</p>
-                                </div>
+                    {% if forloop.first %}<div class="row">{% endif %}
+                <div class="pt-2 col-lg">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-heading-container">
+                                <span class="card_title">{{ drink.name }}</span>
+                                <span class="card_price">&euro;{{ drink.price }}</span>
+                            </div>
+                            <div class="card-text-container">
+                                <p>{{ side.description }}</p>
+                                <p class="card_allergens">{{ drink.allergen }}</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
+                {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
             </div>
         </div>

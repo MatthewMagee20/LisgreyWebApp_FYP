@@ -13,7 +13,7 @@ from django.http import HttpResponseRedirect
 def reservations_view(request):
     reservations = Reservation.objects.all()
 
-    return render(request, 'staff templates/staff_reservations.html', {'data': reservations})
+    return render(request, 'staff_templates/staff_reservations.html', {'data': reservations})
 
 
 def detail_reservation_view(request, reservation_id):
@@ -46,7 +46,7 @@ def detail_reservation_view(request, reservation_id):
     else:
         update_reservation_form = StaffReservationForm(instance=reservation_instance)
 
-    return render(request, 'staff templates/single_reservation.html',
+    return render(request, 'staff_templates/single_reservation.html',
                   {'update_reservation_form': update_reservation_form})
 
 #

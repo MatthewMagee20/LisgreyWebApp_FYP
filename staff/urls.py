@@ -7,5 +7,5 @@ urlpatterns = [
     path('reservations/', reservations_view, name='staff_reservation'),
     path('takeaway_orders/', takeaway_order_view, name='staff_takeaway_orders'),
     path('reservation/<slug:reservation_id>/', detail_reservation_view, name='staff_detail_reservation'),
-    path('home/', TemplateView.as_view(template_name='staff templates/staff_home.html'), name='staff_home'),
+    path('home/', TemplateView.as_view(template_name='staff_templates/staff_home.html'), name='staff_home'),
 ]

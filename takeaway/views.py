@@ -1,4 +1,6 @@
-from django.http import HttpResponseRedirect
+import json
+
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -158,4 +160,13 @@ def takeaway_order_view(request):
         update_status.status = status
         update_status.save()
 
-    return render(request, 'staff templates/takeaway_orders.html', data)
+    return render(request, 'staff_templates/takeaway_orders.html', data)
+
+
+def get_basket(request):
+    if request.method == "GET":
+        data = {
+           "data": request.session['item_quantities']
+        }
+
+        return HttpResponse(json.dumps(data), content_type="application/json")

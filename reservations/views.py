@@ -26,7 +26,7 @@ def create_reservation_view(request):
                 r.contact_phone = c_user.contact_phone
             r.id = res_id_gen
             r.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/reservation/confirmation/')
 
         else:
             return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
@@ -46,7 +46,7 @@ def nu_create_reservation_view(request):
             r = reservation_form.save(commit=False)
             r.id = res_id_gen
             r.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/reservation/confirmation/')
 
         else:
             return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
