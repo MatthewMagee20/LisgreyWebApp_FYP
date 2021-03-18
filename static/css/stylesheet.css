@@ -11,13 +11,6 @@ html, body {
 }
 
 
-/*footer{*/
-/*    background-color: #39606F;*/
-/*    color: #8c8342;*/
-/*}*/
-
-
-
 /* Fonts */
 
 /*General Formatting*/
@@ -65,7 +58,6 @@ h1{
 /*Navbar CSS*/
 .navbar .navbar-nav .nav-link{
     color: #8c8342;
-    font-size: 1.2rem ;
 }
 
 .navbar-custom{
@@ -191,9 +183,17 @@ input[type=number] {
 }
 
 /* Card CSS */
+.card_title{
+    font-size: 1rem;
+}
+
+.card_price{
+    font-size: 1rem;
+}
 
 .card-text-container{
     display: block;
+    font-size: 0.75rem;
 }
 
 .center-container{
@@ -254,9 +254,18 @@ input[type=number] {
     border: 2px solid #39606F;
     border-radius:0.12rem;
     display: inline-block;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .add-to-cart-button{
     margin-top: 1rem;
     display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0.12rem;
+    text-align: center;
+    padding: 0.2rem 0.6rem;
+    background-color: #39606F;
+    color: #8C8342;
 }

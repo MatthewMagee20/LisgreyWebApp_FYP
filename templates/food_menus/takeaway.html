@@ -57,23 +57,45 @@
                 {% for starter in starters %}
                     {% if forloop.first %}<div class="pt-2 row">{% endif %}
                 <div class="pt-2 col-xl">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ starter.name }}</span>
-                                <span class="card_price">&euro;{{ starter.price }}</span>
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="row">
+                                <div class="col-9">
+                                    <p class="card_title">{{ starter.name }}</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="card_price">&euro;{{ starter.price }}</p>
+                                </div>
                             </div>
-                            <div class="card-text-container">
-                                <p>{{ starter.description }}</p>
-                                <p class="card_allergens">{{ starter.allergen }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="text-muted">{{ starter.description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <form id="form{{ starter.id }}" method="get" action="{% url 'update_basket' starter.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button class="quantity-button"  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button class="quantity-button"  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
-                            </form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="card_allergens">{{ starter.allergen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto row">
+                                <div class="col">
+                                    <div class="card-footer text-center">
+                                        <form method="get" action="{% url 'update_basket' starter.id %}">
+                                            <label for="quantity">Quantity</label>
+                                            <button class="quantity-button"  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                            <input class="quantity" id="quantity" name="quantity" type="number" value="1">
+                                            <button class="quantity-button"  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                            <div class="text-center">
+                                                <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,17 +111,17 @@
                     <div class="card h-100">
                         <div class="card-body d-flex flex-column">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-9">
                                     <p class="card_title">{{ main.name }}</p>
                                 </div>
-                                <div class="col">
+                                <div class="col-3">
                                     <p class="card_price">&euro;{{ main.price }}</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="card-text-container">
-                                        <p>{{ main.description }}</p>
+                                        <p class="text-muted">{{ main.description }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -115,10 +137,10 @@
                                     <div class="card-footer">
                                         <form method="get" action="{% url 'update_basket' main.id %}">
                                             <label for="quantity">Quantity</label>
-                                            <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
                                             <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                            <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                            <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
                                         </form>
                                     </div>
                                 </div>
@@ -134,23 +156,43 @@
                 {% for kids_item in kids_items %}
                     {% if forloop.first %}<div class="pt-2 row">{% endif %}
                 <div class="pt-2 col-xl">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ kids_item.name }}</span>
-                                <span class="card_price">&euro;{{ kids_item.price }}</span>
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="row">
+                                <div class="col-9">
+                                    <p class="card_title">{{ kids_item.name }}</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="card_price">&euro;{{ kids_item.price }}</p>
+                                </div>
                             </div>
-                            <div class="card-text-container">
-                                <p>{{ kids_item.description }}</p>
-                                <p class="card_allergens">{{ kids_item.allergen }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="text-muted">{{ kids_items.description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <form method="get" action="{% url 'update_basket' kids_item.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
-                            </form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="card_allergens">{{ kids_items.allergen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto row">
+                                <div class="col">
+                                    <div class="card-footer">
+                                        <form method="get" action="{% url 'update_basket' kids_item.id %}">
+                                            <label for="quantity">Quantity</label>
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                            <input class="quantity" id="quantity" name="quantity" type="number" value="1">
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -162,23 +204,43 @@
                 {% for side_order in side_orders %}
                     {% if forloop.first %}<div class="pt-2 row">{% endif %}
                 <div class="pt-2 col-xl">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ side_order.name }}</span>
-                                <span class="card_price">&euro;{{ side_order.price }}</span>
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="row">
+                                <div class="col-9">
+                                    <p class="card_title">{{ side_order.name }}</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="card_price">&euro;{{ side_order.price }}</p>
+                                </div>
                             </div>
-                            <div class="card-text-container">
-                                <p>{{ side_order.description }}</p>
-                                <p class="card_allergens">{{ side_order.allergen }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="text-muted">{{ side_order.description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <form method="get" action="{% url 'update_basket' side_order.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block"  type="submit" value="Add to Cart">
-                            </form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="card_allergens">{{ side_order.allergen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto row">
+                                <div class="col">
+                                    <div class="card-footer">
+                                        <form method="get" action="{% url 'update_basket' side_order.id %}">
+                                            <label for="quantity">Quantity</label>
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                            <input class="quantity" id="quantity" name="quantity" type="number" value="1">
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -190,26 +252,45 @@
                 {% for dessert in desserts %}
                     {% if forloop.first %}<div class="pt-2 row">{% endif %}
                 <div class="pt-2 col-xl">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ dessert.name }}</span>
-                                <span class="card_price">&euro;{{ dessert.price }}</span>
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="row">
+                                <div class="col-9">
+                                    <p class="card_title">{{ dessert.name }}</p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="card_price">&euro;{{ dessert.price }}</p>
+                                </div>
                             </div>
-                            <div class="card-text-container">
-                                <p>{{ dessert.description }}</p>
-                                <p class="card_allergens">{{ dessert.allergen }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="text-muted">{{ dessert.description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <form method="get" action="{% url 'update_basket' dessert.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
-                            </form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="card_allergens">{{ dessert.allergen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto row">
+                                <div class="col">
+                                    <div class="card-footer">
+                                        <form method="get" action="{% url 'update_basket' dessert.id %}">
+                                            <label for="quantity">Quantity</label>
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                            <input class="quantity" id="quantity" name="quantity" type="number" value="1">
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>                </div>
                 {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
                 {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
@@ -220,41 +301,48 @@
                     {% if forloop.first %}<div class="pt-2 row">{% endif %}
                 <div class="pt-2 col-xl">
                     <div class="card h-100">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ drink.name }}</span>
-                                <span class="card_price">&euro;{{ drink.price }}</span>
+                        <div class="card-body d-flex flex-column">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card_title">{{ drink.name }}</p>
+                                </div>
+                                <div class="col">
+                                    <p class="card_price">&euro;{{ drink.price }}</p>
+                                </div>
                             </div>
-                            <div class="card-text-container">
-                                <p>{{ drink.description }}</p>
-                                <p class="card_allergens">{{ drink.allergen }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="text-muted">{{ drink.description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <form method="get" action="{% url 'update_basket' drink.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
-                            </form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="card_allergens">{{ drink.allergen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto row">
+                                <div class="col">
+                                    <div class="card-footer">
+                                        <form method="get" action="{% url 'update_basket' drink.id %}">
+                                            <label for="quantity">Quantity</label>
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                            <input class="quantity" id="quantity" name="quantity" type="number" value="1">
+                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>                </div>
                 {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}
                 {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-
-            $.ajax({
-                url: "{% url "takeaway" %}",
-                type: "get", // or "get"
-                success: function (data) {
-                    console.log(data.result)
-                },
-            });
-        });
-    </script>
 {% endblock %}

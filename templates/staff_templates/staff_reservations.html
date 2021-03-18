@@ -5,8 +5,17 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    <div class="pt-5 custom-container">
-        <table class="table">
+    <div class="pt-5 container">
+        <label>
+            <select id="date">
+                {% for date in dates %}
+                    <option>{{ date.date }}</option>
+                {% endfor %}
+            </select>
+        <button onclick="filterDate()">Submit</button>
+        <button onclick="reset()">Reset</button>
+        </label>
+        <table id="reservation_table" class="table">
             <tr>
                 <th>Reservation ID</th>
                 <th>Status</th>
@@ -17,7 +26,7 @@
                 <tr>
                     <td><a href="{% url 'staff_detail_reservation' reservation.id %}">{{ reservation.id }}</a></td>
                     <td>{{ reservation.status}}</td>
-                    <td>{{ reservation.date}}</td>
+                    <td class="res_date">{{ reservation.date}}</td>
                     <td>{{ reservation.time}}</td>
                 </tr>
             {% endfor %}

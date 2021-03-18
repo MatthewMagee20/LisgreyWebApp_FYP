@@ -55,8 +55,6 @@ urlpatterns = [
     # PWA
     path('', include('pwa.urls')),
     path(r'base_layout', views.base, name='base_layout'),
-    path(r'home', views.home, name='home'),
-
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -156,10 +156,15 @@ if socket.gethostname() == "acer":                          # if development on 
     DATABASES["default"]["HOST"] = "localhost"              # connect to local database on port 25432
     DATABASES["default"]["PORT"] = 25432
     DATABASES["default"]["PASSWORD"] = 'password'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+
 else:                                                       # if production
     DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
     DATABASES["default"]["PORT"] = 5432
     DATABASES["default"]["PASSWORD"] = docker_config.PRODUCTION_PASSWORD
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_PAGE_DOMAIN = 'www.lisgreyhouse.com'
 
 # Set DEPLOY_SECURE to True only for LIVE deployment
 if docker_config.DEPLOY_SECURE:                             # if config.py DEPLOY_SECURE = True
@@ -176,7 +181,6 @@ else:
     SESSION_COOKIE_SECURE = False
 
 # Email backend
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # During development only 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = docker_config.EMAIL
@@ -196,8 +200,8 @@ EMAIL_MAIL_HTML = 'email_body.html'
 EMAIL_MAIL_PLAIN = 'email_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
-EMAIL_PAGE_DOMAIN = 'www.lisgreyhouse.com'
 EMAIL_VERIFIED_CALLBACK = verified
+
 
 AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 

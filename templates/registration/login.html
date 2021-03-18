@@ -11,7 +11,7 @@
             <h1 class="text-center">Login</h1>
             <form method="post" class="c">
                 {% csrf_token %}
-                {{ form|crispy }}
+                {{ form | crispy }}
                 <input class="btn btn-primary btn-lg btn-block" type="submit" value="Login">
                 <br>
                 <p>No account? Click <a href="{% url 'register' %}"> here</a>.</p>
