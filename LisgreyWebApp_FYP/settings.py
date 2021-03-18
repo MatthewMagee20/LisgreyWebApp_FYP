@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_email_verification',  # you have to add this
     'pwa',
-    'contact'
+    'contact',
+    'staff',
 ]
 
 MIDDLEWARE = [
@@ -154,15 +155,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 if socket.gethostname() == "acer":                          # if development on local machine
     DATABASES["default"]["HOST"] = "localhost"              # connect to local database on port 25432
     DATABASES["default"]["PORT"] = 25432
+    DATABASES["default"]["PASSWORD"] = 'password'
 else:                                                       # if production
     DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
     DATABASES["default"]["PORT"] = 5432
+    DATABASES["default"]["PASSWORD"] = docker_config.PRODUCTION_PASSWORD
 
 # Set DEPLOY_SECURE to True only for LIVE deployment
 if docker_config.DEPLOY_SECURE:                             # if config.py DEPLOY_SECURE = True
     DEBUG = False                                           # Turn Debug mode off
     TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.matthewmawm.xyz', 'localhost', '138.68.130.143', '127.0.0.1']    # Hosts allowed
+    ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1']    # Hosts allowed
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 else:
@@ -173,7 +176,7 @@ else:
     SESSION_COOKIE_SECURE = False
 
 # Email backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # During development only 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = docker_config.EMAIL
@@ -187,14 +190,14 @@ def verified(user):
     user.is_active = True
 
 
-# EMAIL_FROM_ADDRESS = docker_config.EMAIL
-# EMAIL_MAIL_SUBJECT = 'Confirm registration'
-# EMAIL_MAIL_HTML = 'email_body.html'
-# EMAIL_MAIL_PLAIN = 'email_body.txt'
-# EMAIL_TOKEN_LIFE = 60 * 60
-# EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
-# EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
-# EMAIL_VERIFIED_CALLBACK = verified
+EMAIL_FROM_ADDRESS = docker_config.EMAIL
+EMAIL_MAIL_SUBJECT = 'Confirm registration'
+EMAIL_MAIL_HTML = 'email_body.html'
+EMAIL_MAIL_PLAIN = 'email_body.txt'
+EMAIL_TOKEN_LIFE = 60 * 60
+EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
+EMAIL_PAGE_DOMAIN = 'www.lisgreyhouse.com'
+EMAIL_VERIFIED_CALLBACK = verified
 
 AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 

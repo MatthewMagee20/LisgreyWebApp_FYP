@@ -69,10 +69,10 @@
                             </div>
                             <form id="form{{ starter.id }}" method="get" action="{% url 'update_basket' starter.id %}">
                                 <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                <button class="quantity-button"  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
                                 <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
+                                <button class="quantity-button"  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
                             </form>
                         </div>
                     </div>
@@ -86,23 +86,43 @@
                 {% for main in mains %}
                     {% if forloop.first %}<div class="pt-2 row">{% endif %}
                 <div class="pt-2 col-xl">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-heading-container">
-                                <span class="card_title">{{ main.name }}</span>
-                                <span class="card_price">&euro;{{ main.price }}</span>
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card_title">{{ main.name }}</p>
+                                </div>
+                                <div class="col">
+                                    <p class="card_price">&euro;{{ main.price }}</p>
+                                </div>
                             </div>
-                            <div class="card-text-container">
-                                <p>{{ main.description }}</p>
-                                <p class="card_allergens">{{ main.allergen }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p>{{ main.description }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <form method="get" action="{% url 'update_basket' main.id %}">
-                                <label for="quantity">Quantity</label>
-                                <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                <input class="quantity" id="quantity" name="quantity" type="number" value="1">
-                                <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
-                            </form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-text-container">
+                                        <p class="card_allergens">{{ main.allergen }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto row">
+                                <div class="col">
+                                    <div class="card-footer">
+                                        <form method="get" action="{% url 'update_basket' main.id %}">
+                                            <label for="quantity">Quantity</label>
+                                            <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                            <input class="quantity" id="quantity" name="quantity" type="number" value="1">
+                                            <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                            <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,7 +149,7 @@
                                 <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
                                 <input class="quantity" id="quantity" name="quantity" type="number" value="1">
                                 <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
+                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
                             </form>
                         </div>
                     </div>
@@ -157,7 +177,7 @@
                                 <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
                                 <input class="quantity" id="quantity" name="quantity" type="number" value="1">
                                 <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
+                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block"  type="submit" value="Add to Cart">
                             </form>
                         </div>
                     </div>
@@ -185,7 +205,7 @@
                                 <button  id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
                                 <input class="quantity" id="quantity" name="quantity" type="number" value="1">
                                 <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
+                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
                             </form>
                         </div>
                     </div>
@@ -199,7 +219,7 @@
                 {% for drink in drinks %}
                     {% if forloop.first %}<div class="pt-2 row">{% endif %}
                 <div class="pt-2 col-xl">
-                    <div class="card">
+                    <div class="card h-100">
                         <div class="card-body">
                             <div class="card-heading-container">
                                 <span class="card_title">{{ drink.name }}</span>
@@ -214,7 +234,7 @@
                                 <button id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
                                 <input class="quantity" id="quantity" name="quantity" type="number" value="1">
                                 <button  id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                <input type="submit" value="Add to Cart">
+                                <input class="add-to-cart-button btn btn-primary btn-lg btn-block" type="submit" value="Add to Cart">
                             </form>
                         </div>
                     </div>
@@ -228,13 +248,13 @@
     <script>
         $(document).ready(function () {
 
-                $.ajax({
-                    url: "{% url "takeaway" %}",
-                    type: "get", // or "get"
-                    success: function (data) {
-                       console.log(data.result)
-                    },
-                });
+            $.ajax({
+                url: "{% url "takeaway" %}",
+                type: "get", // or "get"
+                success: function (data) {
+                    console.log(data.result)
+                },
+            });
         });
     </script>
 {% endblock %}

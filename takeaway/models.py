@@ -1,9 +1,14 @@
-from django.contrib.auth import get_user_model
 from django.db import models
 
 
 # Create your models here.
 from food_menus.models import FoodItem
+
+
+ORDER_TYPE = (
+    ("Takeaway", "Takeaway"),
+    ("QR", "QR"),
+)
 
 
 class Basket(models.Model):

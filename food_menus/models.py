@@ -25,6 +25,7 @@ ALLERGENS = (
     (12, 'Sulphur dioxide and sulphites'),
     (13, 'Lupin'),
     (14, 'Molluscs'),
+    (15, 'None')
 )
 
 
