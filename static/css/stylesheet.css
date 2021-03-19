@@ -204,6 +204,28 @@ input[type=number] {
     float: right;
 }
 
+.quantity-button{
+    text-align: center;
+    background: none;
+    color: #39606F;
+    border: 2px solid #39606F;
+    border-radius:0.12rem;
+    display: inline-block;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.add-to-cart-button{
+    margin-top: 1rem;
+    width: 20rem;
+    border: none;
+    border-radius: 0.12rem;
+    text-align: center;
+    padding: 0.2rem 0.6rem;
+    background-color: #39606F;
+    color: #8C8342;
+}
+
 .category-heading{
     padding-bottom: 5px;
     display: inline-block;
@@ -222,8 +244,6 @@ input[type=number] {
                     rgba(0, 0, 0, 0.6)
             );
 }
-
-
 
 .white-text{
     color: white;
@@ -247,25 +267,8 @@ input[type=number] {
     text-transform: uppercase;
 }
 
-.quantity-button{
-    text-align: center;
-    background: none;
-    color: #39606F;
-    border: 2px solid #39606F;
-    border-radius:0.12rem;
-    display: inline-block;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-}
 
-.add-to-cart-button{
-    margin-top: 1rem;
-    display: block;
-    width: 100%;
-    border: none;
-    border-radius: 0.12rem;
-    text-align: center;
-    padding: 0.2rem 0.6rem;
-    background-color: #39606F;
-    color: #8C8342;
+
+.filter-hidden{
+    display: none;
 }

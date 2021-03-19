@@ -15,6 +15,7 @@ class Reservation(models.Model):
     additional_information = models.CharField(null=True, max_length=20)
     id = models.CharField(unique=True, primary_key=True, max_length=10)
     status = models.BooleanField(default=False)
+    time_stamp = models.DateTimeField()
 
     def __str__(self):
         return f"{self.first_name} | {self.date} | {self.time}"

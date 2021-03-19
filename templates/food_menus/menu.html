@@ -46,9 +46,6 @@
                         <label for="example-search-input"></label><label for="filter_input"></label><input onkeyup="filter_menu()" class="form-control py-2 border-right-0 border" type="search" value="search" id="filter_input">
                         <span class="input-group-append"><div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div></span>
                     </div>
-                    <div class="pt-4">
-                        <a id="basket" href="{% url 'basket' %}">Basket: {{ request.session.item_quantities }} items <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
-                    </div>
                 </div>
             </div>
         </div>

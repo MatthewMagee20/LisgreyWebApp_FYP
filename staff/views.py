@@ -16,11 +16,15 @@ from LisgreyWebApp.forms import LoginForms
 def reservations_view(request):
     reservations = Reservation.objects.all()
     reservation_dates = Reservation.objects.values('date').distinct()
+    reservation_times = Reservation.objects.values('time').distinct()
     print(reservation_dates.dates)
 
     return render(request, 'staff_templates/staff_reservations.html',
-                  {'data': reservations, 'dates': reservation_dates}
-                  )
+                  {
+                      'data': reservations,
+                      'dates': reservation_dates,
+                      'times': reservation_times
+                  })
 
 
 def detail_reservation_view(request, reservation_id):
@@ -41,7 +45,7 @@ def detail_reservation_view(request, reservation_id):
                 email_template = render_to_string('reservations/reservation_confirmation_email.html', {'date': date,
                                                                                                        'time': time})
                 send_mail(
-                    'Reservation Confirmation - ' + reservation_id,
+                    'Reservation Confirmation - ' + reservation_id.upper(),
                     email_template,
                     settings.EMAIL_HOST_USER,
                     [email],
