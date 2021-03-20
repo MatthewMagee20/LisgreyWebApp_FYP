@@ -1,16 +1,10 @@
 from django.core.mail import send_mail
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
-
-# Create your views here.
 from django.template.loader import render_to_string
-
 from LisgreyWebApp_FYP import settings
 from reservations.models import Reservation
 from .forms import StaffReservationForm
 from django.http import HttpResponseRedirect
-
-from LisgreyWebApp.forms import LoginForms
 
 
 def reservations_view(request):

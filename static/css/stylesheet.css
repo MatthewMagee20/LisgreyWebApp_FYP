@@ -1,3 +1,4 @@
+/*General*/
 html, body {
     height: 100%;
     margin: 0;
@@ -6,46 +7,6 @@ html, body {
     font-size: 16px;
 }
 
-.logo{
-    font-size: 2rem;
-}
-
-
-/* Fonts */
-
-/*General Formatting*/
-h1{
-    padding-top: 1.4rem;
-}
-
-/*Font Scaling*/
-@media screen and (max-width: 990px) {
-    p, a, td, span{
-        font-size: 0.85rem;
-    }
-    h1{
-        font-size: 1.2rem;
-    }
-    h2{
-
-    }
-}
-
-@media screen and (min-width: 991px) {
-    p, a, td, span{
-        font-size: 1rem;
-    }
-    h1{
-        font-size: 1.5rem;
-    }
-}
-
-/*@media screen and (min-width: 500px) {*/
-/*    .container {*/
-/*        width: 500px;*/
-/*    }*/
-/*}*/
-
 .section{
     height: 100%;
     width: 100%;
@@ -53,41 +14,6 @@ h1{
 
 .custom-container{
     padding: 3rem;
-}
-
-/*Navbar CSS*/
-.navbar .navbar-nav .nav-link{
-    color: #8c8342;
-}
-
-.navbar-custom{
-    background-color: #39606F;
-}
-
-.navbar-custom .navbar-brand{
-    color: #8C8342;
-}
-
-.navbar-nav > li{
-    padding-right: 20px;
-    padding-left: 20px;
-}
-
-/*Home page CSS*/
-.home::after{
-    content: "";
-    background-size: cover;
-    background:
-            linear-gradient(
-                    rgba(0, 0, 0, 0.5),
-                    rgba(0, 0, 0, 0.5)
-            );
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    z-index: -1;
 }
 
 .container{
@@ -106,52 +32,69 @@ h1{
     transform: translateX(-50%) translateY(-50%);
 }
 
+.centered{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30%;
+}
+
+h1{
+    font-size: 1.5rem;
+}
+
 h2{
-    padding-top: 70px;
+    padding-top: 2rem;
     text-align: center;
 }
 
-/*Carousel*/
-/*.carousel-inner img {*/
-/*    width:100%;*/
-/*    height:360px;*/
-/*}*/
+/* Home Page */
+.home::after{
+    content: "";
+    background-size: cover;
+    background:
+            linear-gradient(
+                    rgba(0, 0, 0, 0.5),
+                    rgba(0, 0, 0, 0.5)
+            );
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
 
-/*.carousel-inner{*/
-/*    margin: 0 auto;*/
-/*    height:360px;*/
-/*}*/
-
-/* ------------------- Carousel Styling ------------------- */
-
-.img-responsive,
-.thumbnail > img,
-.thumbnail a > img,
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
+.home-page-button{
+    text-align: center;
+    background: none;
+    color: #8C8342;
+    border: 2px solid #8C8342;
+    border-radius:0.12em;
+    padding: 5px 10px 5px 25px;
     display: block;
-    width: 100%;
-    height: auto;
+}
+.overlay{
+    height: 100%;
+    background:
+            linear-gradient(
+                    rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.6)
+            );
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.carousel-inner {
-    border-radius: 15px;
-}
-
-.carousel{
-    height: 50%;
-}
-
-.carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
-}
-
-.carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+.white-text{
+    color: white;
 }
 
 
-/*Button CSS*/
+.logo{
+    font-size: 2rem;
+}
+
+/* Menu + Cards */
 .pills-custom .nav-link{
     color: #8C8342;
 }
@@ -161,28 +104,6 @@ h2{
     text-decoration-color: #39606F;
 }
 
-/* Takeaway CSS */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-.quantity{
-    width: 40px;
-    text-align: center;
-}
-
-.takeaway-orders-container{
-    padding: 30px;
-    border: 1px solid black;
-}
-
-/* Card CSS */
 .card_title{
     font-size: 1rem;
 }
@@ -202,6 +123,10 @@ input[type=number] {
 
 .card_price{
     float: right;
+}
+
+.card{
+    border: 1px solid #6e6e6e;
 }
 
 .quantity-button{
@@ -233,41 +158,87 @@ input[type=number] {
 }
 
 .header-section {
-    height: 30%;
+    padding-top: 30px;
+    height: 30%
 }
 
-.overlay{
-    height: 100%;
-    background:
-            linear-gradient(
-                    rgba(0, 0, 0, 0.6),
-                    rgba(0, 0, 0, 0.6)
-            );
+/*Navbar*/
+.navbar .navbar-nav .nav-link{
+    color: #8c8342;
 }
 
-.white-text{
-    color: white;
+.navbar-custom{
+    background-color: #39606F;
+}
+
+.navbar-custom .navbar-brand{
+    color: #8C8342;
+}
+
+.navbar-nav > li{
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+
+
+/* Image Carousel Styling */
+
+.img-responsive,
+.thumbnail > img,
+.thumbnail a > img,
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.carousel-inner {
+    border-radius: 15px;
+}
+
+.carousel{
+    height: 50%;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+/* Takeaway CSS */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.quantity{
+    width: 40px;
+    text-align: center;
+}
+
+.takeaway-orders-container{
+    padding: 30px;
+    border: 1px solid black;
 }
 
 .button-container{
     width: 40%;
 }
 
-.home-page-button{
-    text-align: center;
-    background: none;
-    color: #8C8342;
-    border: 2px solid #8C8342;
-    border-radius:0.12em;
-    padding: 5px 10px 5px 25px;
-    display: block;
-}
-
+/*Staff Reservation */
 .reservation-uc{
     text-transform: uppercase;
 }
-
-
 
 .filter-hidden{
     display: none;

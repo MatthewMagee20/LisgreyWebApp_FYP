@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 
-{% block head_title %}| Login{% endblock %}
-{% block nav_title %}Lisgrey House {% endblock %}
-
+{% block head_title %} | Login{% endblock %}
 {% block body_content %}
-    <div class="pt-5 container">
-        <h1 class="text-center">Profile</h1>
-        <div class="row">
-            <div class="pt-2 col-md">
+    <div class="pt-5 row">
+        <div class="col">
+            <h2>Profile</h2>
+        </div>
+    </div>
+
+    <ul class="nav justify-content-center nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Reservations</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="container">
                 <div class="card pb-2">
                     <h4 class="text-center">User Information</h4>
                     <table class="table">
@@ -31,27 +45,35 @@
                     <a class="text-center" href="{% url 'update_profile' %}">Edit</a>
                 </div>
             </div>
-            <div class="col-md pt-2">
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="container">
                 <div class="card">
-                    <h4 class="text-center">Upcoming Reservations</h4>
-                    {% for reservation in reservations %}
-                        <table class="table">
-                            <tr>
-                                <th>ID</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                            </tr>
-                            {% if reservation.date > date_check.date %}
+                    {% if reservations.count == 0 %}
+                        <p class="p-2 text-center">You have not made any reservations yet.</p>
+                        <p class="text-center">If you would like to, you can <a href="{% url 'reservation' %}">here</a>.</p>
+                    {% else %}
+                        <h4 class="text-center">Upcoming Reservations</h4>
+                        {% for reservation in reservations %}
+                            <table class="table">
                                 <tr>
-                                    <td><a class="reservation-uc"  href="{% url 'edit_reservation' reservation.id %}">{{ reservation.id }}</a></td>
-                                    <td>{{ reservation.date }}</td>
-                                    <td>{{ reservation.time }}</td>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
                                 </tr>
-                                </table>
-                            {% endif %}
-                    {% endfor %}
+                                {% if reservation.date > date_check.date %}
+                                    <tr>
+                                        <td><a class="reservation-uc"  href="{% url 'edit_reservation' reservation.id %}">{{ reservation.id }}</a></td>
+                                        <td>{{ reservation.date }}</td>
+                                        <td>{{ reservation.time }}</td>
+                                    </tr>
+                                    </table>
+                                {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
+        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
     </div>
 {% endblock %}

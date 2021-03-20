@@ -8,8 +8,8 @@
 
 {% block body_content %}
     <div class="pt-5 container">
-            <h1 class="text-center">Login</h1>
-            <form method="post" class="c">
+            <h2 class="text-center">Login</h2>
+            <form method="POST">
                 {% csrf_token %}
                 {{ form | crispy }}
                 <input class="btn btn-primary btn-lg btn-block" type="submit" value="Login">
