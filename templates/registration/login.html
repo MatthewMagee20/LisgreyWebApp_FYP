@@ -3,8 +3,7 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
-{% block head_title %}Login{% endblock %}
-{% block nav_title %}Lisgrey House{% endblock %}
+{% block head_title %} | Login{% endblock %}
 
 {% block body_content %}
     <div class="pt-5 container">
@@ -14,8 +13,8 @@
                 {{ form | crispy }}
                 <input class="btn btn-primary btn-lg btn-block" type="submit" value="Login">
                 <br>
-                <p>No account? Click <a href="{% url 'register' %}"> here</a>.</p>
-                <p>Forgot Password? Click<a href="{% url 'reset_password' %}"> here</a>.</p>
+                <p>No account? Click <a href="{% url 'register' %}"> here</a> to register.</p>
+                <p>Forgot Password? Click<a href="{% url 'reset_password' %}"> here</a> to reset it.</p>
             </form>
     </div>
 {% endblock %}

@@ -157,7 +157,7 @@ if socket.gethostname() == "acer":                          # if development on 
     DATABASES["default"]["PORT"] = 25432
     DATABASES["default"]["PASSWORD"] = 'password'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'
+    EMAIL_PAGE_DOMAIN = '192.168.1.145'
 
 else:                                                       # if production
     DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
@@ -170,7 +170,7 @@ else:                                                       # if production
 if docker_config.DEPLOY_SECURE:                             # if config.py DEPLOY_SECURE = True
     DEBUG = False                                           # Turn Debug mode off
     TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1']    # Hosts allowed
+    ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1', '192.168.1.145']    # Hosts allowed
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 else:
@@ -217,14 +217,14 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': '/static/images/icons/icon-152x152.png',
-        'sizes': '152x152'
+        'src': '/static/images/icons/android-chrome-192x192.png',
+        'sizes': '192x192'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/images/icons/icon-152x152.png',
-        'sizes': '160x160'
+        'src': '/static/images/icons/apple-touch-icon.png',
+        'sizes': '152x1524'
     }
 ]
 PWA_APP_SPLASH_SCREEN = [

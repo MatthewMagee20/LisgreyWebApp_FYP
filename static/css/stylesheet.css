@@ -142,13 +142,19 @@ h2{
 
 .add-to-cart-button{
     margin-top: 1rem;
-    width: 20rem;
+    width: 70%;
     border: none;
     border-radius: 0.12rem;
     text-align: center;
     padding: 0.2rem 0.6rem;
     background-color: #39606F;
     color: #8C8342;
+    position: relative;
+}
+
+.safari{
+    width: 100%;
+    -webkit-box-sizing: border-box;
 }
 
 .category-heading{

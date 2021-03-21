@@ -33,8 +33,8 @@ class FoodItem(models.Model):
     category = models.CharField(max_length=120, choices=CATEGORIES, default="Started")
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
-    allergen = MultiSelectField(choices=ALLERGENS, null=True)
-    description = models.CharField(max_length=150)
+    allergen = MultiSelectField(choices=ALLERGENS, null=True, blank=True)
+    description = models.CharField(max_length=150, blank=True)
 
     def get_all_objects(self):
         queryset = self._meta.model.objects.all()

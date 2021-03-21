@@ -11,4 +11,4 @@ class TakeawayStatusForm(ModelForm):
 class TakeawayOrderUserForm(ModelForm):
     class Meta:
         model = TakeawayOrder
-        fields = ['first_name', 'last_name', 'contact_phone']
+        fields = ['first_name', 'last_name', 'email', 'contact_phone']

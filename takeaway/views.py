@@ -96,7 +96,7 @@ def confirm_order_user_details_view(request):
         'Order Confirmation - ' + u.order_id,
         email_template,
         settings.EMAIL_HOST_USER,
-        [u.email],
+        [current_user.email],
         fail_silently=False,
         )
 

@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block nav_title %}Lisgrey House{% endblock %}
+{% block head_title %} | Gallery{% endblock %}
 
 {% block body_content %}
     <div class="pt-5 container">
         <h2 class="text-center">Gallery</h2>
-
-
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -34,5 +32,6 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+    <p class="p-3 text-center">(Demonstration Only pictures)</p>
     </div>
 {% endblock %}
