@@ -7,6 +7,8 @@ html, body {
     font-size: 16px;
 }
 
+* {-webkit-padding-start: 0;}
+
 .section{
     height: 100%;
     width: 100%;
@@ -70,7 +72,6 @@ h2{
     color: #8C8342;
     border: 2px solid #8C8342;
     border-radius:0.12em;
-    padding: 5px 10px 5px 25px;
     display: block;
 }
 .overlay{
@@ -127,6 +128,7 @@ h2{
 
 .card{
     border: 1px solid #6e6e6e;
+    overflow: hidden;
 }
 
 .quantity-button{
@@ -166,6 +168,10 @@ h2{
 .header-section {
     padding-top: 30px;
     height: 30%
+}
+
+.selectpicker{
+    width: 100%;
 }
 
 /*Navbar*/

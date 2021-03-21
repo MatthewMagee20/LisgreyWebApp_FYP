@@ -1,35 +1,35 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 
-CATEGORIES = (
-    ("Starter", "Starter"),
-    ("Main Course", "Main Course"),
-    ("Kiddie Menu", "Kiddie Menu"),
-    ("Side Order", "Side Order"),
-    ("Dessert", "Dessert"),
-    ("Drinks", "Drinks"),
-)
-
-ALLERGENS = (
-    (1, 'Gluten'),
-    (2, 'Crustaceans'),
-    (3, 'Eggs'),
-    (4, 'Fish'),
-    (5, 'Peanuts'),
-    (6, 'Soybeans'),
-    (7, 'Milk/Lactose'),
-    (8, 'Nuts'),
-    (9, 'Celery'),
-    (10, 'Mustard'),
-    (11, 'Sesame seeds'),
-    (12, 'Sulphur dioxide and sulphites'),
-    (13, 'Lupin'),
-    (14, 'Molluscs'),
-    (15, 'None')
-)
-
 
 class FoodItem(models.Model):
+    CATEGORIES = (
+        ("Starter", "Starter"),
+        ("Main Course", "Main Course"),
+        ("Kiddie Menu", "Kiddie Menu"),
+        ("Side Order", "Side Order"),
+        ("Dessert", "Dessert"),
+        ("Drinks", "Drinks"),
+    )
+
+    ALLERGENS = (
+        (1, 'Gluten'),
+        (2, 'Crustaceans'),
+        (3, 'Eggs'),
+        (4, 'Fish'),
+        (5, 'Peanuts'),
+        (6, 'Soybeans'),
+        (7, 'Milk/Lactose'),
+        (8, 'Nuts'),
+        (9, 'Celery'),
+        (10, 'Mustard'),
+        (11, 'Sesame seeds'),
+        (12, 'Sulphur dioxide and sulphites'),
+        (13, 'Lupin'),
+        (14, 'Molluscs'),
+        (15, 'None')
+    )
+
     category = models.CharField(max_length=120, choices=CATEGORIES, default="Started")
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=100, decimal_places=2, default=0.00)
@@ -38,6 +38,10 @@ class FoodItem(models.Model):
 
     def get_all_objects(self):
         queryset = self._meta.model.objects.all()
+        return queryset
+
+    def get_all_allergens(self):
+        queryset = self.ALLERGENS
         return queryset
 
     def __str__(self):

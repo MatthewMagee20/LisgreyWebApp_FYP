@@ -37,25 +37,37 @@
     </div>
     <div class="container" style="padding-top: 0 !important;">
         <div class="row">
-            <div class="col-md">
+            <div class="pt-2 col-md">
                 <div class="text-center">
                     <div class="input-group">
                         <label for="example-search-input"></label><label for="filter_input"></label><input onkeyup="filter_menu()" class="form-control py-2 border-right-0 border" type="search" value="search" id="filter_input">
                         <span class="input-group-append"><div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div></span>
                     </div>
-                    <div class="pt-4">
-                        <a id="basket" href="{% url 'basket' %}">Basket:
-                            {% if request.session.item_quantities == null %}
-                                0
-                            {% else %}
-                                {{ request.session.item_quantities }}
-                            {% endif %}
-                            items <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
-                    </div>
+                </div>
+            </div>
+            <div class="pt-2 col-md">
+                <label style="width: 100%;">
+                    <select onchange="submit()" class="selectpicker" multiple data-width="100%" multiple title="Select Allergens to remove..">
+                        {% for x in allergens %}
+                            <option>{{ x.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <div class="pt-4">
+                    <a id="basket" href="{% url 'basket' %}">Basket:
+                        {% if request.session.item_quantities == null %}
+                            0
+                        {% else %}
+                            {{ request.session.item_quantities }}
+                        {% endif %}
+                        items <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
-
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-starters" role="tabpanel" aria-labelledby="pills-starters-tab">
                 {% for starter in starters %}
@@ -298,7 +310,7 @@
                                                 <input class="quantity" name="quantity" type="number" value="1">
                                             </label>
                                             <button class="quantity-button" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                            <input onclick="yuoa(this)" class="add-to-cart-button" type="submit" value="Add to Cart">
+                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
                                         </form>
                                     </div>
                                 </div>
@@ -358,35 +370,4 @@
             {#                {% endfor %}#}
             {#            </div>#}
         </div>
-    </div>
-    <script>
-        function yuoa(selected) {
-            {#console.log(selected.parentElement.action);#}
-            let url = selected.parentElement.action
-            console.log(url);
-            $(document).on('submit', function (e) {
-                e.parentElement;
-                e.preventDefault();
-
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (resp) {
-                        console.log(resp.quantity);
-                        document.getElementById("basket").innerText = resp.quantity;
-                    }
-                })
-            })
-        }
-    </script>
-
-    {#    <script>#}
-    {#        $.ajax({#}
-    {#            type: "GET",#}
-    {#            url: "/takeaway_menu/",#}
-    {#            success: function() {#}
-    {#                location.reload();#}
-    {#            }#}
-    {#        });#}
-    {#    </script>#}
 {% endblock %}

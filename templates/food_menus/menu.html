@@ -36,13 +36,22 @@
     </div>
     <div class="container" style="padding-top: 0 !important;">
         <div class="row">
-            <div class="col-md">
+            <div class="pt-2 col-md">
                 <div class="text-center">
                     <div class="input-group">
                         <label for="example-search-input"></label><label for="filter_input"></label><input onkeyup="filter_menu()" class="form-control py-2 border-right-0 border" type="search" value="search" id="filter_input">
                         <span class="input-group-append"><div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div></span>
                     </div>
                 </div>
+            </div>
+            <div class="pt-2 col-md">
+                <label style="width: 100%;">
+                    <select onchange="submit()" class="selectpicker" multiple data-width="100%" multiple title="Select Allergens to remove..">
+                        {% for x in allergens %}
+                            <option>{{ x.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
             </div>
         </div>
         <div class="tab-content" id="pills-tabContent">

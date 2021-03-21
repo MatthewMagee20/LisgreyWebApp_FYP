@@ -19,7 +19,10 @@ def get_food_menu(request):
         'side_orders': side_orders,
         'desserts': dessert_items,
         'drinks': drink_items,
+        'allergens': FoodItem.ALLERGENS
     }
+
+    print(FoodItem.ALLERGENS)
 
     return render(request, 'food_menus/menu.html', data)
 

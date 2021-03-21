@@ -17,33 +17,29 @@ function filter_menu() {
     }
 }
 
-// $(document).ready(function() {
-//     $('.multiple_select').select2();
-// });
+function submit() {
+    const tab = document.getElementsByClassName("tab-pane fade active show");
+    let values = $('.selectpicker').val();
+    const card = tab[0].getElementsByClassName("card");
 
-// function submit() {
-//     const tab = document.getElementsByClassName("tab-pane fade active show");
-//     const values = $('#multiple_select_filter').val();
-//     const card = tab[0].getElementsByClassName("card");
-//
-//     for(let i = 0; i < card.length; i++) {
-//         const allergens = card[i].getElementsByClassName("card_allergens")[0].innerText;
-//         const array = allergens.split(" ");
-//
-//         for(let j = 0; j < array.length; j++){
-//             console.log(array[j]);
-//             for(let x = 0; x < values.length; x++){
-//                 if(array[j] === values[x]){
-//                     console.log("yuppa");
-//                     card[i].style.display = "none";
-//                 }
-//                 else{
-//                     console.log("neg");
-//                     card[i].style.display = "";
-//                 }
-//             }
-//         }
-//     }
-//
-// }
+    // Reset cards if array is empty
+    if(values === null){
+        values = [""]
+    }
+
+    for(let i = 0; i < card.length; i++) {
+        const allergens = card[i].getElementsByClassName("card_allergens")[0].innerText;
+        const array = allergens.split(", ");
+
+        if(values.some((val) => array.indexOf(val) !== -1)){
+            card[i].style.display = "none";
+        }
+        else if(!values.length){
+            card[i].style.display = "";
+        }
+        else {
+            card[i].style.display = "";
+        }
+    }
+}
 

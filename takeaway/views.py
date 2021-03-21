@@ -154,11 +154,10 @@ def update_basket_view(request, food_id):
     basket.total = total
     basket.save()
 
-    return JsonResponse({'quantity': request.session['item_quantities']})
+    return HttpResponseRedirect("/takeaway_menu/")
 
 
 def confirm_order_view(request):
-    # implement httpredirect
     try:
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
@@ -206,12 +205,3 @@ def takeaway_order_view(request):
         update_status.save()
 
     return render(request, 'staff_templates/takeaway_orders.html', data)
-
-
-def get_basket(request):
-    if request.method == "GET":
-        data = {
-            "data": request.session['item_quantities']
-        }
-
-        return HttpResponse(json.dumps(data), content_type="application/json")
