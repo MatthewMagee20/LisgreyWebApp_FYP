@@ -1,5 +1,4 @@
-import json
-
+from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
@@ -155,7 +154,7 @@ def update_basket_view(request, food_id):
     basket.total = total
     basket.save()
 
-    return HttpResponseRedirect("/takeaway_menu/")
+    return JsonResponse({'quantity': request.session['item_quantities']})
 
 
 def confirm_order_view(request):

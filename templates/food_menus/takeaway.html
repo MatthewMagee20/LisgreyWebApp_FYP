@@ -298,7 +298,7 @@
                                                 <input class="quantity" name="quantity" type="number" value="1">
                                             </label>
                                             <button class="quantity-button" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">
+                                            <input onclick="yuoa(this)" class="add-to-cart-button" type="submit" value="Add to Cart">
                                         </form>
                                     </div>
                                 </div>
@@ -359,4 +359,34 @@
             {#            </div>#}
         </div>
     </div>
+    <script>
+        function yuoa(selected) {
+            {#console.log(selected.parentElement.action);#}
+            let url = selected.parentElement.action
+            console.log(url);
+            $(document).on('submit', function (e) {
+                e.parentElement;
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (resp) {
+                        console.log(resp.quantity);
+                        document.getElementById("basket").innerText = resp.quantity;
+                    }
+                })
+            })
+        }
+    </script>
+
+    {#    <script>#}
+    {#        $.ajax({#}
+    {#            type: "GET",#}
+    {#            url: "/takeaway_menu/",#}
+    {#            success: function() {#}
+    {#                location.reload();#}
+    {#            }#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}
