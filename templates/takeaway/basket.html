@@ -27,5 +27,7 @@
         {% else %}
             <input type="button" value="Confirm" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url "nu_user_confirm" %}';"/>
         {% endif %}
+        <br>
+        <p><a href="{% url 'takeaway' %}">Back to Menu </a></p>
     </div>
 {% endblock %}

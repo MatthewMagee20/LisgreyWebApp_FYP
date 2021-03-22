@@ -113,12 +113,14 @@ def update_basket_view(request, food_id):
 
     try:
         session_id = request.session['basket_id']
+        request.session.modified = True
+
     except KeyError:
         basket_new = Basket()
         basket_new.save()
         request.session['basket_id'] = basket_new.id
+        request.session.modified = True
         session_id = basket_new.id
-        # print(session_id)
 
     basket = Basket.objects.get(id=session_id)
     item = FoodItem.objects.get(id=food_id)
@@ -135,6 +137,7 @@ def update_basket_view(request, food_id):
             basket_item.quantity = 1
         else:
             basket_item.quantity = quantity
+            request.session.save()
             basket_item.save()
     else:
         pass
@@ -147,10 +150,11 @@ def update_basket_view(request, food_id):
 
     request.session['item_quantities'] = basket.basketitem_set.count()
     basket.total = total
+    request.session.save()
     basket.save()
+    request.session.modified = True
 
     return HttpResponseRedirect("/takeaway_menu/")
-
 
 
 def confirm_order_view(request):

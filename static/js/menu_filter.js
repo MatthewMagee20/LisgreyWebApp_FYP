@@ -20,7 +20,7 @@ function filter_menu() {
 function submit() {
     const tab = document.getElementsByClassName("tab-pane fade active show");
     let values = $('.selectpicker').val();
-    const card = tab[0].getElementsByClassName("card");
+    const card = tab[0].getElementsByClassName("col-xl");
 
     // Reset cards if array is empty
     if(values === null){

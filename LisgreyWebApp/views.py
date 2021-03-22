@@ -12,20 +12,16 @@ from reservations.models import Reservation
 from .models import Image
 
 
-# PWA page
-# def pwa_home_view(request):
-#     return render(request, 'offline/home.html')
-#
-#
-# def pwa_menu_view(request):
-#     return render(request, 'offline/menu.html')
-
 def base(request):
     return render(request, 'base.html')
 
 
 def home(request):
     return render(request, 'home.html')
+
+
+def menu(request):
+    return render(request, 'food_menus/menu.html')
 
 
 def register(request):

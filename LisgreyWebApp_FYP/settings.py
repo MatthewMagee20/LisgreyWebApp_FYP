@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lisgrey_database',
         'USER': 'postgres',
-        'PASSWORD': 'password',
+        'PASSWORD': docker_config.PRODUCTION_PASSWORD,
         'HOST': '127.0.0.1',
         'PORT': '25432'
     }
@@ -157,7 +157,6 @@ if socket.gethostname() == "acer":                          # if development on 
     DATABASES["default"]["PORT"] = 25432
     DATABASES["default"]["PASSWORD"] = 'password'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_PAGE_DOMAIN = '192.168.1.145:8000'
 
 else:                                                       # if production
     DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
@@ -170,7 +169,7 @@ else:                                                       # if production
 if docker_config.DEPLOY_SECURE:                             # if config.py DEPLOY_SECURE = True
     DEBUG = False                                           # Turn Debug mode off
     TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1', '192.168.1.145']    # Hosts allowed
+    ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1', '192.168.1.145']  # Hosts allowed
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 else:
@@ -210,8 +209,8 @@ AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 # PWA Settings
 PWA_APP_NAME = 'Lisgrey House'
 PWA_APP_DESCRIPTION = "Lisgrey House"
-PWA_APP_THEME_COLOR = '#0A0302'
-PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_THEME_COLOR = '#39606F'
+PWA_APP_BACKGROUND_COLOR = '#39606F'
 PWA_APP_DISPLAY = 'standalone'
 PWA_APP_SCOPE = '/'
 PWA_APP_ORIENTATION = 'any'
@@ -238,3 +237,5 @@ PWA_APP_SPLASH_SCREEN = [
 PWA_APP_DIR = 'ltr'
 
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
+
+SESSION_SAVE_EVERY_REQUEST = True
