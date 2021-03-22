@@ -6,13 +6,15 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-    <div class="pt-5 container">
-        <h2 class="text-center">Edit Profile</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ user_details_form | crispy}}
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Update">
-            <p>To change password, go<a href="{% url 'update_password' %}"> here</a>.</p>
-        </form>
+    <div class="section">
+        <div class="pt-5 container">
+            <h2 class="text-center">Edit Profile</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ user_details_form | crispy}}
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Update">
+                <p>To change password, go<a href="{% url 'update_password' %}"> here</a>.</p>
+            </form>
+        </div>
     </div>
 {% endblock %}

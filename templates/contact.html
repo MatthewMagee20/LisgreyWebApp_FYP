@@ -5,18 +5,20 @@
 {% block head_title %} | Contact{% endblock %}
 
 {% block body_content %}
-    <div class="container">
-        <h2 class="text-center">Contact Us</h2>
-        <br>
-        <div class="text-center">
-            <p><strong>Address:</strong> Lisgrey Cross, Lisgrea, Virginia, Co. Cavan</p>
-            <p><strong>Phone:</strong> (049) 854 7161</p>
-            <p><strong>Email:</strong></p>
+    <div class="section">
+        <div class="container">
+            <h2 class="text-center">Contact Us</h2>
+            <br>
+            <div class="text-center">
+                <p><strong>Address:</strong> Lisgrey Cross, Lisgrea, Virginia, Co. Cavan</p>
+                <p><strong>Phone:</strong> (049) 854 7161</p>
+                <p><strong>Email:</strong></p>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Send">
+            </form>
         </div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form | crispy }}
-            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Send">
-        </form>
     </div>
 {% endblock %}

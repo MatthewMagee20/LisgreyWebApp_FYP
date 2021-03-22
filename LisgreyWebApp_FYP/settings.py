@@ -157,7 +157,7 @@ if socket.gethostname() == "acer":                          # if development on 
     DATABASES["default"]["PORT"] = 25432
     DATABASES["default"]["PASSWORD"] = 'password'
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_PAGE_DOMAIN = '192.168.1.145'
+    EMAIL_PAGE_DOMAIN = '192.168.1.145:8000'
 
 else:                                                       # if production
     DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
@@ -181,8 +181,10 @@ else:
     SESSION_COOKIE_SECURE = False
 
 # Email backend
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
+# EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_PORT = 587
+EMAIL_PORT = 2525
 EMAIL_HOST_USER = docker_config.EMAIL
 EMAIL_HOST_PASSWORD = docker_config.PASSWORD
 EMAIL_USE_TLS = True

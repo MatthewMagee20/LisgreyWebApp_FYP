@@ -6,7 +6,8 @@
 {% block head_title %} | Login{% endblock %}
 
 {% block body_content %}
-    <div class="pt-5 container">
+    <div class="section">
+        <div class="pt-5 container">
             <h2 class="text-center">Login</h2>
             <form method="POST">
                 {% csrf_token %}
@@ -16,5 +17,6 @@
                 <p>No account? Click <a href="{% url 'register' %}"> here</a> to register.</p>
                 <p>Forgot Password? Click<a href="{% url 'reset_password' %}"> here</a> to reset it.</p>
             </form>
+        </div>
     </div>
 {% endblock %}

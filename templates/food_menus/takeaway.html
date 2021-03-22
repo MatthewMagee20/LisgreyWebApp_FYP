@@ -321,54 +321,6 @@
                 {% if forloop.last %}</div>{% endif %}
                 {% endfor %}
             </div>
-
-            {#            <div class="tab-pane fade" id="pills-drinks" role="tabpanel" aria-labelledby="pills-drinks-tab">#}
-            {#                {% for drink in drinks %}#}
-            {#                    {% if forloop.first %}<div class="pt-2 row">{% endif %}#}
-            {#                <div class="pt-2 col-xl">#}
-            {#                    <div class="card">#}
-            {#                        <div class="card-body d-flex flex-column">#}
-            {#                            <div class="row">#}
-            {#                                <div class="col">#}
-            {#                                    <p class="card_title">{{ drink.name }}</p>#}
-            {#                                </div>#}
-            {#                                <div class="col">#}
-            {#                                    <p class="card_price">&euro;{{ drink.price }}</p>#}
-            {#                                </div>#}
-            {#                            </div>#}
-            {#                            <div class="row">#}
-            {#                                <div class="col">#}
-            {#                                    <div class="card-text-container">#}
-            {#                                        <p class="text-muted">{{ drink.description }}</p>#}
-            {#                                    </div>#}
-            {#                                </div>#}
-            {#                            </div>#}
-            {#                            <div class="row">#}
-            {#                                <div class="col">#}
-            {#                                    <div class="card-text-container">#}
-            {#                                        <p class="card_allergens">{{ drink.allergen }}</p>#}
-            {#                                    </div>#}
-            {#                                </div>#}
-            {#                            </div>#}
-            {#                            <div class="mt-auto row">#}
-            {#                                <div class="col">#}
-            {#                                    <div class="card-footer">#}
-            {#                                        <form method="get" action="{% url 'update_basket' drink.id %}">#}
-            {#                                            <label for="quantity">Quantity</label>#}
-            {#                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>#}
-            {#                                            <input class="quantity" id="quantity" name="quantity" type="number" value="1">#}
-            {#                                            <button class="quantity-button" id="increment" name="increment" type="button" onclick="increaseQuantity(this)">+</button>#}
-            {#                                            <input class="add-to-cart-button" type="submit" value="Add to Cart">#}
-            {#                                        </form>#}
-            {#                                    </div>#}
-            {#                                </div>#}
-            {#                            </div>#}
-            {#                        </div>#}
-            {#                    </div>                </div>#}
-            {#                {% if forloop.counter|divisibleby:2 %}</div><div class="pt-2 row">{% endif %}#}
-            {#                {% if forloop.last %}</div>{% endif %}#}
-            {#                {% endfor %}#}
-            {#            </div>#}
         </div>
     </div>
 {% endblock %}

@@ -22,8 +22,6 @@ def get_food_menu(request):
         'allergens': FoodItem.ALLERGENS
     }
 
-    print(FoodItem.ALLERGENS)
-
     return render(request, 'food_menus/menu.html', data)
 
 
@@ -42,6 +40,7 @@ def get_food_menu_takeaway(request):
         'side_orders': side_orders,
         'desserts': dessert_items,
         'drinks': drink_items,
+        'allergens': FoodItem.ALLERGENS
     }
 
     return render(request, 'food_menus/takeaway.html', data)

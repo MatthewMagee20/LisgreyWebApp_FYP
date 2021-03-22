@@ -1,14 +1,9 @@
-from django.http import JsonResponse
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-# Create your views here.
 import string
 import random
-
 from django.template.loader import render_to_string
-
 from LisgreyWebApp_FYP import settings
 from food_menus.models import FoodItem
 from .models import Basket, BasketItem, TakeawayOrder
@@ -155,6 +150,7 @@ def update_basket_view(request, food_id):
     basket.save()
 
     return HttpResponseRedirect("/takeaway_menu/")
+
 
 
 def confirm_order_view(request):
