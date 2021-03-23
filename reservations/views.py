@@ -1,7 +1,7 @@
 import random
 # Create your views here.
 import string
-import datetime
+from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -25,7 +25,7 @@ def create_reservation_view(request):
                     r.last_name = c_user.last_name
                     r.email = c_user.email
                     r.contact_phone = c_user.contact_phone
-                    r.time_stamp = datetime.datetime.now()
+                    r.time_stamp = datetime.now()
                 r.id = res_id_gen
                 r.save()
                 return HttpResponseRedirect('/reservation/confirmation/')
@@ -43,14 +43,13 @@ def create_reservation_view(request):
 
 def nu_create_reservation_view(request):
     res_id_gen = ''.join(random.choices(string.digits + string.ascii_lowercase, k=7))
-
     if request.method == 'POST' or None:
         reservation_form = NuReservationForm(request.POST or None)
 
         if reservation_form.is_valid():
             r = reservation_form.save(commit=False)
             r.id = res_id_gen
-            r.time_stamp = datetime.datetime.now()
+            r.time_stamp = datetime.now()
             r.save()
             return HttpResponseRedirect('/reservation/confirmation/')
 

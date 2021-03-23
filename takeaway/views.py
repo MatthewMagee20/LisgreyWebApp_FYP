@@ -1,8 +1,6 @@
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-import string
-import random
 from django.template.loader import render_to_string
 from LisgreyWebApp_FYP import settings
 from food_menus.models import FoodItem
@@ -10,11 +8,13 @@ from .models import Basket, BasketItem, TakeawayOrder
 from LisgreyWebApp.models import UserProfile
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
 
+import string
+import random
+
 
 def basket_view(request):
     try:
         session_id = request.session['basket_id']
-        basket = Basket.objects.get(id=session_id)
     except KeyError:
         session_id = None
 
@@ -37,8 +37,6 @@ def nu_confirm_order_user_details_view(request):
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
     except KeyError:
-        session_id = None
-
         return HttpResponseRedirect('/takeaway/checkout')
 
     if request.method == 'POST' or None:
@@ -70,7 +68,6 @@ def confirm_order_user_details_view(request):
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
     except KeyError:
-        session_id = None
         return HttpResponseRedirect('/takeaway/checkout')
 
     uf = TakeawayOrderUserForm(request.POST or None)
@@ -165,8 +162,6 @@ def confirm_order_view(request):
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
     except KeyError:
-        session_id = None
-
         return HttpResponseRedirect('/takeaway/checkout')
 
     order, created = TakeawayOrder.objects.get_or_create(basket=basket)
