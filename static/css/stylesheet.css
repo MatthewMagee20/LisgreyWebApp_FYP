@@ -45,8 +45,10 @@ h1{
 }
 
 h2{
+    font-size: 1.6rem;
     padding-top: 2rem;
     text-align: center;
+    font-weight: 500;
 }
 
 /* Home Page */
@@ -256,4 +258,13 @@ input[type=number] {
 
 .filter-hidden{
     display: none;
+}
+
+@media only screen and (max-width: 400px) {
+  label, input, p {
+    font-size: 0.7rem;
+  }
+  h2 {
+      font-size: 1.3rem;
+  }
 }
