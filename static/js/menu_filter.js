@@ -2,6 +2,8 @@ function filter_menu() {
     const input = document.getElementById("filter_input").value.toUpperCase();
     const card = document.getElementsByClassName("card");
 
+    console.log(input);
+
     for(let i = 0; i < card.length; i++){
         const card_title = card[i].getElementsByClassName("card_title")[0];
 
@@ -9,6 +11,9 @@ function filter_menu() {
             const value = card_title.innerText.toUpperCase();
             if(value.indexOf(input) > -1){
                 card[i].style.display = "";
+            }
+            else if(input === ""){
+                card[i].style.display = "none";
             }
             else{
                 card[i].style.display = "none";
