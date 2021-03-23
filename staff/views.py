@@ -35,7 +35,7 @@ def detail_reservation_view(request, reservation_id):
             time = update.time
             update.save()
 
-            if update.status:
+            if update.confirmed:
                 email_template = render_to_string('reservations/reservation_confirmation_email.html', {'date': date,
                                                                                                        'time': time})
                 send_mail(

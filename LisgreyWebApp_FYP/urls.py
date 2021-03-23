@@ -32,7 +32,7 @@ urlpatterns = [
     path('update_password/', views.update_password, name='update_password'),
     path('update_password/', views.update_password, name='update_password'),
     path('profile/', views.profile_view, name='profile'),
-    path('gallery/', views.gallery_view, name='gallery'),
+    path('gallery/', TemplateView.as_view(template_name="gallery.html"), name='gallery'),
     path('accounts/delete', views.delete_user_view, name="delete"),
     path('account/register/', views.register, name='register'),
     path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
@@ -59,7 +59,6 @@ urlpatterns = [
     path('', include('pwa.urls')),
     path(r'base', views.base, name='base'),
     path(r'home', views.home, name='pwa_home'),
-    path(r'menu', views.menu, name='pwa_menu'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -154,7 +154,7 @@ def update_basket_view(request, food_id):
     basket.total = total
     basket.save()
 
-    return HttpResponseRedirect("/takeaway_menu/")
+    return HttpResponseRedirect("/menu/")
 
 
 def confirm_order_view(request):

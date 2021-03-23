@@ -6,7 +6,7 @@
 
 {% block body_content %}
     <div class="pt-5 container">
-        <div class="pt-5 row text-center">
+        <div class="pt-5 pb-5 row text-center">
             <div class="col">
                 <label for="filter_option">Filter option
                     <select id="filter_option" onchange="filterSelect()">
@@ -15,19 +15,15 @@
                         <option value="2">Filter By Time</option>
                         <option value="3">Filter By Date & Time</option>
                     </select>
-                    <button onclick="reset()">Reset</button>
                 </label>
+                <button class="add-to-cart-button" onclick="reset()">Reset</button>
             </div>
             <div id="filter_by_date" class="col show filter-hidden">
-                <label for="date"> Filter by date
-                    <select id="date" onchange="filterByDate()">
-                        <option>---</option>
-                        {% for date in dates %}
-                            <option>{{ date.date }}</option>
-                        {% endfor %}
-                    </select>
-                    <button onclick="reset()">Reset</button>
+                <label for="date" onchange="filterByDate()"> Filter by date
+                    <input id="dt_date" class="id_date" type="date">
                 </label>
+                                    <button class="add-to-cart-button" onclick="reset()">Reset</button>
+
             </div>
             <div id="filter_by_time" class="col show filter-hidden">
                 <label for="time"> Filter by Time
@@ -37,19 +33,15 @@
                             <option>{{ time.time }}</option>
                         {% endfor %}
                     </select>
-                    <button onclick="reset()">Reset</button>
                 </label>
+                                <button class="add-to-cart-button" onclick="reset()">Reset</button>
+
             </div>
             <div id="filter_by_date_time" class="col filter-hidden">
-                <label for="date" onchange="filterByDateTime()"> Filter by date
-                    <select id="dt_date">
-                        <option>---</option>
-                        {% for date in dates %}
-                            <option>{{ date.date }}</option>
-                        {% endfor %}
-                    </select>
+                <label for="date" onchange="filterByDateTime()"> Date
+                    <input id="dt_date" class="id_date" type="date">
                 </label>
-                <label for="time" onchange="filterByDateTime()"> Filter by Time
+                <label for="time" onchange="filterByDateTime()"> Time
                     <select id="dt_time">
                         <option>---</option>
                         {% for time in times %}
@@ -57,13 +49,13 @@
                         {% endfor %}
                     </select>
                 </label>
-                <button onclick="reset()">Reset</button>
+                <button class="add-to-cart-button" onclick="reset()">Reset</button>
             </div>
         </div>
         <table id="reservation_table" class="pt-5 table">
             <tr>
                 <th>Reservation ID</th>
-                <th>Status</th>
+                <th>Confirmed</th>
                 <th>Name</th>
                 <th>Time Stamp</th>
                 <th>Date</th>
@@ -72,10 +64,10 @@
             {% for reservation in data %}
                 <tr>
                     <td class="reservation-uc"><a href="{% url 'staff_detail_reservation' reservation.id %}">{{ reservation.id }}</a></td>
-                    <td>{{ reservation.status}}</td>
+                    <td>{{ reservation.confirmed}}</td>
                     <td>{{ reservation.first_name }} {{ reservation.last_name }}</td>
                     <td>{{ reservation.time_stamp }}</td>
-                    <td class="res_date">{{ reservation.date}}</td>
+                    <td class="res_date">{{ reservation.date | date:'Y-m-d'}}</td>
                     <td>{{ reservation.time}}</td>
                 </tr>
             {% endfor %}

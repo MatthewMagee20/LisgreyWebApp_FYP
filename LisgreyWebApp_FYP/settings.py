@@ -135,7 +135,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 TIME_INPUT_FORMATS = [
     '%H:%M %p'
@@ -156,7 +156,8 @@ if socket.gethostname() == "acer":                          # if development on 
     DATABASES["default"]["HOST"] = "localhost"              # connect to local database on port 25432
     DATABASES["default"]["PORT"] = 25432
     DATABASES["default"]["PASSWORD"] = 'password'
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_PAGE_DOMAIN = 'http://localhost:8000'
 
 else:                                                       # if production
     DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
@@ -180,10 +181,8 @@ else:
     SESSION_COOKIE_SECURE = False
 
 # Email backend
-# EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST = 'smtp.mailtrap.io'
-# EMAIL_PORT = 587
-EMAIL_PORT = 2525
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_HOST_USER = docker_config.EMAIL
 EMAIL_HOST_PASSWORD = docker_config.PASSWORD
 EMAIL_USE_TLS = True
@@ -208,7 +207,7 @@ AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 
 # PWA Settings
 PWA_APP_NAME = 'Lisgrey House'
-PWA_APP_DESCRIPTION = "Lisgrey House"
+PWA_APP_DESCRIPTION = "Web Application"
 PWA_APP_THEME_COLOR = '#39606F'
 PWA_APP_BACKGROUND_COLOR = '#39606F'
 PWA_APP_DISPLAY = 'standalone'

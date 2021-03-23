@@ -15,7 +15,7 @@ class ReservationForm(ModelForm):
 
         widgets = {
             'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
-            'date': DateInput(attrs={'type': 'datepicker', 'class': 'yup', 'autocomplete': 'off'}),
+            'date': DateInput(attrs={'type': 'datepicker', 'class': 'id_date', 'autocomplete': 'off'}),
             'time': TimeInput(attrs={'class': 'timepicker', 'autocomplete': 'off'})
         }
 
@@ -25,6 +25,9 @@ class ReservationForm(ModelForm):
         comb = datetime.combine(reservation_date, reservation_time)
         diff = comb - datetime.now()
         errors = []
+
+        print(reservation_date)
+        print(datetime.date(datetime.now()))
 
         if datetime.date(datetime.now()) > reservation_date:
             errors.append(ValidationError("Reservation Date cannot be in the past"))
@@ -47,7 +50,7 @@ class NuReservationForm(ModelForm):
 
         widgets = {
             'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
-            'date': DateInput(attrs={'type': 'datepicker', 'class': 'yup', 'autocomplete': 'off'}),
+            'date': DateInput(attrs={'type': 'datepicker', 'class': 'id_date', 'autocomplete': 'off'}),
             'time': TimeInput(attrs={'class': 'timepicker', 'autocomplete': 'off'})
         }
 

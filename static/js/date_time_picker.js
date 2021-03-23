@@ -9,6 +9,6 @@ $(document).ready(function(){
         dropdown: true,
         scrollbar: true
     });
-    $('#id_date').datepicker({
+    $('.id_date').datepicker({
     })
 });

@@ -1,13 +1,12 @@
-import random
-# Create your views here.
-import string
 from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-
 from LisgreyWebApp.models import UserProfile
 from .forms import ReservationForm, NuReservationForm
 from .models import Reservation
+
+import random
+import string
 
 
 # create reservation
@@ -20,25 +19,22 @@ def create_reservation_view(request):
             c_user = UserProfile.objects.get(id=request.user.id)
             if reservation_form.is_valid():
                 r = reservation_form.save(commit=False)
-                if request.user.is_authenticated:
-                    r.first_name = c_user.first_name
-                    r.last_name = c_user.last_name
-                    r.email = c_user.email
-                    r.contact_phone = c_user.contact_phone
-                    r.time_stamp = datetime.now()
+                r.first_name = c_user.first_name
+                r.last_name = c_user.last_name
+                r.email = c_user.email
+                r.contact_phone = c_user.contact_phone
+                r.time_stamp = datetime.now()
                 r.id = res_id_gen
                 r.save()
-                return HttpResponseRedirect('/reservation/confirmation/')
-
-            else:
-                return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
+            return HttpResponseRedirect('/reservation/confirmation/')
 
         else:
             reservation_form = ReservationForm()
             return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
 
     else:
-        return render(request, 'account/account_status.html')
+        reservation_form = ReservationForm()
+        return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
 
 
 def nu_create_reservation_view(request):
@@ -81,7 +77,8 @@ def edit_reservation_view(request, reservation_id):
         else:
             update_reservation_form = ReservationForm(instance=reservation_instance)
 
-        return render(request, 'reservations/edit_reservation.html', {'update_reservation_form': update_reservation_form})
+        return render(request, 'reservations/edit_reservation.html',
+                      {'update_reservation_form': update_reservation_form})
 
     else:
         return render(request, 'account/account_status.html')

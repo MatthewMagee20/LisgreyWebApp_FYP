@@ -25,7 +25,7 @@ function filterSelect() {
 }
 
 function filterByDate() {
-    let date = document.getElementById("date").value;
+    const date = document.getElementById("dt_date").value;
     let reservation_table = document.getElementById("reservation_table");
 
     for (let i = 1; reservation_table.rows[i]; i++) {
@@ -61,6 +61,7 @@ function filterByDateTime() {
 
     for (let i = 1; reservation_table.rows[i]; i++) {
         const row = reservation_table.rows[i]
+        console.log(row.cells[4])
         if ((row.cells[4].innerText === date) && (row.cells[5].innerText === time)) {
             row.style.display = "";
         } else {

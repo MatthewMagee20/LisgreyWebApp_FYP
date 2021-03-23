@@ -9,7 +9,6 @@ from django_email_verification.confirm import send_email
 
 from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm, UserProfile, DeleteUserForm
 from reservations.models import Reservation
-from .models import Image
 
 
 def base(request):
@@ -18,10 +17,6 @@ def base(request):
 
 def home(request):
     return render(request, 'home.html')
-
-
-def menu(request):
-    return render(request, 'food_menus/menu.html')
 
 
 def register(request):
@@ -106,22 +101,3 @@ def delete_user_view(request):
 
     return render(request, 'account/delete.html', context)
 
-
-def gallery_view(request):
-    images = Image.objects.all()
-
-    data = {
-        "images": images,
-    }
-
-    return render(request, 'gallery.html', data)
-
-
-def gallery_view_home(request):
-    images = Image.objects.all()
-
-    data = {
-        "images": images,
-    }
-
-    return render(request, 'home.html', data)
