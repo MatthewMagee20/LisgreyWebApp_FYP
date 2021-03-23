@@ -11,7 +11,7 @@ class Reservation(models.Model):
     contact_phone = models.CharField(max_length=50, blank=False)
     date = models.DateField(editable=True, null=True)
     time = models.TimeField(editable=True, null=True)
-    people_quantity = models.IntegerField(null=False)
+    no_of_people = models.IntegerField(null=False)
     additional_information = models.CharField(blank=True, max_length=20)
     id = models.CharField(unique=True, primary_key=True, max_length=10)
     status = models.BooleanField(default=False)

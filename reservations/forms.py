@@ -7,33 +7,11 @@ from datetime import datetime
 class ReservationForm(ModelForm):
     class Meta:
         model = Reservation
-        fields = ['date', 'time', 'people_quantity', 'additional_information']
+        fields = ['date', 'time', 'no_of_people', 'additional_information']
 
-        widgets = {
-            'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
-            'date': DateInput(attrs={'type': 'datepicker', 'class': 'yup', 'autocomplete': 'off'}),
-            'time': TimeInput(attrs={'class': 'timepicker', 'autocomplete': 'off'})
+        labels = {
+            'no_of_people': 'No. of People'
         }
-
-    def clean_date(self):
-        reservation_date = self.cleaned_data['date']
-
-        if datetime.date(datetime.now()) > reservation_date:
-            raise ValidationError("Reservation Date cannot be in the past")
-        return reservation_date
-
-    def clean_time(self):
-        reservation_time = self.cleaned_data['time']
-
-        if datetime.time(datetime.now()) < reservation_time:
-            raise ValidationError("bussion")
-
-
-class NuReservationForm(ModelForm):
-    class Meta:
-        model = Reservation
-        fields = ['first_name', 'last_name', 'email', 'contact_phone', 'date', 'time', 'people_quantity',
-                  'additional_information']
 
         widgets = {
             'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
@@ -44,14 +22,65 @@ class NuReservationForm(ModelForm):
     def clean(self):
         reservation_time = self.cleaned_data['time']
         reservation_date = self.cleaned_data['date']
+        comb = datetime.combine(reservation_date, reservation_time)
+        diff = comb - datetime.now()
+        errors = []
 
         if datetime.date(datetime.now()) > reservation_date:
-            raise ValidationError("Reservation Date cannot be in the past")
+            errors.append(ValidationError("Reservation Date cannot be in the past"))
 
+        if diff.total_seconds() <= 3600:  # 3600 seconds = 1 hour
+            errors.append(ValidationError("Reservation time has to take place in over an hour from current time"))
+
+        if errors:
+            raise ValidationError(errors)
+
+
+class NuReservationForm(ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ['first_name', 'last_name', 'email', 'contact_phone', 'date', 'time', 'no_of_people',
+                  'additional_information']
+        labels = {
+            'no_of_people': 'No. of People'
+        }
+
+        widgets = {
+            'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
+            'date': DateInput(attrs={'type': 'datepicker', 'class': 'yup', 'autocomplete': 'off'}),
+            'time': TimeInput(attrs={'class': 'timepicker', 'autocomplete': 'off'})
+        }
+
+    def clean(self):
+        reservation_time = self.cleaned_data['time']
+        reservation_date = self.cleaned_data['date']
+        first_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['last_name']
         comb = datetime.combine(reservation_date, reservation_time)
-        print(comb)
-
         diff = comb - datetime.now()
-        print(diff)
-        if diff.total_seconds() <= 3600:
-            raise ValidationError("Reservation time has to be take place in over an hour")
+        errors = []
+        f_num_check = False
+        l_num_check = False
+
+        for char in first_name:
+            if char.isdigit():
+                f_num_check = True
+                break
+        if f_num_check:
+            errors.append(ValidationError("First name cannot contain a number"))
+
+        for char in last_name:
+            if char.isdigit():
+                l_num_check = True
+                break
+        if l_num_check:
+            errors.append(ValidationError("Last Name cannot contain a number"))
+
+        if datetime.date(datetime.now()) > reservation_date:
+            errors.append(ValidationError("Reservation Date cannot be in the past"))
+
+        if diff.total_seconds() <= 3600:  # 3600 seconds = 1 hour
+            errors.append(ValidationError("Reservation time has to take place in over an hour from current time"))
+
+        if errors:
+            raise ValidationError(errors)
