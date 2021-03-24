@@ -152,23 +152,23 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-if socket.gethostname() == "acer":                          # if development on local machine
-    DATABASES["default"]["HOST"] = "localhost"              # connect to local database on port 25432
+if socket.gethostname() == "acer":  # if development on local machine
+    DATABASES["default"]["HOST"] = "localhost"  # connect to local database on port 25432
     DATABASES["default"]["PORT"] = 25432
     DATABASES["default"]["PASSWORD"] = 'password'
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     EMAIL_PAGE_DOMAIN = 'http://localhost:8000'
 
-else:                                                       # if production
-    DATABASES["default"]["HOST"] = "lisgrey-psql"           # connect to database container on droplet on port 5432
+else:  # if production
+    DATABASES["default"]["HOST"] = "lisgrey-psql"  # connect to database container on droplet on port 5432
     DATABASES["default"]["PORT"] = 5432
     DATABASES["default"]["PASSWORD"] = docker_config.PRODUCTION_PASSWORD
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_PAGE_DOMAIN = 'www.lisgreyhouse.com'
 
 # Set DEPLOY_SECURE to True only for LIVE deployment
-if docker_config.DEPLOY_SECURE:                             # if config.py DEPLOY_SECURE = True
-    DEBUG = False                                           # Turn Debug mode off
+if docker_config.DEPLOY_SECURE:  # if config.py DEPLOY_SECURE = True
+    DEBUG = False  # Turn Debug mode off
     TEMPLATES[0]["OPTIONS"]["debug"] = False
     ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1', '192.168.1.145']  # Hosts allowed
     CSRF_COOKIE_SECURE = True
@@ -201,7 +201,6 @@ EMAIL_MAIL_PLAIN = 'email_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
 EMAIL_VERIFIED_CALLBACK = verified
-
 
 AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 
@@ -237,3 +236,6 @@ PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
 
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_SAVE_EVERY_REQUEST = True

@@ -12,6 +12,9 @@ class Basket(models.Model):
     def __str__(self):
         return f"{self.id}"
 
+    def total_less_than_zero(self):
+        return self.total >= 0
+
 
 class BasketItem(models.Model):
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE, null=True, blank=True)
@@ -20,6 +23,9 @@ class BasketItem(models.Model):
 
     def __str__(self):
         return f"{self.basket}"
+
+    def quantity_less_than_zero(self):
+        return self.quantity >= 0
 
 
 CHOICES = (
