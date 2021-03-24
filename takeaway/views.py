@@ -1,5 +1,6 @@
+
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from LisgreyWebApp_FYP import settings
@@ -90,7 +91,7 @@ def confirm_order_user_details_view(request):
         settings.EMAIL_HOST_USER,
         [current_user.email],
         fail_silently=False,
-        )
+    )
 
     if u.status == "Started":
         del request.session['basket_id']
@@ -104,6 +105,7 @@ def confirm_order_user_details_view(request):
 def update_basket_view(request, food_id):
     try:
         quantity = request.GET.get('quantity')
+        print(quantity)
         u_quantity = True
     except ValueError:
         quantity = None
@@ -158,7 +160,7 @@ def update_basket_view(request, food_id):
         total += food_total
     basket.total = total
     basket.save()
-    return HttpResponseRedirect("/menu/")
+    return JsonResponse({'foo': 'bar'})
 
 
 def confirm_order_view(request):
