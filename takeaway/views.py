@@ -99,12 +99,18 @@ def confirm_order_user_details_view(request):
 
         return render(request, 'takeaway/confirm_order.html', {'u': u})
 
-    return HttpResponseRedirect('/takeaway/basket')
+    return HttpResponseRedirect('/takeaway/basket/')
 
 
-def update_basket_view(request, food_id):
+def update_basket_view(request):
+    item_id = request.GET.get('item_id')
+    # item_quantity = request.GET.get('item_quantity')
+    #
+    # print(item_id)
+    # #print(item_quantity)
+    # return JsonResponse({'yesna': item_id})
     try:
-        quantity = request.GET.get('quantity')
+        quantity = request.GET.get('item_quantity')
         print(quantity)
         u_quantity = True
     except ValueError:
@@ -121,7 +127,7 @@ def update_basket_view(request, food_id):
         session_id = basket_new.id
 
     basket = Basket.objects.get(id=session_id)
-    item = FoodItem.objects.get(id=food_id)
+    item = FoodItem.objects.get(id=item_id)
 
     basket_item, created = BasketItem.objects.get_or_create(basket=basket, menu_item=item)
 
@@ -160,7 +166,7 @@ def update_basket_view(request, food_id):
         total += food_total
     basket.total = total
     basket.save()
-    return JsonResponse({'foo': 'bar'})
+    return JsonResponse({'item': basket_item.menu_item.name})
 
 
 def confirm_order_view(request):

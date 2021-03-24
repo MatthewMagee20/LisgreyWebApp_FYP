@@ -92,15 +92,14 @@
                                     <div class="mt-auto row text-center">
                                         <div class="col">
                                             <div class="card-footer">
-                                                <form method="get" action="{% url 'update_basket' i.id %}">
-                                                    <label for="quantity">Quantity</label>
-                                                    <button class="quantity-button" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
-                                                    <label>
-                                                        <input class="quantity" name="quantity" type="number" value="1">
-                                                    </label>
-                                                    <button class="quantity-button" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
-                                                    <input onclick="yuoa(this)" class="add-to-cart-button" type="submit" value="Add to Cart">
-                                                </form>
+                                                <label for="quantity">Quantity</label>
+                                                <button class="quantity-button" name="increment" type="button" onclick="decreaseQuantity(this)">-</button>
+                                                <label>
+                                                    <input class="quantity" name="quantity" type="number" value="1">
+                                                </label>
+                                                <button class="quantity-button" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
+                                                <a href="#" data-id="{{ i.id }}" class="add_to_cart"><button>Add product</button></a>
+                                                {#                                                <button onclick="add(this)"class="add_to_cart">Add product</button>#}
                                             </div>
                                         </div>
                                     </div>
@@ -316,26 +315,47 @@
             {#            </div>#}
         </div>
     </div>
-    <script>
-        function yuoa(selected) {
-            {#console.log(selected.parentElement.action);#}
-            let url = selected.parentElement.action
-            let quantity = selected.getElementsByClassName("quantity");
-            console.log(quantity);
-            console.log(url);
-            $(document).on('submit', function (e) {
-                e.parentElement;
-                e.preventDefault();
+    <script type="text/javascript">
+        {#function add(selected){#}
+        {#    selected.preventDefault();#}
+        {#    let item_id = selected.getAttribute("data-id");#}
+        {#    let quantity = selected.parentElement.getElementsByClassName("quantity")[0].value;#}
+        {#    console.log(quantity);#}
+        {##}
+        {#    let data = {#}
+        {#        'item_id': item_id,#}
+        {#        'item_quantity': quantity#}
+        {#    }#}
+        {#    $.ajax({#}
+        {#        type: 'GET',#}
+        {#        url: '{% url "update_basket" %}',#}
+        {#        data: data,#}
+        {#        success: function(res){#}
+        {#            console.log('success' + res)#}
+        {#            alert(res.item)#}
+        {#        }#}
+        {#    })#}
+        $(document).ready(function(){
+            $('.add_to_cart').on('click', function(e){
+                e.preventDefault()
+                let item_id  = $(this).attr('data-id')
+                let quantity = this.parentNode.getElementsByClassName("quantity")[0].value;
+                console.log(quantity);
+                let data = {
+                    'item_id': item_id,
+                    'item_quantity': quantity
+                }
 
                 $.ajax({
                     type: 'GET',
-                    url: url,
-                    success: function (resp) {
-                        alert(resp + "added to basket");
-                        document.getElementById("basket").innerText = resp;
+                    url: '{% url "update_basket" %}',
+                    data: data,
+                    success: function(res){
+                        console.log('success')
+                        alert(res.item)
                     }
                 })
             })
-        }
+        });
     </script>
 {% endblock %}
