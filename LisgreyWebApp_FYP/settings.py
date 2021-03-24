@@ -238,4 +238,6 @@ PWA_APP_LANG = 'en-US'
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
 SESSION_SAVE_EVERY_REQUEST = True

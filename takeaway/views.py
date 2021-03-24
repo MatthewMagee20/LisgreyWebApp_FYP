@@ -7,6 +7,7 @@ from food_menus.models import FoodItem
 from .models import Basket, BasketItem, TakeawayOrder
 from LisgreyWebApp.models import UserProfile
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
+from django.contrib import messages
 
 import string
 import random
@@ -124,6 +125,7 @@ def update_basket_view(request, food_id):
 
     if created:
         print("yuppa")
+        messages.success(request, "Added item to basket")
 
     if u_quantity and quantity:
         if int(quantity) == 0:
@@ -140,10 +142,13 @@ def update_basket_view(request, food_id):
 
         elif int(quantity) < 0:
             basket_item.quantity = 1
+
         else:
             basket_item.quantity = quantity
             basket_item.save()
+
     else:
+
         pass
 
     total = 0.00
@@ -151,11 +156,8 @@ def update_basket_view(request, food_id):
     for i in basket.basketitem_set.all():
         food_total = float(i.menu_item.price) * i.quantity
         total += food_total
-
-    request.session['item_quantities'] = basket.basketitem_set.count()
     basket.total = total
     basket.save()
-
     return HttpResponseRedirect("/menu/")
 
 

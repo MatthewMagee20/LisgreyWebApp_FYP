@@ -1,10 +1,10 @@
 from django.shortcuts import render
-
 # food menu items
 from .models import FoodItem
 
 
 def get_food_menu_takeaway(request):
+
     starter_items = FoodItem.objects.filter(category="Starter")
     main_items = FoodItem.objects.filter(category="Main Course")
     kids_menu_items = FoodItem.objects.filter(category="Kiddie Menu")
