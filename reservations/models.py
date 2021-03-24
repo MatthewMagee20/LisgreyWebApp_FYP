@@ -1,5 +1,6 @@
 from django.db import models
 from LisgreyWebApp.models import UserProfile
+from datetime import datetime
 
 
 # Create your models here.
@@ -19,3 +20,12 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"{self.first_name} | {self.date} | {self.time}"
+
+    def reservation_in_past(self):
+        reservation_date = self.date
+        return datetime.date(datetime.now()) > reservation_date
+
+    def time_over_hour_from_now(self):
+        comb = datetime.combine(self.date, self.time)
+        diff = comb - datetime.now()
+        return diff.total_seconds() >= 3600  # 3600 seconds = 1 hour

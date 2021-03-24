@@ -29,6 +29,8 @@ def basket_view(request):
             "basket_is_empty": True
         }
 
+    request.session.save()
+
     return render(request, 'takeaway/basket.html', data)
 
 
@@ -134,6 +136,8 @@ def update_basket_view(request, food_id):
 
             basket.total = basket.total - (basket_item.menu_item.price * basket_item.quantity)
             basket.save()
+            request.session.save()
+
             return HttpResponseRedirect("/takeaway/basket/")
 
         elif int(quantity) < 0:
@@ -153,6 +157,7 @@ def update_basket_view(request, food_id):
     request.session['item_quantities'] = basket.basketitem_set.count()
     basket.total = total
     basket.save()
+    request.session.save()
 
     return HttpResponseRedirect("/menu/")
 
