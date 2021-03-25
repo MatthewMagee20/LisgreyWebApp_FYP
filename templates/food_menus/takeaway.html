@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
-{% load bootstrap4 %}
 {% load static %}
 
 {% block head_title %} | Takeaway{% endblock %}
 
 {% block body_content %}
-    {%include 'messages.html' %}
     <div class="header-section">
         <div style="background-image: url('/static/images/dan-gold-4_jhDO54BYg-unsplash.jpg'); background-size: cover; height: 100%">
             <div class="overlay">
@@ -75,6 +73,8 @@
                                         <div class="col-3">
                                             <p class="card_price">&euro;{{ i.price }}</p>
                                         </div>
+                                            {% include 'messages.html' %}
+
                                     </div>
                                     <div class="row">
                                         <div class="col">
@@ -100,7 +100,6 @@
                                                 </label>
                                                 <button class="quantity-button" name="increment" type="button" onclick="increaseQuantity(this)">+</button>
                                                 <a href="#" data-id="{{ i.id }}" class="add_to_cart"><button>Add product</button></a>
-                                                {#                                                <button onclick="add(this)"class="add_to_cart">Add product</button>#}
                                             </div>
                                         </div>
                                     </div>
@@ -316,12 +315,8 @@
             {#            </div>#}
         </div>
     </div>
-    {% bootstrap_javascript %}
-    {% bootstrap_jquery_slim_url %}
     <script>
         $(document).ready(function(){
-            $(".toast").toast('show');
-
             $('.add_to_cart').on('click', function(e){
                 e.preventDefault()
                 let item_id  = $(this).attr('data-id')
@@ -337,7 +332,7 @@
                     data: data,
                     success: function(res){
                         console.log('success');
-                        {#alert("Added " + quantity + "x " + res.item + " to basket")#}
+                        toastr.success("Added " + quantity + "x " + res.item + " to basket")
                     }
                 })
             })

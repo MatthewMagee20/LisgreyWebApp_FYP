@@ -10,6 +10,11 @@ from django_email_verification.confirm import send_email
 from LisgreyWebApp.forms import UserRegistrationForm, UserUpdateForm, UserProfile, DeleteUserForm
 from reservations.models import Reservation
 
+import docker_config
+import urllib
+from urllib import parse
+import urllib.request
+import json
 
 def base(request):
     return render(request, 'base.html')
@@ -23,11 +28,30 @@ def register(request):
     if request.method == 'POST':  # if the form has been submitted
         form = UserRegistrationForm(request.POST)  # form bound with post data
         if form.is_valid():
-            user = form.save()
-            user.is_active = False
+            # ALL RECAPTCHA COLD IS NOT MY OWN WORK
+            # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': docker_config.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req = urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
 
-            send_email(user)
-            return render(request, 'account_confirmation.html')
+            if result['success']:
+                user = form.save()
+                user.is_active = False
+
+                send_email(user)
+                return render(request, 'account_confirmation.html')
+
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+                return redirect('register')
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})

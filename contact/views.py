@@ -7,7 +7,7 @@ from .forms import ContactForm
 import docker_config
 import urllib
 from urllib import parse
-import urllib.request as rq
+import urllib.request
 import json
 
 
@@ -17,6 +17,8 @@ def contactView(request):
     else:
         form = ContactForm(request.POST)
         if form.is_valid():
+            # ALL RECAPTCHA COLD IS NOT MY OWN WORK
+            # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security
             ''' Begin reCAPTCHA validation '''
             recaptcha_response = request.POST.get('g-recaptcha-response')
             url = 'https://www.google.com/recaptcha/api/siteverify'
@@ -30,6 +32,7 @@ def contactView(request):
             result = json.loads(response.read().decode())
 
             if result['success']:
+                # ALL CODE AFTER THIS LINE IS MY OWN WORK
                 subject = form.cleaned_data['subject']
                 from_email = form.cleaned_data['from_email']
                 message = form.cleaned_data['message']
@@ -42,6 +45,5 @@ def contactView(request):
                     return HttpResponse('Invalid header found.')
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-            # ''' End reCAPTCHA validation '''
                 return redirect('contact')
     return render(request, "contact.html", {'form': form})

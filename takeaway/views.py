@@ -7,7 +7,6 @@ from food_menus.models import FoodItem
 from .models import Basket, BasketItem, TakeawayOrder
 from LisgreyWebApp.models import UserProfile
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
-from django.contrib import messages
 
 import string
 import random
@@ -126,15 +125,14 @@ def update_basket_view(request):
     if created:
         print("yuppa")
         quantity = int(quantity) - 1
+
     if u_quantity and quantity:
         if int(quantity) == 0:
             basket_item.delete()
-            messages.error(request, basket_item.menu_item.name + ' deleted from basket')
 
             basket.total = basket.total - (basket_item.menu_item.price * basket_item.quantity)
             if request.session['item_quantities'] <= 0:
                 request.session['item_quantities'] = 0
-                messages.error(request, basket_item.menu_item.name + ' deleted from basket')
 
             basket.save()
             return HttpResponseRedirect("/takeaway/basket/")
@@ -156,8 +154,6 @@ def update_basket_view(request):
 
     request.session['item_quantities'] = basket.basketitem_set.count()
     basket.total = total
-    # messages.success(request, str(quantity) + 'x ' + basket_item.menu_item.name + ' added to basket')
-    messages.success(request, "wfbwubfuwebfqe")
     basket.save()
     return JsonResponse({'item': basket_item.menu_item.name})
 

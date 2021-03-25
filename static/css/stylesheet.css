@@ -268,3 +268,9 @@ input[type=number] {
       font-size: 1.3rem;
   }
 }
+
+.g-recaptcha{
+    padding-top: 5px;
+    padding-bottom: 15px;
+    display: inline-block;
+}
