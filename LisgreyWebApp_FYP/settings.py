@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 import socket
+
+from django.contrib import messages
+
 import docker_config
 from pathlib import Path
 from django.contrib.auth import login
@@ -238,6 +241,13 @@ PWA_APP_LANG = 'en-US'
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
 
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-# MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+# MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
 #
 # SESSION_SAVE_EVERY_REQUEST = True
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'alert-danger',
+    messages.SUCCESS: 'alert-success'
+}
