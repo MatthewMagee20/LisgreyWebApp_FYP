@@ -1,4 +1,3 @@
-
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
@@ -130,7 +129,7 @@ def update_basket_view(request):
 
     if created:
         print("yuppa")
-
+        quantity = int(quantity) - 1
     if u_quantity and quantity:
         if int(quantity) == 0:
             basket_item.delete()
@@ -145,7 +144,8 @@ def update_basket_view(request):
         elif int(quantity) < 0:
             basket_item.quantity = 1
         else:
-            basket_item.quantity = quantity
+            basket_item.quantity = basket_item.quantity + int(quantity)
+            print(basket_item.quantity)
             basket_item.save()
     else:
         pass
