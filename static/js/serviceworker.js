@@ -1,62 +1,44 @@
-const filesToCache = [
-    '/',
+// Base Service Worker implementation.  To use your own Service Worker, set the PWA_SERVICE_WORKER_PATH variable in settings.py
 
+var staticCacheName = "django-pwa-v" + new Date().getTime();
+var filesToCache = [
+    '/'
 ];
 
-const staticCacheName = 'pages-cache-v1';
-
-self.addEventListener('install', event => {
-    console.log('Attempting to install service worker and cache static assets');
+// Cache on install
+self.addEventListener("install", event => {
+    this.skipWaiting();
     event.waitUntil(
         caches.open(staticCacheName)
             .then(cache => {
                 return cache.addAll(filesToCache);
             })
-    );
+    )
 });
 
-self.addEventListener('fetch', event => {
-    console.log('Fetch event for ', event.request.url);
-    if ( event.request.url.indexOf( '/takeaway/basket/' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }if ( event.request.url.indexOf( '/contact/' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }
-    if ( event.request.url.indexOf( '/reservation/' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }
-    if ( event.request.url.indexOf( '/account/register/' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }
-    if ( event.request.url.indexOf( '/admin/' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }
-
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    console.log('Found ', event.request.url, ' in cache');
-                    return response;
-                }
-                console.log('Network request for ', event.request.url);
-                return fetch(event.request)
-                    .then(response => {
-                        if (response.status === 404) {
-                            return caches.match('pages/404.html');
-                        }
-                        return caches.open(staticCacheName)
-                            .then(cache => {
-                                cache.put(event.request.url, response.clone());
-                                return response;
-                            });
-                    });
-            }).catch(error => {
-            console.log('Error, ', error);
-            return caches.match('pages/offline.html');
+// Clear cache on activate
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames
+                    .filter(cacheName => (cacheName.startsWith("django-pwa-")))
+                    .filter(cacheName => (cacheName !== staticCacheName))
+                    .map(cacheName => caches.delete(cacheName))
+            );
         })
     );
 });
 
-
-
+// Serve from Cache
+self.addEventListener("fetch", event => {
+    event.respondWith(
+        caches.match(event.request)
+            .then(response => {
+                return response || fetch(event.request);
+            })
+            .catch(() => {
+                return caches.match('offline');
+            })
+    )}
+);
