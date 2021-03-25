@@ -16,7 +16,9 @@
                     <td>{{ i.menu_item.name }}</td>
                     <td>{{ i.quantity }}</td>
                     <td>{{ i.menu_item.price }}</td>
-                    <td><a href="{% url 'update_basket' %}?quantity=0"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                    {#                    <td><a href="{% url 'update_basket' %}?quantity=0"><i class="fa fa-trash" aria-hidden="true"></i></a></td>#}
+                    <td><a href="#" data-id="{{ i.menu_item.id }}" class="remove-from-cart"><button>Delete</button></a></td>
+
                 </tr>
             {% endfor %}
         </table>
@@ -29,4 +31,27 @@
         <br>
         <p><a href="{% url 'takeaway' %}">Back to Menu </a></p>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.remove-from-cart').on('click', function (e) {
+                let item_id = $(this).attr('data-id')
+                console.log(item_id)
+
+                let data = {
+                    'item_id': item_id,
+                    'item_quantity': '0'
+                }
+
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "update_basket" %}',
+                    data: data,
+                    success: function(res){
+                        console.log('success')
+                        location.reload();
+                    }
+                })
+            });
+        });
+    </script>
 {% endblock %}

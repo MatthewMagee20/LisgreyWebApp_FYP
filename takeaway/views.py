@@ -8,7 +8,7 @@ from food_menus.models import FoodItem
 from .models import Basket, BasketItem, TakeawayOrder
 from LisgreyWebApp.models import UserProfile
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
-from django.contrib import messages
+# from django.contrib import messages
 
 import string
 import random
@@ -102,16 +102,13 @@ def confirm_order_user_details_view(request):
     return HttpResponseRedirect('/takeaway/basket/')
 
 
+# quantity = request.GET.get('item_quantity')
+# request.GET.get('item_id')
+
+
 def update_basket_view(request):
-    item_id = request.GET.get('item_id')
-    # item_quantity = request.GET.get('item_quantity')
-    #
-    # print(item_id)
-    # #print(item_quantity)
-    # return JsonResponse({'yesna': item_id})
     try:
         quantity = request.GET.get('item_quantity')
-        print(quantity)
         u_quantity = True
     except ValueError:
         quantity = None
@@ -127,22 +124,19 @@ def update_basket_view(request):
         session_id = basket_new.id
 
     basket = Basket.objects.get(id=session_id)
-    item = FoodItem.objects.get(id=item_id)
+    item = FoodItem.objects.get(id=request.GET.get('item_id'))
 
     basket_item, created = BasketItem.objects.get_or_create(basket=basket, menu_item=item)
 
     if created:
         print("yuppa")
-        messages.success(request, "Added item to basket")
 
     if u_quantity and quantity:
         if int(quantity) == 0:
             basket_item.delete()
-            request.session['item_quantities'] = request.session['item_quantities'] - basket_item.quantity
+            basket.total = basket.total - (basket_item.menu_item.price * basket_item.quantity)
             if request.session['item_quantities'] <= 0:
                 request.session['item_quantities'] = 0
-
-            basket.total = basket.total - (basket_item.menu_item.price * basket_item.quantity)
 
             basket.save()
 
@@ -150,13 +144,10 @@ def update_basket_view(request):
 
         elif int(quantity) < 0:
             basket_item.quantity = 1
-
         else:
             basket_item.quantity = quantity
             basket_item.save()
-
     else:
-
         pass
 
     total = 0.00
@@ -164,8 +155,11 @@ def update_basket_view(request):
     for i in basket.basketitem_set.all():
         food_total = float(i.menu_item.price) * i.quantity
         total += food_total
+
+    request.session['item_quantities'] = basket.basketitem_set.count()
     basket.total = total
     basket.save()
+
     return JsonResponse({'item': basket_item.menu_item.name})
 
 
