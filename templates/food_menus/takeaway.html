@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% load static %}
-{% include 'messages.html' %}
 
 {% block head_title %} | Takeaway{% endblock %}
 
 {% block body_content %}
+    {%include 'messages.html' %}
     <div class="header-section">
         <div style="background-image: url('/static/images/dan-gold-4_jhDO54BYg-unsplash.jpg'); background-size: cover; height: 100%">
             <div class="overlay">
@@ -315,8 +316,12 @@
             {#            </div>#}
         </div>
     </div>
+    {% bootstrap_javascript %}
+    {% bootstrap_jquery_slim_url %}
     <script>
         $(document).ready(function(){
+            $(".toast").toast('show');
+
             $('.add_to_cart').on('click', function(e){
                 e.preventDefault()
                 let item_id  = $(this).attr('data-id')
@@ -331,8 +336,8 @@
                     url: '{% url "update_basket" %}',
                     data: data,
                     success: function(res){
-                        console.log('success')
-                        alert("Added " + quantity + "x " + res.item + " to basket")
+                        console.log('success');
+                        {#alert("Added " + quantity + "x " + res.item + " to basket")#}
                     }
                 })
             })

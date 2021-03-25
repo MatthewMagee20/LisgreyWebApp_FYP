@@ -3,9 +3,11 @@
 {% load i18n %}
 {% load static %}
 {% load bootstrap4 %}
-{% load pwa %}
 {% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
+{% bootstrap_javascript jquery %}
+{% bootstrap_javascript %}
+{% load pwa %}
+
 <head>
     {% progressive_web_app_meta %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
