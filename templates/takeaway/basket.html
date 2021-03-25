@@ -18,7 +18,7 @@
                     <td>{{ i.quantity }}</td>
                     <td>{{ i.menu_item.price }}</td>
                     {#                    <td><a href="{% url 'update_basket' %}?quantity=0"><i class="fa fa-trash" aria-hidden="true"></i></a></td>#}
-                    <td><a href="#" data-id="{{ i.menu_item.id }}" class="remove-from-cart"><button>Delete</button></a></td>
+                    <td><a href="#" data-id="{{ i.menu_item.id }}" class="remove-from-cart"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 
                 </tr>
             {% endfor %}
