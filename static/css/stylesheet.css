@@ -75,6 +75,7 @@ h2{
     border: 2px solid white;
     border-radius:0.12em;
     display: block;
+    padding: 10px;
 }
 .overlay{
     height: 100%;

@@ -13,6 +13,10 @@ class NuReservationForm(ModelForm):
             'no_of_people': 'No. of People'
         }
 
+        help_texts = {
+            'no_of_people': 'Max 10 People. Please call us for larger reservations. (049) 854 7161'
+        }
+
         widgets = {
             'additional_information': Textarea(attrs={'cols': 5, 'rows': 5}),
             'date': DateInput(attrs={'type': 'datepicker', 'class': 'id_date', 'autocomplete': 'off'}),
@@ -24,6 +28,7 @@ class NuReservationForm(ModelForm):
         reservation_date = self.cleaned_data['date']
         first_name = self.cleaned_data['first_name']
         last_name = self.cleaned_data['last_name']
+        num_people = self.cleaned_data['no_of_people']
         comb = datetime.combine(reservation_date, reservation_time)
         diff = comb - datetime.now()
         errors = []
@@ -49,6 +54,9 @@ class NuReservationForm(ModelForm):
 
         if diff.total_seconds() <= 3600:  # 3600 seconds = 1 hour
             errors.append(ValidationError("Reservation time has to take place in over an hour from current time"))
+
+        if num_people > 10:
+            errors.append(ValidationError("Max 10 People. Please call us for reservations with more."))
 
         if errors:
             raise ValidationError(errors)
