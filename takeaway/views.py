@@ -1,6 +1,7 @@
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from LisgreyWebApp_FYP import settings
 from food_menus.models import FoodItem
@@ -8,8 +9,14 @@ from .models import Basket, BasketItem, TakeawayOrder
 from LisgreyWebApp.models import UserProfile
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
 
-import string
+
+import docker_config
 import random
+import string
+import urllib
+from urllib import parse
+import urllib.request
+import json
 
 
 def basket_view(request):
@@ -43,15 +50,44 @@ def nu_confirm_order_user_details_view(request):
         uf = TakeawayOrderUserForm(request.POST or None)
 
         if uf.is_valid():
-            u = uf.save(commit=False)
-            order_id_gen = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
-            u.order_id = str(order_id_gen)
-            u.basket_id = basket.id
-            u.save()
+            # ALL RECAPTCHA COLD IS NOT MY OWN WORK
+            # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': docker_config.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req = urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
 
-            if u.status == "Started":
-                del request.session['basket_id']
-                del request.session['item_quantities']
+            if result['success']:
+                # ALL CODE AFTER THIS LINE IS MY OWN WORK
+                u = uf.save(commit=False)
+                order_id_gen = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))
+                u.order_id = str(order_id_gen)
+                u.basket_id = basket.id
+                u.save()
+
+                email_template = render_to_string('takeaway/takeaway_confirmation_email.html', {'order_id': u.order_id})
+                send_mail(
+                    'Order Confirmation - ' + u.order_id,
+                    email_template,
+                    settings.EMAIL_HOST_USER,
+                    [u.email],
+                    fail_silently=False,
+                )
+
+                if u.status == "Started":
+                    del request.session['basket_id']
+                    del request.session['item_quantities']
+
+            else:
+                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+                return redirect('nu_user_confirm')
 
             return render(request, 'takeaway/confirm_order.html', {'u': u})
 

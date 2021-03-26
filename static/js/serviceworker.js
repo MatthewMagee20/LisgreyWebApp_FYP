@@ -19,7 +19,11 @@ self.addEventListener('fetch', event => {
     console.log('Fetch event for ', event.request.url);
     if ( event.request.url.indexOf( '/takeaway/basket/' ) !== -1 ) { // ignore the caching of basket session variable
         return false;
-    }if ( event.request.url.indexOf( '/contact/' ) !== -1 ) { // ignore the caching of basket session variable
+    }
+    if ( event.request.url.indexOf( '/takeaway/contact_information/' ) !== -1 ) { // ignore the caching of basket session variable
+        return false;
+    }
+    if ( event.request.url.indexOf( '/contact/' ) !== -1 ) { // ignore the caching of basket session variable
         return false;
     }
     if ( event.request.url.indexOf( '/reservation/' ) !== -1 ) { // ignore the caching of basket session variable

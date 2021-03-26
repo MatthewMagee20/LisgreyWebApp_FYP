@@ -6,10 +6,14 @@
 
 {% block body_content %}
     <div class="pt-5 container">
+        {% include 'messages.html' %}
         <h2>Contact Information</h2>
         <form method="POST">
             {% csrf_token %}
             {{ form | crispy }}
+            <div class="text-center">
+                <div class=" g-recaptcha" data-sitekey="6Lf-SY4aAAAAAI7V1y7mhAV2PKNVLHcf4D9F8rSO"></div>
+            </div>
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Confirm">
         </form>
     </div>
