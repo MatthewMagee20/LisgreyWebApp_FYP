@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'pwa',
     'contact',
     'staff',
+    'leaflet'
 ]
 
 MIDDLEWARE = [

@@ -1,11 +1,9 @@
 from django.db import models
-from LisgreyWebApp.models import UserProfile
 from datetime import datetime
 
 
 # Create your models here.
 class Reservation(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True, editable=False)
     first_name = models.CharField(max_length=100, editable=True, blank=False)
     last_name = models.CharField(max_length=100, editable=True, blank=False)
     email = models.EmailField(blank=False)

@@ -201,7 +201,7 @@ h2{
 
 
 
- /*Image Carousel Styling*/
+/*Image Carousel Styling*/
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
@@ -261,12 +261,12 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 400px) {
-  label, input, p {
-    font-size: 0.7rem;
-  }
-  h2 {
-      font-size: 1.3rem;
-  }
+    label, input, p {
+        font-size: 0.7rem;
+    }
+    h2 {
+        font-size: 1.3rem;
+    }
 }
 
 .g-recaptcha{
@@ -274,3 +274,4 @@ input[type=number] {
     padding-bottom: 15px;
     display: inline-block;
 }
+#googleMap { height: 70%; width :50%; margin-left:auto; margin-right:auto;}
