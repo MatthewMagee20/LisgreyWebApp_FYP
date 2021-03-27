@@ -3,44 +3,86 @@
 {% load static %}
 
 {% block body_content %}
-
     <div id="takeaway-orders">
         <div class="pt-5 container">
-            {% for takeaways in takeaway_orders %}
-                {% if takeaways.status == 'Started' %}
-                    <div class="takeaway-orders-container">
-                        <h3>Order ID: {{ takeaways.order_id }}</h3>
-                        <h5>Order Time: {{ takeaways.date_time }}</h5>
-                        <table id="{{ takeaways.order_id }}" class="table">
-                            <tr>
-                                <th>Item</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                            </tr>
-                            {% for basket_item in basket_items %}
+            <ul class="pt-5 nav justify-content-center nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-started-tab" data-toggle="pill" href="#pills-started" role="tab" aria-controls="pills-started" aria-selected="true">Started</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-finished-tab" data-toggle="pill" href="#pills-finished" role="tab" aria-controls="pills-finished" aria-selected="false">Finished</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-started" role="tabpanel" aria-labelledby="pills-started-tab">
+                    <div class="pt-5 container">
+                        {% for takeaways in takeaway_orders %}
+                            {% if takeaways.status == 'Started' %}
+                                <div class="takeaway-orders-container">
+                                    <h3 class="order_id">Order ID: {{ takeaways.order_id }}</h3>
+                                    <h5>Order Time: {{ takeaways.date_time }}</h5>
+                                    <table id="{{ takeaways.order_id }}" class="table">
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                        </tr>
+                                        {% for basket_item in basket_items %}
 
-                                {% if basket_item.basket == takeaways.basket %}
-                                    <tr>
-                                        <td>{{ basket_item.menu_item }}</td>
-                                        <td>{{ basket_item.quantity }}</td>
-                                        <td>{{ basket_item.menu_item.price }}</td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </table>
+                                            {% if basket_item.basket == takeaways.basket %}
+                                                <tr>
+                                                    <td>{{ basket_item.menu_item }}</td>
+                                                    <td>{{ basket_item.quantity }}</td>
+                                                    <td>{{ basket_item.menu_item.price }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
 
-                        <form class="status_form" method="POST">
-                            {% csrf_token %}
-                            {{ form.status }}
-                            <label>
-                                <input style="visibility: hidden;" name="order_id" value="{{ takeaways.order_id }}">
-                            </label>
-                            <input class="btn btn-primary" type="submit" value="Confirm">
-                        </form>
-                        <h4>Total: {{ takeaways.basket.total }}</h4>
+                                    <form class="status_form" method="POST">
+                                        {% csrf_token %}
+                                        {{ form.status }}
+                                        <label>
+                                            <input style="visibility: hidden;" name="order_id" value="{{ takeaways.order_id }}">
+                                        </label>
+                                        <input class="status-button btn btn-primary" type="button" value="Confirm">
+                                    </form>
+                                    <h4>Total: {{ takeaways.basket.total }}</h4>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                {% endif %}
-            {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="pills-finished" role="tabpanel" aria-labelledby="pills-finished-tab">
+                    <div class="pt-5 container">
+                        {% for takeaways in takeaway_orders %}
+                            {% if takeaways.status == 'Finished' %}
+                                <div class="takeaway-orders-container">
+                                    <h3>Order ID: {{ takeaways.order_id }}</h3>
+                                    <h5>Order Time: {{ takeaways.date_time }}</h5>
+                                    <table id="{{ takeaways.order_id }}" class="table">
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                        </tr>
+                                        {% for basket_item in basket_items %}
+                                            {% if basket_item.basket == takeaways.basket %}
+                                                <tr>
+                                                    <td>{{ basket_item.menu_item }}</td>
+                                                    <td>{{ basket_item.quantity }}</td>
+                                                    <td>{{ basket_item.menu_item.price }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                    <h4>Total: {{ takeaways.basket.total }}</h4>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -50,12 +92,36 @@
                     url: "{% url 'staff_takeaway_orders' %}",
                     success: function(data) {
                         document.getElementById("takeaway-orders").innerHTML = data;
+                        console.log("success");
                     }
                 });
-
                 autoReload();  // calling again after 5 seconds
-            }, 10000);
+            }, 30000);
         }
-        autoReload(); // calling the function for the first time
+        autoReload();// calling the function for the first time
+
+         $(document).ready(function(){
+            $(document).on('click', '.status-button', function(){
+                const token = Cookies.get('csrftoken');
+                const status = this.parentElement.getElementsByTagName('select')[0].value;
+                const order_id = this.parentElement.parentElement.getElementsByClassName('order_id')[0].innerText.replace('Order ID: ', '');
+
+                const data = {
+                    'order_status': status,
+                    'order_id': order_id
+                }
+
+                $.ajax({
+                    headers: { "X-CSRFToken": token},
+                    url: '{% url 'staff_takeaway_orders' %}',
+                    type: 'POST',
+                    data: data,
+                    success: function(res){
+                        console.log(res)
+                        document.getElementById("takeaway-orders").innerHTML = res;
+                    }
+                })
+            })
+        })
     </script>
 {% endblock %}

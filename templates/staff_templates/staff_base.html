@@ -5,11 +5,9 @@
     {% load bootstrap4 %}
     {% load crispy_forms_filters %}
     {% load crispy_forms_tags %}
-    {% load pwa %}
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
     <head>
-        {% progressive_web_app_meta %}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta content="utf-8">
         <title>Lisgrey House{% block head_title %}{% endblock %} </title>
@@ -51,14 +49,10 @@
             {% block body_content %}
 
             {% endblock %}
-            {#        <footer class="text-center">#}
-            {#            <p>Created By Matthew Magee 2021</p>#}
-            {#        </footer>#}
         </div>
     </div>
-    {% block extra_footer %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     </body>
-
     </html>
 {% else %}
 login <a href="http://127.0.0.1:8000/admin/login/">here</a>

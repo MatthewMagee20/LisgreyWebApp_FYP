@@ -1,12 +1,11 @@
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from LisgreyWebApp_FYP import settings
 from food_menus.models import FoodItem
 from .models import Basket, BasketItem, TakeawayOrder
-from LisgreyWebApp.models import UserProfile
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
 
 
@@ -162,7 +161,7 @@ def confirm_order_view(request):
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
     except KeyError:
-        return HttpResponseRedirect('/takeaway/checkout')
+        return HttpResponse('/takeaway/checkout')
 
     order, created = TakeawayOrder.objects.get_or_create(basket=basket)
 
@@ -193,13 +192,14 @@ def takeaway_order_view(request):
         'form': form,
     }
 
-    if request.method == 'POST':
-        status = request.POST.get('status')
-        yup_id = request.POST.get('order_id')
+    if request.method == 'POST' and request.is_ajax():
+        status = request.POST.get('order_status')
+        order_id = request.POST.get('order_id')
 
-        update_status = TakeawayOrder.objects.get(order_id=yup_id)
+        update_status = TakeawayOrder.objects.get(order_id=order_id)
 
         update_status.status = status
         update_status.save()
+        print(update_status.status)
 
     return render(request, 'staff_templates/takeaway_orders.html', data)

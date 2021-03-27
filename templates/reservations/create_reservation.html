@@ -17,4 +17,30 @@
             <input class="btn btn-primary btn-lg btn-block" type="submit" value="Confirm">
         </form>
     </div>
+    <script>
+        console.log("hello")
+        $(document).ready(function() {
+            $('#id_date').on('change', function (e) {
+                const date = this.value;
+                const time = document.getElementById("id_time");
+                const numPeople = document.getElementById("id_no_of_people");
+                e.preventDefault()
+
+                const data = {
+                    'user_date': date,
+                    'user_time': time,
+                    'user_no_of_people': numPeople
+                }
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "nu_reservation" %}',
+                    data: data,
+                    success: function(res){
+                        console.log('success');
+                    }
+                })
+            })
+        })
+    </script>
 {% endblock %}
+

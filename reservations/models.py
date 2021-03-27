@@ -2,7 +2,12 @@ from django.db import models
 from datetime import datetime
 
 
-# Create your models here.
+class ReservationTable(models.Model):
+    table_name = models.CharField(max_length=10)
+    table_no_of_people = models.IntegerField()
+    available = models.BooleanField(default=True)
+
+
 class Reservation(models.Model):
     first_name = models.CharField(max_length=100, editable=True, blank=False)
     last_name = models.CharField(max_length=100, editable=True, blank=False)
@@ -15,6 +20,7 @@ class Reservation(models.Model):
     id = models.CharField(unique=True, primary_key=True, max_length=10)
     confirmed = models.BooleanField(default=False)
     time_stamp = models.DateTimeField(null=False)
+    table = models.ForeignKey(ReservationTable, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.first_name} | {self.date} | {self.time}"

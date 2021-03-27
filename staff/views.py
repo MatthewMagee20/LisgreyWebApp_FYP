@@ -46,7 +46,7 @@ def detail_reservation_view(request, reservation_id):
                     fail_silently=False,
                     )
 
-        return HttpResponseRedirect('/staff/reservations')
+        return HttpResponseRedirect('/admin/staff/reservations/')
 
     else:
         update_reservation_form = StaffReservationForm(instance=reservation_instance)

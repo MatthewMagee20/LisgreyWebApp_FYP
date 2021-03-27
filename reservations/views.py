@@ -3,9 +3,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from LisgreyWebApp.models import UserProfile
 from .forms import NuReservationForm
-from .models import Reservation
 
 import docker_config
 import random
@@ -18,6 +16,8 @@ import json
 
 def nu_create_reservation_view(request):
     res_id_gen = ''.join(random.choices(string.digits + string.ascii_lowercase, k=7))
+
+    # If form is submitted
     if request.method == 'POST' or None:
         reservation_form = NuReservationForm(request.POST or None)
 
