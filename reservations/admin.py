@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Reservation, ReservationTable
+from .models import Reservation
 
 
 # admin.site.unregister(ReservationTable)
@@ -11,8 +11,3 @@ class ReservationAdmin(admin.ModelAdmin):
                     "additional_information")
     list_filter = ("date", )
     search_fields = ("id", "user__username", )
-
-
-@admin.register(ReservationTable)
-class ReservationTableAdmin(admin.ModelAdmin):
-    list_display = ('id', 'table_no_of_people', 'table_name')
