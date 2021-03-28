@@ -5,74 +5,131 @@
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-<div class="pt-5">
-    <div class="pt-5 pb-5 row text-center">
-        <div class="col">
-            <label for="filter_option">Filter option
-                <select id="filter_option" onchange="filterSelect()">
-                    <option>---</option>
-                    <option value="1">Filter By Date</option>
-                    <option value="2">Filter By Time</option>
-                    <option value="3">Filter By Date & Time</option>
-                </select>
-            </label>
-            <button class="add-to-cart-button" onclick="reset()">Reset</button>
-        </div>
-        <div id="filter_by_date" class="col show filter-hidden">
-            <label for="date" onchange="filterByDate()"> Filter by date
-                <input id="dt_date" class="id_date" type="date">
-            </label>
-            <button class="add-to-cart-button" onclick="reset()">Reset</button>
+    <div class="pt-5">
+        <div class="pt-5 pb-5 row text-center">
+            <div class="col">
+                <label for="filter_option">Filter option
+                    <select id="filter_option" onchange="filterSelect()">
+                        <option>---</option>
+                        <option value="1">Filter By Date</option>
+                        <option value="2">Filter By Time</option>
+                        <option value="3">Filter By Date & Time</option>
 
+                    </select>
+                </label>
+            </div>
+            <div id="filter_by_date" class="col filter-hidden">
+                <label for="date"> Filter by date
+                    <input id="date" onchange="filterByDate()" class="id_date" type="date">
+                </label>
+                <button class="reset-button" onclick="reset()">Reset</button>
+            </div>
+            <div id="filter_by_time" class="col filter-hidden">
+                <label for="time"> Filter by Time
+                    <select id="time" onchange="filterByTime()">
+                        <option>---</option>
+                        {% for time in times %}
+                            <option>{{ time.time }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <button class="reset-button" onclick="reset()">Reset</button>
+            </div>
+            <div id="filter_by_date_time" class="col filter-hidden">
+                <label for="date" onchange="filterByDateTime()"> Date
+                    <input id="dt_date" class="id_date" type="date">
+                </label>
+                <label for="time" onchange="filterByDateTime()"> Time
+                    <select id="dt_time">
+                        <option>---</option>
+                        {% for time in times %}
+                            <option>{{ time.time }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <button class="reset-button" onclick="reset()">Reset</button>
+            </div>
         </div>
-        <div id="filter_by_time" class="col show filter-hidden">
-            <label for="time"> Filter by Time
-                <select id="time" onchange="filterByTime()">
-                    <option>---</option>
-                    {% for time in times %}
-                        <option>{{ time.time }}</option>
-                    {% endfor %}
-                </select>
-            </label>
-            <button class="add-to-cart-button" onclick="reset()">Reset</button>
-
-        </div>
-        <div id="filter_by_date_time" class="col filter-hidden">
-            <label for="date" onchange="filterByDateTime()"> Date
-                <input id="dt_date" class="id_date" type="date">
-            </label>
-            <label for="time" onchange="filterByDateTime()"> Time
-                <select id="dt_time">
-                    <option>---</option>
-                    {% for time in times %}
-                        <option>{{ time.time }}</option>
-                    {% endfor %}
-                </select>
-            </label>
-            <button class="add-to-cart-button" onclick="reset()">Reset</button>
+        <ul class="nav justify-content-center nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-awaiting-confirmation-tab" data-toggle="pill" href="#pills-awaiting-confirmation" role="tab" aria-controls="pills-awaiting-confirmation" aria-selected="false">Awaiting Confirmation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-confirmed-tab" data-toggle="pill" href="#pills-confirmed" role="tab" aria-controls="pills-confirmed" aria-selected="true">Confirmed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-not-available-tab" data-toggle="pill" href="#pills-not-available" role="tab" aria-controls="pills-not-available" aria-selected="false">Not Available</a>
+            </li>
+        </ul>
+        <div class="reservation-container">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-awaiting-confirmation" role="tabpanel" aria-labelledby="pills-awaiting-confirmation-tab">
+                    <table class="pt-5 table">
+                        <tr>
+                            <th>Reservation ID</th>
+                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                        {% for reservation in data %}
+                            {% if reservation.date >= today_date and reservation.confirmed == "Awaiting Confirmation"%}
+                                <tr>
+                                    <td class="reservation-uc"><a href="{% url 'staff_detail_reservation' reservation.id %}">{{ reservation.id }}</a></td>
+                                    <td>{{ reservation.confirmed}}</td>
+                                    <td>{{ reservation.first_name }} {{ reservation.last_name }}</td>
+                                    <td class="res_date">{{ reservation.date | date:'Y-m-d'}}</td>
+                                    <td>{{ reservation.time}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="pills-confirmed" role="tabpanel" aria-labelledby="pills-confirmed-tab">
+                    <table class="pt-5 table">
+                        <tr>
+                            <th>Reservation ID</th>
+                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                        {% for reservation in data %}
+                            {% if reservation.date >= today_date and reservation.confirmed == "Confirmed"%}
+                                <tr>
+                                    <td class="reservation-uc"><a href="{% url 'staff_detail_reservation' reservation.id %}">{{ reservation.id }}</a></td>
+                                    <td>{{ reservation.confirmed}}</td>
+                                    <td>{{ reservation.first_name }} {{ reservation.last_name }}</td>
+                                    <td class="res_date">{{ reservation.date | date:'Y-m-d'}}</td>
+                                    <td>{{ reservation.time}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="pills-not-available" role="tabpanel" aria-labelledby="pills-not-available-tab">
+                    <table class="pt-5 table">
+                        <tr>
+                            <th>Reservation ID</th>
+                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                        {% for reservation in data %}
+                            {% if reservation.date >= today_date and reservation.confirmed == "Not Available"%}
+                                <tr>
+                                    <td class="reservation-uc"><a href="{% url 'staff_detail_reservation' reservation.id %}">{{ reservation.id }}</a></td>
+                                    <td>{{ reservation.confirmed}}</td>
+                                    <td>{{ reservation.first_name }} {{ reservation.last_name }}</td>
+                                    <td class="res_date">{{ reservation.date | date:'Y-m-d'}}</td>
+                                    <td>{{ reservation.time}}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-    <table id="reservation_table" class="pt-5 table">
-        <tr>
-            <th>Reservation ID</th>
-            <th>Confirmed</th>
-            <th>Name</th>
-            <th>Time Stamp</th>
-            <th>Date</th>
-            <th>Time</th>
-        </tr>
-        {% for reservation in data %}
-            {% if reservation.date >= today_date %}
-            <tr>
-                <td class="reservation-uc"><a href="{% url 'staff_detail_reservation' reservation.id %}">{{ reservation.id }}</a></td>
-                <td>{{ reservation.confirmed}}</td>
-                <td>{{ reservation.first_name }} {{ reservation.last_name }}</td>
-                <td>{{ reservation.time_stamp }}</td>
-                <td class="res_date">{{ reservation.date | date:'Y-m-d'}}</td>
-                <td>{{ reservation.time}}</td>
-            </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-</div>
 {% endblock %}

@@ -46,11 +46,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'bootstrap4',
     'corsheaders',
-    'django_email_verification',  # you have to add this
     'pwa',
     'contact',
     'staff',
-    'leaflet'
 ]
 
 MIDDLEWARE = [
@@ -197,16 +195,6 @@ DEFAULT_FROM_EMAIL = docker_config.EMAIL
 def verified(user):
     user.is_active = True
 
-
-EMAIL_FROM_ADDRESS = docker_config.EMAIL
-EMAIL_MAIL_SUBJECT = 'Confirm registration'
-EMAIL_MAIL_HTML = 'email_body.html'
-EMAIL_MAIL_PLAIN = 'email_body.txt'
-EMAIL_TOKEN_LIFE = 60 * 60
-EMAIL_PAGE_TEMPLATE = 'account_confirmation.html'
-EMAIL_VERIFIED_CALLBACK = verified
-
-AUTH_USER_MODEL = 'LisgreyWebApp.UserProfile'
 
 # PWA Settings
 PWA_APP_NAME = 'Lisgrey House'

@@ -282,3 +282,14 @@ input[type=number] {
     margin-left:auto;
     margin-right:auto;
 }
+
+.reservation-container{
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.reset-button{
+    border: none;
+    color: #39606F;
+    background-color: white;
+}

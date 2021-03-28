@@ -1,5 +1,4 @@
 from django.shortcuts import render
-# food menu items
 from .models import FoodItem
 
 
