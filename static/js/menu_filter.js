@@ -1,19 +1,21 @@
+
 function filter_menu() {
     const input = document.getElementById("filter_input").value.toUpperCase();
     const card = document.getElementsByClassName("card");
 
-    console.log(input);
-
+    // Iterate through card elements
     for(let i = 0; i < card.length; i++){
         const card_title = card[i].getElementsByClassName("card_title")[0];
 
         if(card_title){
             const value = card_title.innerText.toUpperCase();
+
+            // if letter from search input is in the card title
             if(value.indexOf(input) > -1){
-                card[i].style.display = "";
+                card[i].style.display = ""; // Card displayed
             }
             else if(input === ""){
-                card[i].style.display = "none";
+                card[i].style.display = "none"; // Card not displayed
             }
             else{
                 card[i].style.display = "none";
@@ -22,10 +24,12 @@ function filter_menu() {
     }
 }
 
-function submit() {
+function filterAllergens() {
     const tab = document.getElementsByClassName("tab-pane fade active show");
-    let values = $('.selectpicker').val();
     const card = tab[0].getElementsByClassName("col-xl");
+
+    // get values from multiple select dropdown
+    let values = $('.selectpicker').val();
 
     // Reset cards if array is empty
     if(values === null){

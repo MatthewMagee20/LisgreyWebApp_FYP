@@ -17,8 +17,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from django_email_verification import urls as email_urls
-from django.contrib.auth import views as auth_views
 from LisgreyWebApp import views
 from LisgreyWebApp_FYP import settings
 
@@ -32,7 +30,6 @@ urlpatterns = [
     path('', include('food_menus.urls')),
     path('reservation/', include('reservations.urls')),
     path('takeaway/', include('takeaway.urls')),
-    path('email/', include(email_urls)),
     path('', include('contact.urls')),
     path('admin/staff/', include('staff.urls')),
 

@@ -162,7 +162,7 @@ def confirm_order_view(request):
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
     except KeyError:
-        return HttpResponse('/takeaway/checkout')
+        return HttpResponse('/takeaway/checkout/')
 
     order, created = TakeawayOrder.objects.get_or_create(basket=basket)
 

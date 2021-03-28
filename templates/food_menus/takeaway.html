@@ -42,7 +42,7 @@
             </div>
             <div class="pt-2 col-md">
                 <label style="width: 100%; height: 1.5rem">
-                    <select onchange="submit()" class="selectpicker" multiple data-dropup-auto="false" data-width="100%" multiple title="Select Allergens to remove..">
+                    <select onchange="filterAllergens()" class="selectpicker" multiple data-dropup-auto="false" data-width="100%" multiple title="Select Allergens to remove..">
                         {% for x in allergens %}
                             <option>{{ x.1 }}</option>
                         {% endfor %}
