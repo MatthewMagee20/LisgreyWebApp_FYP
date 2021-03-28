@@ -263,11 +263,12 @@ input[type=number] {
 
 @media only screen and (max-width: 400px) {
     label, input, p {
-        font-size: 0.7rem;
+        font-size: 0.85rem;
     }
     h2 {
         font-size: 1.3rem;
     }
+
 }
 
 .g-recaptcha{
@@ -275,4 +276,9 @@ input[type=number] {
     padding-bottom: 15px;
     display: inline-block;
 }
-#googleMap { height: 70%; width :50%; margin-left:auto; margin-right:auto;}
+#googleMap {
+    height: 70%;
+    width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+}

@@ -20,7 +20,7 @@
                             {% if takeaways.status == 'Started' %}
                                 <div class="takeaway-orders-container">
                                     <h3 class="order_id">Order ID: {{ takeaways.order_id }}</h3>
-                                    <h5>Order Time: {{ takeaways.date_time }}</h5>
+                                    <h5>Order Time: {{ takeaways.time }}</h5>
                                     <table id="{{ takeaways.order_id }}" class="table">
                                         <tr>
                                             <th>Item</th>
@@ -56,29 +56,29 @@
                 <div class="tab-pane fade" id="pills-finished" role="tabpanel" aria-labelledby="pills-finished-tab">
                     <div class="pt-5 container">
                         {% for takeaways in takeaway_orders %}
-                            {% if takeaways.status == 'Finished' %}
-                                <div class="takeaway-orders-container">
-                                    <h3>Order ID: {{ takeaways.order_id }}</h3>
-                                    <h5>Order Time: {{ takeaways.date_time }}</h5>
-                                    <table id="{{ takeaways.order_id }}" class="table">
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                        </tr>
-                                        {% for basket_item in basket_items %}
-                                            {% if basket_item.basket == takeaways.basket %}
-                                                <tr>
-                                                    <td>{{ basket_item.menu_item }}</td>
-                                                    <td>{{ basket_item.quantity }}</td>
-                                                    <td>{{ basket_item.menu_item.price }}</td>
-                                                </tr>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </table>
-                                    <h4>Total: {{ takeaways.basket.total }}</h4>
-                                </div>
-                            {% endif %}
+                            {% if takeaways.status == 'Finished' and takeaways.date >= today_date %}
+                                    <div class="takeaway-orders-container">
+                                        <h3>Order ID: {{ takeaways.order_id }}</h3>
+                                        <h5>Order Time: {{ takeaways.time }}</h5>
+                                        <table id="{{ takeaways.order_id }}" class="table">
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                            </tr>
+                                            {% for basket_item in basket_items %}
+                                                {% if basket_item.basket == takeaways.basket %}
+                                                    <tr>
+                                                        <td>{{ basket_item.menu_item }}</td>
+                                                        <td>{{ basket_item.quantity }}</td>
+                                                        <td>{{ basket_item.menu_item.price }}</td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </table>
+                                        <h4>Total: {{ takeaways.basket.total }}</h4>
+                                    </div>
+                                {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -100,7 +100,7 @@
         }
         autoReload();// calling the function for the first time
 
-         $(document).ready(function(){
+        $(document).ready(function(){
             $(document).on('click', '.status-button', function(){
                 const token = Cookies.get('csrftoken');
                 const status = this.parentElement.getElementsByTagName('select')[0].value;

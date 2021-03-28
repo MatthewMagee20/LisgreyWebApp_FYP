@@ -38,6 +38,9 @@ self.addEventListener('fetch', event => {
     if ( event.request.url.indexOf( '/admin/' ) !== -1 ) { // ignore the caching of basket session variable
         return false;
     }
+    if ( event.request.url.indexOf( '/map' ) !== -1 ) { // ignore the caching of basket session variable
+        return false;
+    }
     // if ( event.request.url.indexOf( '/home' ) !== -1 ) { // ignore the caching of basket session variable
     //     return false;
     // }

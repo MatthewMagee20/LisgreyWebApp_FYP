@@ -42,7 +42,8 @@ class TakeawayOrder(models.Model):
     email = models.EmailField(blank=False, null=False)
     order_id = models.CharField(max_length=120, unique=True, default='ABC')
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
-    date_time = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now_add=True)
+    time = models.TimeField(auto_now_add=True)
     status = models.CharField(max_length=120, choices=CHOICES, default="Started")
 
     def __str__(self):

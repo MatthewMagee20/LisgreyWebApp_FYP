@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
@@ -185,8 +186,10 @@ def takeaway_order_view(request):
     takeaway_orders = TakeawayOrder.objects.all()
     basket_items = BasketItem.objects.all()
     form = TakeawayStatusForm
+    today_date = datetime.date(datetime.now())
 
     data = {
+        'today_date': today_date,
         'takeaway_orders': takeaway_orders,
         'basket_items': basket_items,
         'form': form,

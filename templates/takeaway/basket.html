@@ -8,16 +8,13 @@
         <table class="table">
             <tr>
                 <td>Item</td>
-                <td>Quantity</td>
                 <td>Price</td>
                 <td>Action</td>
             </tr>
             {% for i in basket.basketitem_set.all %}
                 <tr>
-                    <td>{{ i.menu_item.name }}</td>
-                    <td>{{ i.quantity }}</td>
+                    <td>{{ i.quantity }} x {{ i.menu_item.name }}</td>
                     <td>{{ i.menu_item.price }}</td>
-                    {#                    <td><a href="{% url 'update_basket' %}?quantity=0"><i class="fa fa-trash" aria-hidden="true"></i></a></td>#}
                     <td><a href="#" data-id="{{ i.menu_item.id }}" class="remove-from-cart"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 
                 </tr>
@@ -35,7 +32,7 @@
     <script>
         $(document).ready(function() {
 
-            $('.remove-from-cart').on('click', function (e) {
+            $('.remove-from-cart').on('click', function () {
                 let item_id = $(this).attr('data-id')
                 console.log(item_id)
 

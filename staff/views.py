@@ -5,19 +5,21 @@ from LisgreyWebApp_FYP import settings
 from reservations.models import Reservation
 from .forms import StaffReservationForm
 from django.http import HttpResponseRedirect
+from datetime import  datetime
 
 
 def reservations_view(request):
     reservations = Reservation.objects.all()
     reservation_dates = Reservation.objects.values('date').distinct()
     reservation_times = Reservation.objects.values('time').distinct()
-    print(reservation_dates.dates)
+    today_date = datetime.date(datetime.now())
 
     return render(request, 'staff_templates/staff_reservations.html',
                   {
                       'data': reservations,
                       'dates': reservation_dates,
-                      'times': reservation_times
+                      'times': reservation_times,
+                      'today_date': today_date,
                   })
 
 
