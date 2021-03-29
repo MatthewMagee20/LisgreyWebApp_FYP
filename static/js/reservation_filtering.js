@@ -28,7 +28,7 @@ function filterSelect() {
 function filterByDate() {
     const activeTab = document.getElementsByClassName("tab-pane fade active show");
     const reservation_table = activeTab[0].getElementsByClassName("table");
-    const date = document.getElementById("ddate").value;
+    const date = document.getElementById("date").value;
 
     for (let i = 1; reservation_table[0].rows[i]; i++) {
         const row = reservation_table[0].rows[i]

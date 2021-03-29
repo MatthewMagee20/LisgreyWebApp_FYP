@@ -5,7 +5,7 @@ from LisgreyWebApp_FYP import settings
 from reservations.models import Reservation
 from .forms import StaffReservationForm
 from django.http import HttpResponseRedirect
-from datetime import  datetime
+from datetime import datetime
 
 
 def reservations_view(request):
@@ -36,7 +36,6 @@ def detail_reservation_view(request, reservation_id):
             date = update.date
             time = update.time
             update.save()
-            print(update.confirmed)
 
             if update.confirmed == 'Confirmed':
                 email_template = render_to_string('reservations/reservation_confirmation_email.html', {'date': date,

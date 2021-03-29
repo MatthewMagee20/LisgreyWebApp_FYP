@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import ContactForm
 
-import docker_config
+import config
 import urllib
 from urllib import parse
 import urllib.request
@@ -23,7 +23,7 @@ def contactView(request):
             recaptcha_response = request.POST.get('g-recaptcha-response')
             url = 'https://www.google.com/recaptcha/api/siteverify'
             values = {
-                'secret': docker_config.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'secret': config.GOOGLE_RECAPTCHA_SECRET_KEY,
                 'response': recaptcha_response
             }
             data = urllib.parse.urlencode(values).encode()
@@ -38,7 +38,7 @@ def contactView(request):
                 message = form.cleaned_data['message']
 
                 try:
-                    send_mail(subject, message, from_email, [docker_config.EMAIL])
+                    send_mail(subject, message, from_email, [config.EMAIL])
                     messages.success(request, 'Message has been sent!')
                     return redirect('contact')
                 except BadHeaderError:

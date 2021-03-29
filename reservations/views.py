@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from .forms import NuReservationForm
 
-import docker_config
+import config
 import random
 import string
 import urllib
@@ -15,20 +15,25 @@ import json
 
 
 def nu_create_reservation_view(request):
+
+    # generate a random string 7 letters long
     res_id_gen = ''.join(random.choices(string.digits + string.ascii_lowercase, k=7))
 
-    # If form is submitted
+    # if form is submitted
     if request.method == 'POST' or None:
         reservation_form = NuReservationForm(request.POST or None)
 
+        # if submitted form contains no errors
         if reservation_form.is_valid():
+
             # ALL RECAPTCHA COLD IS NOT MY OWN WORK
             # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security
+
             ''' Begin reCAPTCHA validation '''
             recaptcha_response = request.POST.get('g-recaptcha-response')
             url = 'https://www.google.com/recaptcha/api/siteverify'
             values = {
-                'secret': docker_config.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'secret': config.GOOGLE_RECAPTCHA_SECRET_KEY,
                 'response': recaptcha_response
             }
             data = urllib.parse.urlencode(values).encode()
@@ -38,6 +43,8 @@ def nu_create_reservation_view(request):
 
             if result['success']:
                 # ALL CODE AFTER THIS LINE IS MY OWN WORK
+
+                # save form, dont commit to database
                 r = reservation_form.save(commit=False)
                 r.id = res_id_gen
                 r.time_stamp = datetime.now()

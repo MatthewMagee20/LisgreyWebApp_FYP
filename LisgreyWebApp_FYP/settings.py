@@ -14,7 +14,7 @@ import socket
 
 from django.contrib import messages
 
-import docker_config
+import config
 from pathlib import Path
 from django.contrib.auth import login
 
@@ -25,10 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = docker_config.SECRET_KEY
+SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = docker_config.DEPLOY_SECURE
+DEBUG = config.DEPLOY_SECURE
 
 # Application definition
 
@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lisgrey_database',
         'USER': 'postgres',
-        'PASSWORD': docker_config.PRODUCTION_PASSWORD,
+        'PASSWORD': config.PRODUCTION_PASSWORD,
         'HOST': '127.0.0.1',
         'PORT': '25432'
     }
@@ -154,27 +154,30 @@ STATICFILES_DIRS = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-if socket.gethostname() == "acer":  # if development on local machine
-    DATABASES["default"]["HOST"] = "localhost"  # connect to local database on port 25432
+# if development on local machine
+if socket.gethostname() == "acer":
+    DATABASES["default"]["HOST"] = "localhost"
     DATABASES["default"]["PORT"] = 25432
     DATABASES["default"]["PASSWORD"] = 'password'
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     EMAIL_PAGE_DOMAIN = 'http://localhost:8000'
 
-else:  # if production
-    DATABASES["default"]["HOST"] = "lisgrey-psql"  # connect to database container on droplet on port 5432
+# if production
+else:
+    DATABASES["default"]["HOST"] = "lisgrey-psql"
     DATABASES["default"]["PORT"] = 5432
-    DATABASES["default"]["PASSWORD"] = docker_config.PRODUCTION_PASSWORD
+    DATABASES["default"]["PASSWORD"] = config.PRODUCTION_PASSWORD
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_PAGE_DOMAIN = 'www.lisgreyhouse.com'
 
 # Set DEPLOY_SECURE to True only for LIVE deployment
-if docker_config.DEPLOY_SECURE:  # if config.py DEPLOY_SECURE = True
+if config.DEPLOY_SECURE:
     DEBUG = False  # Turn Debug mode off
     TEMPLATES[0]["OPTIONS"]["debug"] = False
-    ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1', '192.168.1.145']  # Hosts allowed
+    ALLOWED_HOSTS = ['.lisgreyhouse.com', 'localhost', '138.68.130.143', '127.0.0.1', '192.168.1.145']
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+
 else:
     DEBUG = True
     TEMPLATES[0]["OPTIONS"]["debug"] = True
@@ -185,20 +188,15 @@ else:
 # Email backend
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = docker_config.EMAIL
-EMAIL_HOST_PASSWORD = docker_config.PASSWORD
+EMAIL_HOST_USER = config.EMAIL
+EMAIL_HOST_PASSWORD = config.PASSWORD
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = docker_config.EMAIL
-
-
-# Email Verification module
-def verified(user):
-    user.is_active = True
+DEFAULT_FROM_EMAIL = config.EMAIL
 
 
 # PWA Settings
 PWA_APP_NAME = 'Lisgrey House'
-PWA_APP_DESCRIPTION = "Web Application"
+PWA_APP_DESCRIPTION = "Lisgrey House Web Appalication"
 PWA_APP_THEME_COLOR = '#39606F'
 PWA_APP_BACKGROUND_COLOR = '#39606F'
 PWA_APP_DISPLAY = 'standalone'
@@ -229,13 +227,8 @@ PWA_APP_LANG = 'en-US'
 
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
 
-# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-# MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
-
-#
-# SESSION_SAVE_EVERY_REQUEST = True
-
 MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
     messages.SUCCESS: 'alert-success'

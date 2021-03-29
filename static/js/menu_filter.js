@@ -38,7 +38,9 @@ function filterAllergens() {
 
     for(let i = 0; i < card.length; i++) {
         const allergens = card[i].getElementsByClassName("card_allergens")[0].innerText;
-        const array = allergens.split(", ");
+        const array = allergens.split(", "); // Gluten, Fish, Mustard -> ['Gluten', 'Fish', 'Mustard']
+
+        console.log(array);
 
         if(values.some((val) => array.indexOf(val) !== -1)){
             card[i].style.display = "none";

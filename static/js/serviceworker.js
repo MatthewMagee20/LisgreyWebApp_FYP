@@ -1,7 +1,11 @@
 const filesToCache = [
     '/',
-
-];
+    '/offline',
+    '/404',
+    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
+    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js',
+    '/static/css/stylesheet.css',
+]
 
 const staticCacheName = 'pages-cache-v1';
 
@@ -16,34 +20,27 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+
+    // if statements are for url's that will not be cached
     console.log('Fetch event for ', event.request.url);
-    if ( event.request.url.indexOf( '/takeaway/basket/' ) !== -1 ) { // ignore the caching of basket session variable
+    if ( event.request.url.indexOf( '/takeaway/basket/' ) !== -1 ) {
+    }
+    if ( event.request.url.indexOf( '/takeaway/contact_information/' ) !== -1 ) {
         return false;
     }
-    if ( event.request.url.indexOf( '/takeaway/contact_information/' ) !== -1 ) { // ignore the caching of basket session variable
+    if ( event.request.url.indexOf( '/contact/' ) !== -1 ) {
         return false;
     }
-    if ( event.request.url.indexOf( '/contact/' ) !== -1 ) { // ignore the caching of basket session variable
+    if ( event.request.url.indexOf( '/reservation/' ) !== -1 ) {
         return false;
     }
-    if ( event.request.url.indexOf( '/reservation/' ) !== -1 ) { // ignore the caching of basket session variable
+    if ( event.request.url.indexOf( '/admin/' ) !== -1 ) {
         return false;
     }
-    if ( event.request.url.indexOf( '/accounts/login/' ) !== -1 ) { // ignore the caching of basket session variable
+    if ( event.request.url.indexOf( '/map' ) !== -1 ) {
         return false;
     }
-    if ( event.request.url.indexOf( '/accounts/logout/' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }
-    if ( event.request.url.indexOf( '/admin/' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }
-    if ( event.request.url.indexOf( '/map' ) !== -1 ) { // ignore the caching of basket session variable
-        return false;
-    }
-    // if ( event.request.url.indexOf( '/home' ) !== -1 ) { // ignore the caching of basket session variable
-    //     return false;
-    // }
+
     event.respondWith(
         caches.match(event.request)
             .then(response => {
@@ -55,7 +52,7 @@ self.addEventListener('fetch', event => {
                 return fetch(event.request)
                     .then(response => {
                         if (response.status === 404) {
-                            return caches.match('pages/404.html');
+                            return caches.match('404.html'); // if 404, show custom 404 template
                         }
                         return caches.open(staticCacheName)
                             .then(cache => {
@@ -65,10 +62,7 @@ self.addEventListener('fetch', event => {
                     });
             }).catch(error => {
             console.log('Error, ', error);
-            return caches.match('pages/offline.html');
+            return caches.match('/offline'); // if resource not in cache, show offline page
         })
     );
 });
-
-
-

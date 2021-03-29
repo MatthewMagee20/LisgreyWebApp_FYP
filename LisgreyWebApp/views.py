@@ -1,9 +1,8 @@
 from django.shortcuts import render
 
 
-def base(request):
-    return render(request, 'base.html')
+def offline(request):
+    return render(request, 'offline.html')
 
-
-def home(request):
-    return render(request, 'home.html')
+def error(request):
+    return render(request, '404.html')

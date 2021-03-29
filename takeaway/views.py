@@ -10,7 +10,7 @@ from .models import Basket, BasketItem, TakeawayOrder
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
 
 
-import docker_config
+import config
 import random
 import string
 import urllib
@@ -50,13 +50,15 @@ def nu_confirm_order_user_details_view(request):
         uf = TakeawayOrderUserForm(request.POST or None)
 
         if uf.is_valid():
+
             # ALL RECAPTCHA COLD IS NOT MY OWN WORK
             # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security
+
             ''' Begin reCAPTCHA validation '''
             recaptcha_response = request.POST.get('g-recaptcha-response')
             url = 'https://www.google.com/recaptcha/api/siteverify'
             values = {
-                'secret': docker_config.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'secret': config.GOOGLE_RECAPTCHA_SECRET_KEY,
                 'response': recaptcha_response
             }
             data = urllib.parse.urlencode(values).encode()
@@ -100,6 +102,8 @@ def nu_confirm_order_user_details_view(request):
 
 
 def update_basket_view(request):
+    # try/except clause to try and get quantity of the users input
+    # item quantity received through AJAX call in the template
     try:
         quantity = request.GET.get('item_quantity')
         u_quantity = True
@@ -107,6 +111,8 @@ def update_basket_view(request):
         quantity = None
         u_quantity = False
 
+    # try/except clause to try and get a basket if it exists.
+    # if not, create one
     try:
         session_id = request.session['basket_id']
 
@@ -116,16 +122,19 @@ def update_basket_view(request):
         request.session['basket_id'] = basket_new.id
         session_id = basket_new.id
 
+    # get the basket object using the session ID
+    # get the food item using the item ID recieved through AJAX
     basket = Basket.objects.get(id=session_id)
     item = FoodItem.objects.get(id=request.GET.get('item_id'))
 
     basket_item, created = BasketItem.objects.get_or_create(basket=basket, menu_item=item)
 
     if created:
-        print("yuppa")
         quantity = int(quantity) - 1
 
     if u_quantity and quantity:
+
+        # If item quantity is 0, delete from basket
         if int(quantity) == 0:
             basket_item.delete()
 
@@ -136,6 +145,7 @@ def update_basket_view(request):
             basket.save()
             return HttpResponseRedirect("/takeaway/basket/")
 
+        # ensure theres not items with quantity less than zero
         elif int(quantity) < 0:
             basket_item.quantity = 1
         else:
