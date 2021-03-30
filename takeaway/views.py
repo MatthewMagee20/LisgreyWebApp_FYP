@@ -26,23 +26,25 @@ def basket_view(request):
     except KeyError:
         session_id = None
 
-    if Basket.objects.get(id=session_id).basketitem_set.count() == 0:
-        print('is empty')
-
-        data = {
-            "basket_is_empty": True
-        }
-
-        return render(request, 'takeaway/basket.html', data)
-
-    elif session_id:
+    if session_id:
         basket = Basket.objects.get(id=session_id)
 
-        data = {
-            'basket': basket,
-        }
+        # if basket is empty
+        if basket.basketitem_set.count() == 0:
+
+            data = {
+                "basket_is_empty": True
+            }
+
+        else:
+            data = {
+                'basket': basket,
+            }
 
         return render(request, 'takeaway/basket.html', data)
+
+    elif not session_id:
+        return HttpResponseRedirect('/menu/')
 
 
 # user details form for takeaway order

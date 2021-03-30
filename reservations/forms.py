@@ -35,6 +35,9 @@ class NuReservationForm(ModelForm):
         f_num_check = False
         l_num_check = False
 
+        print(comb)
+        print(datetime.now())
+        print(diff)
         for char in first_name:
             if char.isdigit():
                 f_num_check = True
@@ -53,6 +56,8 @@ class NuReservationForm(ModelForm):
             errors.append(ValidationError("Reservation Date cannot be in the past"))
 
         if diff.total_seconds() <= 3600:  # 3600 seconds = 1 hour
+            print(comb)
+            print(datetime.now())
             errors.append(ValidationError("Reservation time has to take place in over an hour from current time"))
 
         if num_people > 10:
