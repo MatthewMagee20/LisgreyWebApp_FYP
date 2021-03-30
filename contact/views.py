@@ -11,11 +11,13 @@ import urllib.request
 import json
 
 
-def contactView(request):
+def contact_view(request):
     if request.method == 'GET':
         form = ContactForm()
+
     else:
         form = ContactForm(request.POST)
+
         if form.is_valid():
             # ALL RECAPTCHA COLD IS NOT MY OWN WORK
             # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security

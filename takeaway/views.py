@@ -9,7 +9,6 @@ from food_menus.models import FoodItem
 from .models import Basket, BasketItem, TakeawayOrder
 from .forms import TakeawayStatusForm, TakeawayOrderUserForm
 
-
 import config
 import random
 import string
@@ -19,6 +18,7 @@ import urllib.request
 import json
 
 
+# display basket
 def basket_view(request):
     try:
         session_id = request.session['basket_id']
@@ -39,7 +39,10 @@ def basket_view(request):
     return render(request, 'takeaway/basket.html', data)
 
 
+# user details form for takeaway order
 def nu_confirm_order_user_details_view(request):
+
+    # try get session variable for the users basket
     try:
         session_id = request.session['basket_id']
         basket = Basket.objects.get(id=session_id)
@@ -74,6 +77,7 @@ def nu_confirm_order_user_details_view(request):
                 u.basket_id = basket.id
                 u.save()
 
+                # order confirmation email
                 email_template = render_to_string('takeaway/takeaway_confirmation_email.html', {'order_id': u.order_id})
                 send_mail(
                     'Order Confirmation - ' + u.order_id,
@@ -83,6 +87,7 @@ def nu_confirm_order_user_details_view(request):
                     fail_silently=False,
                 )
 
+                # delete the users session variable if the order has started
                 if u.status == "Started":
                     del request.session['basket_id']
                     del request.session['item_quantities']
@@ -102,6 +107,7 @@ def nu_confirm_order_user_details_view(request):
 
 
 def update_basket_view(request):
+
     # try/except clause to try and get quantity of the users input
     # item quantity received through AJAX call in the template
     try:
@@ -167,6 +173,7 @@ def update_basket_view(request):
     return JsonResponse({'item': basket_item.menu_item.name})
 
 
+# confirmation page displayed to user
 def confirm_order_view(request):
     try:
         session_id = request.session['basket_id']
@@ -192,6 +199,7 @@ def confirm_order_view(request):
     return render(request, 'takeaway/confirm_order.html', data)
 
 
+# staff view for managing takeaway orders
 def takeaway_order_view(request):
     takeaway_orders = TakeawayOrder.objects.all()
     basket_items = BasketItem.objects.all()
@@ -205,6 +213,7 @@ def takeaway_order_view(request):
         'form': form,
     }
 
+    # allow staff to update the status of order
     if request.method == 'POST' and request.is_ajax():
         status = request.POST.get('order_status')
         order_id = request.POST.get('order_id')

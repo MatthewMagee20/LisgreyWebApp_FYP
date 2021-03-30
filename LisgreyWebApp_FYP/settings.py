@@ -9,14 +9,14 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import os
-import socket
 
 from django.contrib import messages
-
-import config
 from pathlib import Path
 from django.contrib.auth import login
+
+import os
+import socket
+import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -61,7 +61,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'LisgreyWebApp_FYP.urls'
@@ -124,7 +123,7 @@ BOOTSTRAP4 = {
 }
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'  # new
+LOGOUT_REDIRECT_URL = 'home'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -195,6 +194,7 @@ DEFAULT_FROM_EMAIL = config.EMAIL
 
 
 # PWA Settings
+# https://github.com/silviolleite/django-pwa
 PWA_APP_NAME = 'Lisgrey House'
 PWA_APP_DESCRIPTION = "Lisgrey House Web Appalication"
 PWA_APP_THEME_COLOR = '#39606F'
@@ -226,7 +226,6 @@ PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
 
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
-
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 MESSAGE_TAGS = {

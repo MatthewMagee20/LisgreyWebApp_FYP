@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -14,6 +13,7 @@ import urllib.request
 import json
 
 
+# nu = non user
 def nu_create_reservation_view(request):
 
     # generate a random string 7 letters long
@@ -26,7 +26,7 @@ def nu_create_reservation_view(request):
         # if submitted form contains no errors
         if reservation_form.is_valid():
 
-            # ALL RECAPTCHA COLD IS NOT MY OWN WORK
+            # ALL RECAPTCHA CODE IS NOT MY OWN WORK
             # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security
 
             ''' Begin reCAPTCHA validation '''

@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from datetime import datetime
 
 
+# get reservation objects from database
 def reservations_view(request):
     reservations = Reservation.objects.all()
     reservation_dates = Reservation.objects.values('date').distinct()
@@ -23,6 +24,7 @@ def reservations_view(request):
                   })
 
 
+# single reservation view, gets reservation ID with request to view
 def detail_reservation_view(request, reservation_id):
     reservation_instance = Reservation.objects.get(id=reservation_id)
 
@@ -37,6 +39,7 @@ def detail_reservation_view(request, reservation_id):
             time = update.time
             update.save()
 
+            # confirmation email
             if update.confirmed == 'Confirmed':
                 email_template = render_to_string('reservations/reservation_confirmation_email.html', {'date': date,
                                                                                                        'time': time})
@@ -47,6 +50,8 @@ def detail_reservation_view(request, reservation_id):
                     [email],
                     fail_silently=False,
                 )
+
+            # not confirmed email
             elif update.confirmed == 'Not Available':
                 email_template = render_to_string('reservations/reservation_not_available.html', {'date': date,
                                                                                                   'time': time})
