@@ -48,4 +48,4 @@ def contact_view(request):
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
                 return redirect('contact')
-    return render(request, "contact.html", {'form': form})
+    return render(request, "contact/contact.html", {'form': form})

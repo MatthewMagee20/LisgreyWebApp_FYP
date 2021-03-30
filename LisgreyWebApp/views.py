@@ -6,4 +6,4 @@ def offline(request):
 
 
 def error(request):
-    return render(request, '404.html')
+    return render(request, 'offline/404.html')

@@ -321,7 +321,9 @@
                     url: '{% url "update_basket" %}',
                     data: data,
                     success: function(res){
-                        console.log('success');
+
+                        // https://github.com/CodeSeven/toastr
+                        // external package for small toast messages
                         toastr.success("Added " + quantity + "x " + res.item + " to basket")
                     }
                 })

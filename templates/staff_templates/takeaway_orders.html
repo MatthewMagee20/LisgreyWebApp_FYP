@@ -57,28 +57,28 @@
                     <div class="pt-5 container">
                         {% for takeaways in takeaway_orders %}
                             {% if takeaways.status == 'Finished' and takeaways.date >= today_date %}
-                                    <div class="takeaway-orders-container">
-                                        <h3>Order ID: {{ takeaways.order_id }}</h3>
-                                        <h5>Order Time: {{ takeaways.time }}</h5>
-                                        <table id="{{ takeaways.order_id }}" class="table">
-                                            <tr>
-                                                <th>Item</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                            </tr>
-                                            {% for basket_item in basket_items %}
-                                                {% if basket_item.basket == takeaways.basket %}
-                                                    <tr>
-                                                        <td>{{ basket_item.menu_item }}</td>
-                                                        <td>{{ basket_item.quantity }}</td>
-                                                        <td>{{ basket_item.menu_item.price }}</td>
-                                                    </tr>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </table>
-                                        <h4>Total: {{ takeaways.basket.total }}</h4>
-                                    </div>
-                                {% endif %}
+                                <div class="takeaway-orders-container">
+                                    <h3>Order ID: {{ takeaways.order_id }}</h3>
+                                    <h5>Order Time: {{ takeaways.time }}</h5>
+                                    <table id="{{ takeaways.order_id }}" class="table">
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                        </tr>
+                                        {% for basket_item in basket_items %}
+                                            {% if basket_item.basket == takeaways.basket %}
+                                                <tr>
+                                                    <td>{{ basket_item.menu_item }}</td>
+                                                    <td>{{ basket_item.quantity }}</td>
+                                                    <td>{{ basket_item.menu_item.price }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </table>
+                                    <h4>Total: {{ takeaways.basket.total }}</h4>
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -86,20 +86,22 @@
         </div>
     </div>
     <script>
+
+        // reload page every 30 seconds
         function autoReload() {
             setTimeout(function() {
                 $.ajax({
                     url: "{% url 'staff_takeaway_orders' %}",
                     success: function(data) {
                         document.getElementById("takeaway-orders").innerHTML = data;
-                        console.log("success");
                     }
                 });
                 autoReload();  // calling again after 5 seconds
             }, 30000);
         }
-        autoReload();// calling the function for the first time
+        autoReload();
 
+        // AJAX Request to update status of order and update template
         $(document).ready(function(){
             $(document).on('click', '.status-button', function(){
                 const token = Cookies.get('csrftoken');
@@ -112,6 +114,8 @@
                 }
 
                 $.ajax({
+
+                    {#  https://github.com/js-cookie/js-cookie  #}
                     headers: { "X-CSRFToken": token},
                     url: '{% url 'staff_takeaway_orders' %}',
                     type: 'POST',

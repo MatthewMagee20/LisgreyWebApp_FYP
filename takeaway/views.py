@@ -22,21 +22,27 @@ import json
 def basket_view(request):
     try:
         session_id = request.session['basket_id']
+
     except KeyError:
         session_id = None
 
-    if session_id:
+    if Basket.objects.get(id=session_id).basketitem_set.count() == 0:
+        print('is empty')
+
+        data = {
+            "basket_is_empty": True
+        }
+
+        return render(request, 'takeaway/basket.html', data)
+
+    elif session_id:
         basket = Basket.objects.get(id=session_id)
 
         data = {
             'basket': basket,
         }
-    else:
-        data = {
-            "basket_is_empty": True
-        }
 
-    return render(request, 'takeaway/basket.html', data)
+        return render(request, 'takeaway/basket.html', data)
 
 
 # user details form for takeaway order
@@ -85,7 +91,7 @@ def nu_confirm_order_user_details_view(request):
                     settings.EMAIL_HOST_USER,
                     [u.email],
                     fail_silently=False,
-                )
+                    )
 
                 # delete the users session variable if the order has started
                 if u.status == "Started":

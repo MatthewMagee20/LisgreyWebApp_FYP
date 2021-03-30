@@ -1,9 +1,20 @@
 {% extends 'staff_templates/staff_base.html' %}
 
-{% load static %}
 
 {% block nav_title %}Lisgrey House{% endblock %}
 
 {% block body_content %}
-<p>ewfwefwef</p>
+     <div class="section">
+        <div class="overlay">
+            <div class="overlay-text custom-center text-center">
+                <div class="pt-5 white-text">
+                    <p class="logo">Lisgrey House Staff</p>
+                    <br>
+                    <p><a href="{% url 'staff_takeaway_orders' %}" class="home-page-button">Takeaway Orders</a></p>
+                    <p><a href="{% url 'staff_reservation' %}" class="home-page-button">Reservations</a></p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -24,6 +24,7 @@ self.addEventListener('fetch', event => {
     // if statements are for url's that will not be cached
     console.log('Fetch event for ', event.request.url);
     if ( event.request.url.indexOf( '/takeaway/basket/' ) !== -1 ) {
+        return false;
     }
     if ( event.request.url.indexOf( '/takeaway/contact_information/' ) !== -1 ) {
         return false;

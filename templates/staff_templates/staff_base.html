@@ -15,10 +15,6 @@
         <!-- CSS -->
         <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
 
-        <!-- JS -->
-            <script type="text/javascript" src="{% static 'js/reservation_filtering.js' %}"></script>
-
-
         <!-- Google font -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -51,9 +47,16 @@
             {% endblock %}
         </div>
     </div>
+
+    <!-- JS -->
+    <script type="text/javascript" src="{% static 'js/reservation_filtering.js' %}"></script>
+
+    {#    https://github.com/js-cookie/js-cookie  #}
+    {#    API for handling browser cookies with POST request to view   #}
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
     </body>
     </html>
 {% else %}
-login <a href="http://127.0.0.1:8000/admin/login/">here</a>
+    login <a href="http://www.lisgreyhouse.com/admin/login/">here</a>
 {% endif %}

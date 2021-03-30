@@ -21,17 +21,16 @@
             {% endfor %}
         </table>
         <h2>Total Price: {{ basket.total }}</h2>
-        {% if user.is_authenticated %}
-            <input type="button" value="Confirm" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'user_confirm' %}';"/>
-        {% else %}
+        {% if not basket_is_empty %}
             <input type="button" value="Confirm" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url "nu_user_confirm" %}';"/>
         {% endif %}
         <br>
         <p><a href="{% url 'takeaway' %}">Back to Menu </a></p>
     </div>
     <script>
-        $(document).ready(function() {
 
+        // Remove item from cart
+        $(document).ready(function() {
             $('.remove-from-cart').on('click', function () {
                 let item_id = $(this).attr('data-id')
                 console.log(item_id)
@@ -45,8 +44,7 @@
                     type: 'GET',
                     url: '{% url "update_basket" %}',
                     data: data,
-                    success: function(res){
-                        console.log('success')
+                    success: function(){
                         location.reload();
                     }
                 })

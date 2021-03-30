@@ -21,4 +21,4 @@ def get_food_menu_takeaway(request):
         'allergens': FoodItem.ALLERGENS
     }
 
-    return render(request, 'food_menus/takeaway.html', data)
+    return render(request, 'food_menus/menu.html', data)
