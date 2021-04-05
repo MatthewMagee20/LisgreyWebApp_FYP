@@ -1,3 +1,5 @@
+// Reservation filtering on staff interface
+
 function filterSelect() {
     const option = document.getElementById("filter_option").value;
     const dateDiv = document.getElementById("filter_by_date");
@@ -31,8 +33,8 @@ function filterByDate() {
     const date = document.getElementById("date").value;
 
     for (let i = 1; reservation_table[0].rows[i]; i++) {
-        const row = reservation_table[0].rows[i]
-        console.log(row);
+        const row = reservation_table[0].rows[i];
+
         if(row.cells[3].innerText === date){
             row.style.display = "";
         }
@@ -65,12 +67,9 @@ function filterByDateTime() {
     const activeTab = document.getElementsByClassName("tab-pane fade active show");
     const reservation_table = activeTab[0].getElementsByClassName("table");
 
-    console.log(date);
-    console.log(time);
     for (let i = 1; reservation_table[0].rows[i]; i++) {
         const row = reservation_table[0].rows[i]
         if((row.cells[3].innerText === date) && (row.cells[4].innerText === time)){
-            console.log(row.cells[3].innerText)
             row.style.display = "";
         }
         else{

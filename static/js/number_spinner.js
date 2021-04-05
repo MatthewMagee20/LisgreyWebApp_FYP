@@ -1,3 +1,4 @@
+// increase/decrease quantities for takeaway orders
 document.addEventListener("DOMContentLoaded", function() {
     let els = document.getElementsByClassName("quantity");
 
@@ -25,6 +26,7 @@ function decreaseQuantity(selected)
     quantity.value = check(parseInt(quantity.value) - 1);
 }
 
+// check if value in number field is less than 0 or undefined
 function check(val){
     if(val < 0 || val === undefined){
         val = 0;

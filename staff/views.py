@@ -44,7 +44,7 @@ def detail_reservation_view(request, reservation_id):
                 email_template = render_to_string('reservations/reservation_confirmation_email.html', {'date': date,
                                                                                                        'time': time})
                 send_mail(
-                    'Reservation Not Available - ' + reservation_id.upper(),
+                    'Reservation Confirmed - ' + reservation_id.upper(),
                     email_template,
                     settings.EMAIL_HOST_USER,
                     [email],
@@ -56,7 +56,7 @@ def detail_reservation_view(request, reservation_id):
                 email_template = render_to_string('reservations/reservation_not_available.html', {'date': date,
                                                                                                   'time': time})
                 send_mail(
-                    'Reservation Confirmation - ' + reservation_id.upper(),
+                    'Reservation Not Available - ' + reservation_id.upper(),
                     email_template,
                     settings.EMAIL_HOST_USER,
                     [email],

@@ -4,7 +4,7 @@ from reservations.models import Reservation
 from datetime import datetime
 
 
-class NuReservationForm(ModelForm):
+class ReservationForm(ModelForm):
     class Meta:
         model = Reservation
         fields = ['first_name', 'last_name', 'email', 'contact_phone', 'date', 'time', 'no_of_people',

@@ -2,7 +2,7 @@ from datetime import datetime
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from .forms import NuReservationForm
+from .forms import ReservationForm
 
 import config
 import random
@@ -21,7 +21,7 @@ def nu_create_reservation_view(request):
 
     # if form is submitted
     if request.method == 'POST' or None:
-        reservation_form = NuReservationForm(request.POST or None)
+        reservation_form = ReservationForm(request.POST or None)
 
         # if submitted form contains no errors
         if reservation_form.is_valid():
@@ -59,5 +59,5 @@ def nu_create_reservation_view(request):
             return render(request, 'reservations/create_reservation.html', {'form': reservation_form})
 
     else:
-        reservation_form = NuReservationForm()
+        reservation_form = ReservationForm()
         return render(request, 'reservations/create_reservation.html', {'form': reservation_form})

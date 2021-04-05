@@ -1,3 +1,4 @@
+// search through cards with input field
 
 function filter_menu() {
     const input = document.getElementById("filter_input").value.toUpperCase();
@@ -24,6 +25,7 @@ function filter_menu() {
     }
 }
 
+// filter allergens with multi-select field
 function filterAllergens() {
     const tab = document.getElementsByClassName("tab-pane fade active show");
     const card = tab[0].getElementsByClassName("col-xl");

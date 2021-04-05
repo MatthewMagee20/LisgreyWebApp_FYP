@@ -11,6 +11,7 @@ import urllib.request
 import json
 
 
+# view to handle the contact form
 def contact_view(request):
     if request.method == 'GET':
         form = ContactForm()
@@ -19,9 +20,10 @@ def contact_view(request):
         form = ContactForm(request.POST)
 
         if form.is_valid():
-            # ALL RECAPTCHA COLD IS NOT MY OWN WORK
+
+            # ALL RECAPTCHA CODE IS NOT MY OWN WORK
             # Reference: https://studygyaan.com/django/add-recaptcha-in-your-django-app-increase-security
-            ''' Begin reCAPTCHA validation '''
+
             recaptcha_response = request.POST.get('g-recaptcha-response')
             url = 'https://www.google.com/recaptcha/api/siteverify'
             values = {
@@ -34,7 +36,9 @@ def contact_view(request):
             result = json.loads(response.read().decode())
 
             if result['success']:
-                # ALL CODE AFTER THIS LINE IS MY OWN WORK
+
+                # ALL CODE AFTER THIS COMMENT IS MY OWN WORK
+
                 subject = form.cleaned_data['subject']
                 from_email = form.cleaned_data['from_email']
                 message = form.cleaned_data['message']
@@ -43,9 +47,12 @@ def contact_view(request):
                     send_mail(subject, message, from_email, [config.EMAIL])
                     messages.success(request, 'Message has been sent!')
                     return redirect('contact')
+
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
+
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
                 return redirect('contact')
+
     return render(request, "contact/contact.html", {'form': form})

@@ -1,3 +1,6 @@
+// jQuery time picker
+// reference: https://timepicker.co/
+
 $(document).ready(function(){
     $('input.timepicker').timepicker({
         timeFormat: 'H:mm p',
@@ -9,6 +12,10 @@ $(document).ready(function(){
         dropdown: true,
         scrollbar: true
     });
+
+    // jQuery Date Picker
+    // reference: https://jqueryui.com/datepicker/
+
     $('.id_date').datepicker({
     })
 });
